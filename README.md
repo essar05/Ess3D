@@ -1,14 +1,13 @@
-## Skyline
+## Ess3D
 
 #### About
 
-A 2D vertical scrolling fighter plane game implemented in C++. Rendering is done with OpenGL 3. I'm also writing a simple 2D engine which I'm hoping will power future 2D projects.
+Ess3D is a general purpose game engine written in C++. The rendering is done with OpenGL 3. 
 
-It's my first shot at proper game development from scratch. I've made a few games previously, but they were done with software rendering and they were at the basic level of Pong clones and such.
-I hope to learn some bare basics in 2D and have a few complete projects before I move on to engines like Unreal or Unity and start doing some real 3D development.
+The project initially started as a 2D game from which I've broken out a 2D engine that I'm now trying to refactor and develop into having 3D capabilities. The engine's main focus is efficient 3D rendering, GUI rendering, audio management, resource management and interpolated physics simulation (using a 3rd party lib).
 
-I do this for educational purposes and, of course, for fun !
+I currently have no intention - and probably never will - of building an editor for this game engine, it's simply a C++ library that can be used in your project.
 
 #### How to build
 
-Nothing special to say, I've included all the dependencies needed. It should be as simple as opening the solution file in Visual Studio 2015, building and running.
+Nothing special to say, I've included all the dependencies needed. It should be as simple as opening the solution file in Visual Studio 2017, building and running.
