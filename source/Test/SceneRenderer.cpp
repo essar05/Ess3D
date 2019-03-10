@@ -69,6 +69,8 @@ SceneRenderer::SceneRenderer(float _width, float _height) {
   _shader->addAttribute("vertexUV");
   _shader->linkShaders();
 
+  _camera = new Ess3D::Camera3D(glm::vec3(0.0f, 0.0f, 3.0f));
+
   glEnable(GL_DEPTH_TEST);
 
   glGenVertexArrays(1, &_vao);
@@ -94,14 +96,11 @@ SceneRenderer::SceneRenderer(float _width, float _height) {
 
   //preload texture
   _textureId = Ess3D::TextureCache::getInstance()->getTexture("Textures/Background/Background_Tilable.png")._id;
-
-  this->_model = glm::rotate(this->_model, glm::radians(55.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-  this->_projection = glm::perspective((float) glm::radians(45.0), _width / _height, 0.1f, 100.0f);
-  this->_view = glm::translate(this->_view, glm::vec3(0.0f, 0.0f, -100.0f));
 }
 
 SceneRenderer::~SceneRenderer() {
   delete _shader;
+  delete _camera;
 }
 
 void SceneRenderer::render() {
@@ -120,8 +119,9 @@ void SceneRenderer::render() {
   glm::mat4 model;
   glm::mat4 view;
   glm::mat4 projection;
-  model = glm::rotate(model, (float) ((SDL_GetTicks() / 10) % 360), glm::vec3(0.5f, 1.0f, 0.0f));
-  view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+  
+  model = glm::rotate(model, 0.0f, glm::vec3(0.5f, 1.0f, 0.0f));
+  view = _camera->getViewMatrix();
   projection = glm::perspective(45.0f, _width / _height, 1.0f, 50.0f);
 
   glUniformMatrix4fv(_shader->getUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -131,4 +131,8 @@ void SceneRenderer::render() {
   glDrawArrays(GL_TRIANGLES, 0, 36);
 
   _shader->unuse();
+}
+
+Ess3D::Camera3D* SceneRenderer::getCamera() {
+  return this->_camera;
 }

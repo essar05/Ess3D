@@ -143,6 +143,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Camera2D.cpp" />
+    <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Errors\RuntimeException.cpp" />
     <ClCompile Include="FrameBufferObject.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="Camera3D.h" />
     <ClInclude Include="FrameBufferObject.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="IGameScreen.h" />

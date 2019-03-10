@@ -1,5 +1,6 @@
 #pragma once
 #include <Shader.h>
+#include <Camera3D.h>
 #include <glm/glm.hpp>
 
 class SceneRenderer {
@@ -9,12 +10,15 @@ class SceneRenderer {
     ~SceneRenderer();
 
     void render();
+    Ess3D::Camera3D* getCamera();
 
   private:
     Ess3D::Shader* _shader;
-	  GLuint _vao;
-	  GLuint _vbo;
-	  GLuint _ebo;
+    Ess3D::Camera3D* _camera;
+
+	GLuint _vao;
+	GLuint _vbo;
+	GLuint _ebo;
 
     glm::mat4 _model;
     glm::mat4 _view;
@@ -22,8 +26,9 @@ class SceneRenderer {
 
     float _width;
     float _height;
-	  int _textureId;
-	  int _textureId2;
+
+	int _textureId;
+	int _textureId2;
 
 };
 

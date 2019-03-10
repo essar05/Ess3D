@@ -81,16 +81,22 @@ namespace Ess3D {
     return true;
   }
 
-  void IGame::onSDLEvent(SDL_Event& evnt) {
-    switch(evnt.type) {
+  void IGame::onSDLEvent(SDL_Event& event) {
+    switch(event.type) {
       case SDL_QUIT:
         _state = GameState::EXIT;
         break;
       case SDL_KEYDOWN:
-        _inputManager.pressKey(evnt.key.keysym.sym);
-        break;
+        _inputManager.pressKey(event.key.keysym.sym);
+        break;      
       case SDL_KEYUP:
-        _inputManager.releaseKey(evnt.key.keysym.sym);
+        _inputManager.releaseKey(event.key.keysym.sym);
+        break;
+      case SDL_MOUSEMOTION:
+        _inputManager.setCursorPosition(glm::vec2(event.motion.x, event.motion.y));
+        _inputManager.setCursorDeltaPosition(glm::vec2(event.motion.xrel, event.motion.yrel));
+        _inputManager.setHasMouseMoved(true);
+        break;
     }
   }
 

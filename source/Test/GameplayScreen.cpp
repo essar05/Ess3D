@@ -17,7 +17,7 @@ int GameplayScreen::getPreviousScreenIndex() const {
 }
 
 void GameplayScreen::onEntry() {
-
+  SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void GameplayScreen::onExit() {
@@ -65,14 +65,29 @@ void GameplayScreen::update(float deltaTime, int simulationSteps) {
 
 void GameplayScreen::processInput(float deltaTime) {
   SDL_Event event;
+  Ess3D::InputManager* inputManager = _game->getInputManager();
 
+  inputManager->setHasMouseMoved(false);
   while(SDL_PollEvent(&event) != 0) {
     _game->onSDLEvent(event);
   }
-
-  Ess3D::InputManager* inputManager = _game->getInputManager();
-
+ 
   if(inputManager->isKeyDown(SDLK_ESCAPE)) {
     _currentState = Ess3D::ScreenState::EXIT_APPLICATION;
+  }
+  if (inputManager->isKeyDown(SDLK_w)) {
+    _sceneRenderer->getCamera()->moveForward();
+  }
+  if (inputManager->isKeyDown(SDLK_s)) {
+    _sceneRenderer->getCamera()->moveBackward();
+  }
+  if (inputManager->isKeyDown(SDLK_a)) {
+    _sceneRenderer->getCamera()->moveLeft();
+  }
+  if (inputManager->isKeyDown(SDLK_d)) {
+    _sceneRenderer->getCamera()->moveRight();
+  }
+  if (inputManager->hasMouseMoved()) {
+    _sceneRenderer->getCamera()->look(inputManager->getCursorDeltaPosition());
   }
 }

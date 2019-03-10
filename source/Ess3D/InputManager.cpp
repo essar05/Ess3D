@@ -24,4 +24,28 @@ namespace Ess3D {
     return it->second;
   }
 
+  glm::vec2 InputManager::getCursorPosition() {
+    return this->_cursorPosition;
+  }
+
+  glm::vec2 InputManager::getCursorDeltaPosition() {
+    return this->_cursorDeltaPosition;
+  }
+
+  void InputManager::setCursorPosition(glm::vec2 newPosition) {
+    this->_cursorPosition = newPosition;
+  }
+
+  void InputManager::setCursorDeltaPosition(glm::vec2 deltaPosition) {
+    this->_cursorDeltaPosition = deltaPosition;
+  }
+
+  bool InputManager::hasMouseMoved() {
+    return this->_hasMouseMoved;
+  }
+
+  void InputManager::setHasMouseMoved(bool hasMouseMoved) {
+    this->_hasMouseMoved = hasMouseMoved;
+  }
+
 }
