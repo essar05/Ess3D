@@ -11,7 +11,6 @@ set(Header_Files
     "resource.h"
     "SceneRenderer.h"
     "ScreenIndices.h"
-    "Utils.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 
@@ -21,7 +20,6 @@ set(Source_Files
     "Game.cpp"
     "GameplayScreen.cpp"
     "SceneRenderer.cpp"
-    "Utils.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 
@@ -169,16 +167,5 @@ target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}
 
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
-    #"${CMAKE_SOURCE_DIR}/../lib/SDL2/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/SDL2_Image/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/glew/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/freeglut/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/glm/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/freetype/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/rapidjson/;"
-    "${CMAKE_SOURCE_DIR}/../lib/box2d/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/FMOD/lowlevel/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/FMOD/studio/include/;"
-    #"${CMAKE_SOURCE_DIR}/../lib/CEGUI/include/;"
     "$ENV{LibraryPath}"
 )

@@ -24,6 +24,7 @@ set(Headers
     "TextureAtlas.h"
     "TextureCache.h"
     "Timing.h"
+    "Utils.h"
     "Vertex.h"
     "Window.h"
     )
@@ -49,6 +50,7 @@ set(Sources
     "TextureAtlas.cpp"
     "TextureCache.cpp"
     "Timing.cpp"
+    "Utils.cpp"
     "Window.cpp"
     )
 source_group("Sources" FILES ${Sources})
@@ -198,10 +200,11 @@ target_include_directories(
     "${CMAKE_SOURCE_DIR}/../lib/glm/;"
     "${CMAKE_SOURCE_DIR}/../lib/freetype/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/rapidjson/;"
+    "${CMAKE_SOURCE_DIR}/../lib/box2d/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/lowlevel/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/studio/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/fsbank/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/CEGUI/include/;"
-    "Errors/;",
+    "Errors/;" ,
     "$ENV{LibraryPath}"
 )

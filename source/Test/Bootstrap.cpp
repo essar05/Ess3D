@@ -1,4 +1,5 @@
 #define _CRTDBG_MAP_ALLOC
+
 #include <RuntimeException.cpp>
 #include "Game.h"
 
@@ -9,8 +10,7 @@ int main(int argc, char* args[]) {
     game->boot();
     game->run();
     game->destroy();
-  }
-  catch (Ess3D::ERuntimeException& anException) {
+  } catch (Ess3D::ERuntimeException& anException) {
     std::cout << anException.getMessage() << std::endl;
   }
 

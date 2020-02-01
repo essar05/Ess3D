@@ -36,7 +36,8 @@ void FBORenderer::initVertexAttributeObject() {
   glEnableVertexAttribArray(2);
 
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Ess3D::Vertex), (void*) offsetof(Ess3D::Vertex, position));
-  glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Ess3D::Vertex), (void*) offsetof(Ess3D::Vertex, color));
+  glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Ess3D::Vertex),
+                        (void*) offsetof(Ess3D::Vertex, color));
   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Ess3D::Vertex), (void*) offsetof(Ess3D::Vertex, uv));
 
   glBindVertexArray(0);
@@ -47,7 +48,9 @@ void FBORenderer::drawFullscreenQuad(GLuint textureId) {
   GLint textureLocation = _shader->getUniformLocation("textureSampler");
   glUniform1i(textureLocation, 0);
 
-  Ess3D::Glyph glyph(glm::vec4(-1.0f, -1.0f, 2.0f, 2.0f), glm::vec4(0.0f, 1.0f, 1.0f, -1.0f), textureId, Ess3D::ColorRGBA8(225, 255, 255, 255), 0.0f);
+  Ess3D::Glyph glyph(glm::vec4(-1.0f, -1.0f, 2.0f, 2.0f), glm::vec4(0.0f, 1.0f, 1.0f, -1.0f), textureId,
+                     Ess3D::ColorRGBA8(225, 255, 255, 255), 0.0f
+  );
   std::vector<Ess3D::Vertex> vertices;
   vertices.resize(6);
   vertices[0] = glyph.topLeft;
