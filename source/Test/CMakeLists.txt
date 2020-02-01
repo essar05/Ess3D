@@ -1,0 +1,184 @@
+project(Test CXX)
+
+################################################################################
+# Source groups
+################################################################################
+
+set(Header_Files
+    "FBORenderer.h"
+    "Game.h"
+    "GameplayScreen.h"
+    "resource.h"
+    "SceneRenderer.h"
+    "ScreenIndices.h"
+    "Utils.h"
+)
+source_group("Header Files" FILES ${Header_Files})
+
+set(Source_Files
+    "Bootstrap.cpp"
+    "FBORenderer.cpp"
+    "Game.cpp"
+    "GameplayScreen.cpp"
+    "SceneRenderer.cpp"
+    "Utils.cpp"
+)
+source_group("Source Files" FILES ${Source_Files})
+
+set(ALL_FILES
+    ${no_group_source_files}
+    ${Header_Files}
+    ${Source_Files}
+)
+
+################################################################################
+# Target
+################################################################################
+add_executable(${PROJECT_NAME} ${ALL_FILES})
+
+use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
+set(ROOT_NAMESPACE Test)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VS_GLOBAL_KEYWORD "Win32Proj"
+)
+################################################################################
+# Output directory
+################################################################################
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_DIRECTORY_DEBUG    "${CMAKE_SOURCE_DIR}/../build/$<CONFIG>/${PROJECT_NAME}/"
+    OUTPUT_DIRECTORY_DEBUGNCP "${CMAKE_SOURCE_DIR}/../build/$<CONFIG>/${PROJECT_NAME}/"
+    OUTPUT_DIRECTORY_RELEASE  "${CMAKE_SOURCE_DIR}/../build/$<CONFIG>/${PROJECT_NAME}/"
+)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    INTERPROCEDURAL_OPTIMIZATION_RELEASE  "TRUE"
+)
+################################################################################
+# Compile definitions
+################################################################################
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    "$<$<CONFIG:Debug>:"
+        "_DEBUG;"
+        "_CONSOLE;"
+        "_MBCS"
+    ">"
+    "$<$<CONFIG:DebugNCP>:"
+        "_DEBUG;"
+        "_CONSOLE;"
+        "_MBCS"
+    ">"
+    "$<$<CONFIG:Release>:"
+        "NDEBUG;"
+        "UNICODE;"
+        "_UNICODE"
+    ">"
+    "WIN32;"
+    "_LIB;"
+    "_CRT_SECURE_NO_WARNINGS"
+)
+
+################################################################################
+# Compile and link options
+################################################################################
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:
+            /Od;
+            ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
+        >
+        $<$<CONFIG:DebugNCP>:
+            /Od;
+            ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
+        >
+        $<$<CONFIG:Release>:
+            /O2;
+            /Oi;
+            /MD;
+            /Gy
+        >
+        /sdl;
+        /W3;
+        ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT};
+        ${DEFAULT_CXX_EXCEPTION_HANDLING};
+        /Y-
+    )
+    target_link_options(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:
+            /DEBUG;
+            /SUBSYSTEM:CONSOLE;
+            /INCREMENTAL;
+            /verbose:lib
+        >
+        $<$<CONFIG:DebugNCP>:
+            /DEBUG;
+            /SUBSYSTEM:CONSOLE;
+            /INCREMENTAL;
+            /verbose:lib
+        >
+        $<$<CONFIG:Release>:
+            /SUBSYSTEM:WINDOWS;
+            /OPT:REF;
+            /OPT:ICF;
+            /INCREMENTAL:NO
+        >
+    )
+endif()
+
+################################################################################
+# Post build events
+################################################################################
+add_custom_command_if(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMANDS
+    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\Textures" "${OUTPUT_DIRECTORY}Textures\\" /y /S
+    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\Shaders" "${OUTPUT_DIRECTORY}Shaders\\" /y /S
+    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\Sounds" "${OUTPUT_DIRECTORY}Sounds\\" /y /S
+    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\GUI" "${OUTPUT_DIRECTORY}GUI\\" /y /S
+    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\Textures" "${OUTPUT_DIRECTORY}Textures\\" /y /S
+    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\Shaders" "${OUTPUT_DIRECTORY}Shaders\\" /y /S
+    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\Sounds" "${OUTPUT_DIRECTORY}Sounds\\" /y /S
+    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\GUI" "${OUTPUT_DIRECTORY}GUI\\" /y /S
+    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Levels" "${OUTPUT_DIRECTORY}Levels\\" /y /S
+    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\Textures" "${OUTPUT_DIRECTORY}Textures\\" /y /S
+    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\Shaders" "${OUTPUT_DIRECTORY}Shaders\\" /y /S
+    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\Sounds" "${OUTPUT_DIRECTORY}Sounds\\" /y /S
+    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\GUI" "${OUTPUT_DIRECTORY}GUI\\" /y /S
+    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Levels" "${OUTPUT_DIRECTORY}Levels\\" /y /S
+)
+
+################################################################################
+# Dependencies
+################################################################################
+add_dependencies(${PROJECT_NAME}
+    Ess3D
+)
+
+set(ADDITIONAL_LIBRARY_DEPENDENCIES
+    "$<$<CONFIG:Debug>:"
+        "Ess3D"
+    ">"
+    "$<$<CONFIG:DebugNCP>:"
+        "Ess2D"
+    ">"
+    "$<$<CONFIG:Release>:"
+        "Ess2D"
+    ">"
+)
+target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
+
+target_include_directories(
+    ${PROJECT_NAME} PUBLIC
+    #"${CMAKE_SOURCE_DIR}/../lib/SDL2/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/SDL2_Image/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/glew/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/freeglut/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/glm/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/freetype/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/rapidjson/;"
+    "${CMAKE_SOURCE_DIR}/../lib/box2d/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/FMOD/lowlevel/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/FMOD/studio/include/;"
+    #"${CMAKE_SOURCE_DIR}/../lib/CEGUI/include/;"
+    "$ENV{LibraryPath}"
+)

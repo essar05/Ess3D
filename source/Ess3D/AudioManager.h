@@ -2,6 +2,7 @@
 #include <fmod_studio.hpp>
 #include <fmod.hpp>
 #include <map>
+#include <string>
 
 namespace Ess3D {
 

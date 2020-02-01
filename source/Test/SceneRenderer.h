@@ -16,9 +16,9 @@ class SceneRenderer {
     Ess3D::Shader* _shader;
     Ess3D::Camera3D* _camera;
 
-	GLuint _vao;
-	GLuint _vbo;
-	GLuint _ebo;
+    GLuint _vao;
+    GLuint _vbo;
+    GLuint _ebo;
 
     glm::mat4 _model;
     glm::mat4 _view;
@@ -27,8 +27,8 @@ class SceneRenderer {
     float _width;
     float _height;
 
-	int _textureId;
-	int _textureId2;
+    int _textureId;
+    int _textureId2;
 
 };
 
