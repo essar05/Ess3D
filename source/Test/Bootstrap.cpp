@@ -1,6 +1,6 @@
 #define _CRTDBG_MAP_ALLOC
 
-#include <RuntimeException.cpp>
+#include <errors/RuntimeException.cpp>
 #include "Game.h"
 
 int main(int argc, char* args[]) {

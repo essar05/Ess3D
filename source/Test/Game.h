@@ -4,8 +4,8 @@
 #include <SDL.h>
 #include <GL/glew.h>
 #include <iostream>
-#include <IGame.h>
-#include <AudioManager.h>
+#include <core/IGame.h>
+#include <audio/AudioManager.h>
 #include "GameplayScreen.h"
 #include <rapidjson.h>
 #include <document.h>
@@ -14,7 +14,7 @@ class GameplayScreen;
 
 class Game : public Ess3D::IGame {
   public:
-	  static Game* GetInstance();
+    static Game* GetInstance();
     ~Game();
 
     virtual void addScreens() override;

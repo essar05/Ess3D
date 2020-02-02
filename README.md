@@ -12,8 +12,6 @@ I currently have no intention - and probably never will - of building an editor 
 
 Currently in very early stages, trying to refactor the old code and come up with a better design, separating the 2D part and developing the new 3D features.
 
-Also migrating IDEs and build tools.
-
 #### How to build
 
-All the dependencies have been included on VCS. Currently the sources directly support Microsoft Visual Studio 2019 and CLion. You can simply open the solution file or make a new project from existing sources respectively and then build and run. 
+All the dependencies have been included on VCS. You can use CLion directly to build and run (with VS compiler) or generate a VS solution with CMake. 

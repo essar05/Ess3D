@@ -5,7 +5,7 @@ project(Test CXX)
 ################################################################################
 
 set(Header_Files
-    "FBORenderer.h"
+    "../Ess3D/gl/FBORenderer.h"
     "Game.h"
     "GameplayScreen.h"
     "resource.h"
@@ -16,7 +16,7 @@ source_group("Header Files" FILES ${Header_Files})
 
 set(Source_Files
     "Bootstrap.cpp"
-    "FBORenderer.cpp"
+    "../Ess3D/gl/FBORenderer.cpp"
     "Game.cpp"
     "GameplayScreen.cpp"
     "SceneRenderer.cpp"

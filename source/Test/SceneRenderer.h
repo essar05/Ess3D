@@ -1,6 +1,7 @@
 #pragma once
-#include <Shader.h>
-#include <Camera3D.h>
+
+#include <gl/Shader.h>
+#include <3d/camera/Camera3D.h>
 #include <glm/glm.hpp>
 
 class SceneRenderer {

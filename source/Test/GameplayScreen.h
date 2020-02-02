@@ -1,11 +1,11 @@
 #pragma once
 
-#include <IGameScreen.h>
+#include <core/IGameScreen.h>
 #include "Game.h"
-#include <TextureCache.h>
-#include "FBORenderer.h"
+#include <2d/textures/TextureCache.h>
 #include "ScreenIndices.h"
 #include "SceneRenderer.h"
+#include <gl/FBORenderer.h>
 
 class Game;
 
@@ -30,8 +30,8 @@ class GameplayScreen : public Ess3D::IGameScreen {
     
     Game* _game = nullptr;
     Ess3D::FrameBufferObject* _sceneFBO;
-    
-    FBORenderer* _fboRenderer;
+
+    Ess3D::FBORenderer* _fboRenderer;
     SceneRenderer* _sceneRenderer;
 };
 

@@ -1,6 +1,6 @@
 #include "SceneRenderer.h"
 #include "Game.h"
-#include <TextureCache.h>
+#include <2d/textures/TextureCache.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 

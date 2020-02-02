@@ -1,4 +1,5 @@
 #include "GameplayScreen.h"
+#include <gl/FBORenderer.h>
 #include <SDL_events.h>
 
 GameplayScreen::GameplayScreen() {
@@ -27,7 +28,7 @@ void GameplayScreen::onExit() {
 void GameplayScreen::build() {
   srand(time(NULL));
 
-  _fboRenderer = new FBORenderer();
+  _fboRenderer = new Ess3D::FBORenderer();
   _fboRenderer->initShader();
   _sceneFBO = new Ess3D::FrameBufferObject(_game->getWindow(), (GLsizei) _game->getWidth(), (GLsizei) _game->getHeight(), Ess3D::DepthBufferType::TEXTURE);
   _sceneRenderer = new SceneRenderer(_game->getWidth(), _game->getHeight());

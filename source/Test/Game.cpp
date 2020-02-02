@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <algorithm>
 #include "Entity.h"
-#include "Utils.h"
+#include "Utils2D.h"
 #include <chrono>*/
 
 Game::Game() {
