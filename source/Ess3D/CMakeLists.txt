@@ -1,4 +1,4 @@
-project(Ess3D CXX)
+project(Ess3D VERSION 0.0.1 LANGUAGES CXX)
 
 ################################################################################
 # Source groups
@@ -11,6 +11,7 @@ set(Headers
     "2d/camera/Camera2D.h"
     "3d/camera/Camera3D.h"
     "gl/FrameBufferObject.h"
+    "gl/FBORenderer.h"
     "gui/GUI.h"
     "core/IGame.h"
     "core/IGameScreen.h"
@@ -38,6 +39,7 @@ set(Sources
     "3d/camera/Camera3D.cpp"
     "errors/RuntimeException.cpp"
     "gl/FrameBufferObject.cpp"
+    "gl/FBORenderer.cpp"
     "gui/GUI.cpp"
     "core/IGame.cpp"
     "input/InputManager.cpp"
@@ -164,7 +166,8 @@ set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "SDL2_image;"
     "opengl32;"
     "freetype255d;"
-    "Box2D"
+    "Box2D;"
+    "assimp-4.1.0-vc140-mtd"
     )
 target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
@@ -188,6 +191,7 @@ target_link_directories(${PROJECT_NAME} PUBLIC
     "${CMAKE_SOURCE_DIR}/../lib/SDL2/lib/;"
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/lowlevel/lib/;"
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/studio/lib/;"
+    "${CMAKE_SOURCE_DIR}/../lib/assimp-4.1.0/lib/;"
     "$ENV{LibraryPath}"
     )
 
@@ -205,5 +209,6 @@ target_include_directories(
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/studio/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/FMOD/fsbank/include/;"
     "${CMAKE_SOURCE_DIR}/../lib/CEGUI/include/;"
+    "${CMAKE_SOURCE_DIR}/../lib/assimp-4.1.0/include/;"
     "${PROJECT_SOURCE_DIR}"
 )

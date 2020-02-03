@@ -5,7 +5,6 @@ project(Test CXX)
 ################################################################################
 
 set(Header_Files
-    "../Ess3D/gl/FBORenderer.h"
     "Game.h"
     "GameplayScreen.h"
     "resource.h"
@@ -16,7 +15,6 @@ source_group("Header Files" FILES ${Header_Files})
 
 set(Source_Files
     "Bootstrap.cpp"
-    "../Ess3D/gl/FBORenderer.cpp"
     "Game.cpp"
     "GameplayScreen.cpp"
     "SceneRenderer.cpp"
@@ -129,20 +127,9 @@ add_custom_command_if(
     TARGET ${PROJECT_NAME}
     POST_BUILD
     COMMANDS
-    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\Textures" "${OUTPUT_DIRECTORY}Textures\\" /y /S
-    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\Shaders" "${OUTPUT_DIRECTORY}Shaders\\" /y /S
-    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\Sounds" "${OUTPUT_DIRECTORY}Sounds\\" /y /S
-    COMMAND    $<CONFIG:Debug> cmd /c xcopy ".\\Resources\\GUI" "${OUTPUT_DIRECTORY}GUI\\" /y /S
-    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\Textures" "${OUTPUT_DIRECTORY}Textures\\" /y /S
-    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\Shaders" "${OUTPUT_DIRECTORY}Shaders\\" /y /S
-    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\Sounds" "${OUTPUT_DIRECTORY}Sounds\\" /y /S
-    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Resources\\GUI" "${OUTPUT_DIRECTORY}GUI\\" /y /S
-    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy ".\\Levels" "${OUTPUT_DIRECTORY}Levels\\" /y /S
-    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\Textures" "${OUTPUT_DIRECTORY}Textures\\" /y /S
-    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\Shaders" "${OUTPUT_DIRECTORY}Shaders\\" /y /S
-    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\Sounds" "${OUTPUT_DIRECTORY}Sounds\\" /y /S
-    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Resources\\GUI" "${OUTPUT_DIRECTORY}GUI\\" /y /S
-    COMMAND  $<CONFIG:Release> cmd /c xcopy ".\\Levels" "${OUTPUT_DIRECTORY}Levels\\" /y /S
+    COMMAND $<CONFIG:Debug> cmd /c xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
+    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
+    COMMAND $<CONFIG:Release> cmd /c xcopy ".\\Resources" "${OUTPUT_DIRECTORY}" /y /S
 )
 
 ################################################################################
@@ -154,18 +141,29 @@ add_dependencies(${PROJECT_NAME}
 
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "$<$<CONFIG:Debug>:"
-        "Ess3D"
+    "Ess3D"
     ">"
     "$<$<CONFIG:DebugNCP>:"
-        "Ess2D"
+    "Ess3D"
     ">"
     "$<$<CONFIG:Release>:"
-        "Ess2D"
+    "Ess3D"
     ">"
-)
+    )
 target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
+
+target_link_directories(${PROJECT_NAME} PUBLIC
+    "$<$<CONFIG:Debug>:"
+    "${CMAKE_SOURCE_DIR}/../build/Debug/Ess3D/;"
+    ">"
+    "$<$<CONFIG:DebugNCP>:"
+    "${CMAKE_SOURCE_DIR}/../build/Debug/Ess3D/;"
+    ">"
+    "$<$<CONFIG:Release>:"
+    "${CMAKE_SOURCE_DIR}/../build/Release/Ess3D/;"
+    ">"
+    )
 
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
-    "$ENV{LibraryPath}"
 )
