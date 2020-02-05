@@ -18,6 +18,9 @@ set(Headers
     3d/camera/Camera3D.h
     3d/model/Mesh.h
     3d/model/Model.h
+    3d/model/Texture3D.h
+    3d/model/Vertex3D.h
+    3d/rendering/MeshRenderer.h
 
     audio/AudioManager.h
 
@@ -56,6 +59,7 @@ set(Sources
     3d/camera/Camera3D.cpp
     3d/model/Mesh.cpp
     3d/model/Model.cpp
+    3d/rendering/MeshRenderer.cpp
 
     audio/AudioManager.cpp
 
