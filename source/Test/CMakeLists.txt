@@ -113,31 +113,32 @@ if(MSVC)
         >
         $<$<CONFIG:Release>:
             /SUBSYSTEM:WINDOWS;
-            /OPT:REF;
-            /OPT:ICF;
-            /INCREMENTAL:NO
+        /OPT:REF;
+        /OPT:ICF;
+        /INCREMENTAL:NO
         >
-    )
-endif()
+        )
+endif ()
 
 ################################################################################
 # Post build events
 ################################################################################
-add_custom_command_if(
-    TARGET ${PROJECT_NAME}
-    POST_BUILD
-    COMMANDS
-    COMMAND $<CONFIG:Debug> cmd /c xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
-    COMMAND $<CONFIG:DebugNCP> cmd /c xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
-    COMMAND $<CONFIG:Release> cmd /c xcopy ".\\Resources" "${OUTPUT_DIRECTORY}" /y /S
-)
+# TODO: FIX
+#add_custom_command_if(
+#    TARGET ${PROJECT_NAME}
+#    POST_BUILD
+#    COMMANDS
+#    COMMAND $<CONFIG:Debug> cmd /c echo D | xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
+#    COMMAND $<CONFIG:DebugNCP> cmd /c echo D | xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
+#    COMMAND $<CONFIG:Release> cmd /c echo D | xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
+#)
 
 ################################################################################
 # Dependencies
 ################################################################################
 add_dependencies(${PROJECT_NAME}
     Ess3D
-)
+    )
 
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "$<$<CONFIG:Debug>:"

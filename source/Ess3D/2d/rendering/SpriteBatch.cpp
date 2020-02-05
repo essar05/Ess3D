@@ -61,17 +61,17 @@ namespace Ess3D {
     glEnableVertexAttribArray(2);
 
     //position attribute pointer.
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, position));
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (void*) offsetof(Vertex2D, position));
     //color attribute pointer
-    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*) offsetof(Vertex, color));
+    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex2D), (void*) offsetof(Vertex2D, color));
     //texture uv coordinates pointer
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, uv));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (void*) offsetof(Vertex2D, uv));
 
     glBindVertexArray(0);
   }
 
   void SpriteBatch::createRenderBatches() {
-    std::vector<Vertex> vertices;
+    std::vector<Vertex2D> vertices;
     vertices.resize(_glyphPointers.size() * 6);
 
     if(_glyphPointers.empty()) {
@@ -111,12 +111,12 @@ namespace Ess3D {
       offset += 6;
     }
 
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-    //clear the buffer. it's faster than just uploadingh directly.
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);
+    //clear the buffer. it's faster than just uploading directly.
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex2D), nullptr, GL_DYNAMIC_DRAW);
     //upload the vertices data to the vertex buffer object.
-    glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), vertices.data());
+    glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex2D), vertices.data());
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
   }

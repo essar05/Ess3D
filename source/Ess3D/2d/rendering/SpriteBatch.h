@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <glm\glm.hpp>
 #include <vector>
-#include "gl/Vertex.h"
+#include "2d/model/Vertex2D.h"
 
 namespace Ess3D {
 

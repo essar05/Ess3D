@@ -1,5 +1,5 @@
 #pragma once
-#include "2d/textures/Texture2D.h"
+#include "2d/model/Texture2D.h"
 #include <string>
 
 namespace Ess3D {

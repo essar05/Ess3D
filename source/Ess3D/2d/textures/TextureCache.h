@@ -1,6 +1,6 @@
 #pragma once
 #include <map>
-#include "Texture2D.h"
+#include "2d/model/Texture2D.h"
 #include "TextureAtlas.h"
 
 namespace Ess3D {

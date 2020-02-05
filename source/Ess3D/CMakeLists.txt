@@ -5,62 +5,85 @@ project(Ess3D VERSION 0.0.1 LANGUAGES CXX)
 ################################################################################
 
 set(Headers
-    "2d/animations/Animation.h"
-    "2d/animations/AnimationManager.h"
-    "audio/AudioManager.h"
-    "2d/camera/Camera2D.h"
-    "3d/camera/Camera3D.h"
-    "gl/FrameBufferObject.h"
-    "gl/FBORenderer.h"
-    "gui/GUI.h"
-    "core/IGame.h"
-    "core/IGameScreen.h"
-    "input/InputManager.h"
-    "input/IOManager.h"
-    "utils/ResourceManager.h"
-    "core/ScreenManager.h"
-    "gl/Shader.h"
-    "2d/rendering/SpriteBatch.h"
-    "2d/textures/Texture2D.h"
-    "2d/textures/TextureAtlas.h"
-    "2d/textures/TextureCache.h"
-    "utils/Timing.h"
-    "2d/utils/Utils2D.h"
-    "gl/Vertex.h"
-    "gl/Window.h"
+    2d/animations/Animation.h
+    2d/animations/AnimationManager.h
+    2d/camera/Camera2D.h
+    2d/model/Texture2D.h
+    2d/model/Vertex2D.h
+    2d/rendering/SpriteBatch.h
+    2d/textures/TextureAtlas.h
+    2d/textures/TextureCache.h
+    2d/utils/Utils2D.h
+
+    3d/camera/Camera3D.h
+    3d/model/Mesh.h
+    3d/model/Model.h
+
+    audio/AudioManager.h
+
+    core/IGame.h
+    core/IGameScreen.h
+    core/ScreenManager.h
+
+    gl/ColorRGBA8.h
+    gl/FBORenderer.h
+    gl/FrameBufferObject.h
+    gl/Shader.h
+    gl/Window.h
+    gl/UV.h
+
+    gui/GUI.h
+
+    input/InputManager.h
+    input/IOManager.h
+
+    utils/ResourceManager.h
+    utils/Timing.h
+    utils/Utils.h
     )
 source_group("Headers" FILES ${Headers})
 
 set(Sources
-    "2d/animations/Animation.cpp"
-    "2d/animations/AnimationManager.cpp"
-    "audio/AudioManager.cpp"
-    "2d/camera/Camera2D.cpp"
-    "3d/camera/Camera3D.cpp"
-    "errors/RuntimeException.cpp"
-    "gl/FrameBufferObject.cpp"
-    "gl/FBORenderer.cpp"
-    "gui/GUI.cpp"
-    "core/IGame.cpp"
-    "input/InputManager.cpp"
-    "input/IOManager.cpp"
-    "utils/ResourceManager.cpp"
-    "core/ScreenManager.cpp"
-    "gl/Shader.cpp"
-    "2d/rendering/SpriteBatch.cpp"
-    "2d/textures/Texture2D.cpp"
-    "2d/textures/TextureAtlas.cpp"
-    "2d/textures/TextureCache.cpp"
-    "utils/Timing.cpp"
-    "2d/utils/Utils2D.cpp"
-    "gl/Window.cpp"
+    2d/animations/Animation.cpp
+    2d/animations/AnimationManager.cpp
+    2d/camera/Camera2D.cpp
+    2d/model/Texture2D.cpp
+    2d/rendering/SpriteBatch.cpp
+    2d/textures/TextureAtlas.cpp
+    2d/textures/TextureCache.cpp
+    2d/utils/Utils2D.cpp
+
+    3d/camera/Camera3D.cpp
+    3d/model/Mesh.cpp
+    3d/model/Model.cpp
+
+    audio/AudioManager.cpp
+
+    core/IGame.cpp
+    core/ScreenManager.cpp
+
+    errors/RuntimeException.cpp
+
+    gl/FBORenderer.cpp
+    gl/FrameBufferObject.cpp
+    gl/Shader.cpp
+    gl/Window.cpp
+
+    gui/GUI.cpp
+
+    input/InputManager.cpp
+    input/IOManager.cpp
+
+    utils/ResourceManager.cpp
+    utils/Timing.cpp
+    utils/Utils.cpp
     )
 source_group("Sources" FILES ${Sources})
 
 set(ALL_FILES
     ${Headers}
     ${Sources}
-    )
+    3d/model/Mesh.cpp 3d/model/Mesh.h)
 
 ################################################################################
 # Target

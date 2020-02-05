@@ -1,33 +1,22 @@
 #pragma once
+
 #include <GL/glew.h>
 #include <glm\glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "gl/ColorRGBA8.h"
+#include "gl/UV.h"
 
 namespace Ess3D {
 
-  struct Position {
+  struct Position2D {
     float x;
     float y;
   };
 
-  struct ColorRGBA8 {
-    ColorRGBA8() : r(0), g(0), b(0), a(255) {}
-    ColorRGBA8(GLubyte r, GLubyte g, GLubyte b, GLubyte a) : r(r), g(g), b(b), a(a) {}
-    GLubyte r;
-    GLubyte g;
-    GLubyte b;
-    GLubyte a;
-  };
-
-  struct UV {
-    float u;
-    float v;
-  };
-
-  struct Vertex {
-    Position position;
+  struct Vertex2D {
+    Position2D position{};
     ColorRGBA8 color;
-    UV uv;
+    UV uv{};
 
     void setPosition(float x, float y) {
       position.x = x;
@@ -106,20 +95,20 @@ namespace Ess3D {
       topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
     }
 
-    glm::vec2 Glyph::rotatePoint(const glm::vec2& pos, float angle) {
-      glm::vec2 newv;
-      newv.x = pos.x * cos(angle) - pos.y * sin(angle);
-      newv.y = pos.x * sin(angle) + pos.y * cos(angle);
-      return newv;
-    }
+      glm::vec2 Glyph::rotatePoint(const glm::vec2& pos, float angle) {
+        glm::vec2 newv;
+        newv.x = pos.x * cos(angle) - pos.y * sin(angle);
+        newv.y = pos.x * sin(angle) + pos.y * cos(angle);
+        return newv;
+      }
 
-    GLuint textureId;
-    float zDepth;
+      GLuint textureId;
+      float zDepth;
 
-    Vertex topLeft;
-    Vertex bottomLeft;
-    Vertex topRight;
-    Vertex bottomRight;
+      Vertex2D topLeft;
+      Vertex2D bottomLeft;
+      Vertex2D topRight;
+      Vertex2D bottomRight;
   };
 
 }
