@@ -11,7 +11,7 @@
 #include <chrono>*/
 
 Game::Game() {
-  _title = "Test 3D";
+  _title = "Demo 3D";
 
   _maxFPS = 60.0f;
   _debugMode = false;

@@ -26,5 +26,4 @@
 /build/DebugNCP
 /build/Release/Test/CEGUI.log
 /.idea/
-/source/CMake/
 /source/cmake-build-debug/
