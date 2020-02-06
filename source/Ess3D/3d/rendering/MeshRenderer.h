@@ -1,5 +1,6 @@
 #pragma once
 
+#include <gl/Shader.h>
 #include "3d/model/Mesh.h"
 
 namespace Ess3D {
@@ -10,7 +11,12 @@ namespace Ess3D {
       MeshRenderer();
       explicit MeshRenderer(Mesh* mesh);
 
+      void render(Shader* shader);
+
     private:
-      Mesh* mesh;
+      Mesh* _mesh;
+
+      unsigned int _VAO{}, _VBO{}, _EBO{};
+      void initializeGLBuffers();
   };
 };

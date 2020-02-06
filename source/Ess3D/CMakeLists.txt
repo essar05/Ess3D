@@ -8,17 +8,13 @@ set(Headers
     2d/animations/Animation.h
     2d/animations/AnimationManager.h
     2d/camera/Camera2D.h
-    2d/model/Texture2D.h
     2d/model/Vertex2D.h
     2d/rendering/SpriteBatch.h
-    2d/textures/TextureAtlas.h
-    2d/textures/TextureCache.h
     2d/utils/Utils2D.h
 
     3d/camera/Camera3D.h
     3d/model/Mesh.h
     3d/model/Model.h
-    3d/model/Texture3D.h
     3d/model/Vertex3D.h
     3d/rendering/MeshRenderer.h
 
@@ -38,9 +34,12 @@ set(Headers
     gui/GUI.h
 
     input/InputManager.h
-    input/IOManager.h
 
-    utils/ResourceManager.h
+    textures/Texture.h
+    textures/TextureAtlas.h
+    textures/TextureAtlasSection.h
+    textures/TextureCache.h
+
     utils/Timing.h
     utils/Utils.h
     )
@@ -50,15 +49,12 @@ set(Sources
     2d/animations/Animation.cpp
     2d/animations/AnimationManager.cpp
     2d/camera/Camera2D.cpp
-    2d/model/Texture2D.cpp
     2d/rendering/SpriteBatch.cpp
-    2d/textures/TextureAtlas.cpp
-    2d/textures/TextureCache.cpp
     2d/utils/Utils2D.cpp
 
     3d/camera/Camera3D.cpp
     3d/model/Mesh.cpp
-    3d/model/Model.cpp
+    3d/model/Mesh.cpp
     3d/rendering/MeshRenderer.cpp
 
     audio/AudioManager.cpp
@@ -76,9 +72,12 @@ set(Sources
     gui/GUI.cpp
 
     input/InputManager.cpp
-    input/IOManager.cpp
 
-    utils/ResourceManager.cpp
+    textures/Texture.cpp
+    textures/TextureAtlas.cpp
+    textures/TextureAtlasSection.cpp
+    textures/TextureCache.cpp
+
     utils/Timing.cpp
     utils/Utils.cpp
     )

@@ -50,7 +50,7 @@ namespace Ess3D {
   }
 
   void Shader::compileShaders() {
-    for (std::map<GLuint, GLuint>::iterator it = _shaderIds.begin(); it != _shaderIds.end(); ++it) {
+    for (auto it = _shaderIds.begin(); it != _shaderIds.end(); ++it) {
       GLuint shaderId = it->second;
 
       glCompileShader(shaderId);
@@ -79,7 +79,7 @@ namespace Ess3D {
 
   void Shader::linkShaders() {
     //atach all of our shaders to the program
-    for (std::map<GLuint, GLuint>::iterator it = _shaderIds.begin(); it != _shaderIds.end(); ++it) {
+    for (auto it = _shaderIds.begin(); it != _shaderIds.end(); ++it) {
       glAttachShader(_programId, it->second);
     }
 
@@ -100,7 +100,7 @@ namespace Ess3D {
     }
 
     //detach shaders after program was linked
-    for (std::map<GLuint, GLuint>::iterator it = _shaderIds.begin(); it != _shaderIds.end(); ++it) {
+    for (auto it = _shaderIds.begin(); it != _shaderIds.end(); ++it) {
       glDetachShader(_programId, it->second);
       glDeleteShader(it->second);
     }

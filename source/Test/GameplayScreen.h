@@ -2,7 +2,7 @@
 
 #include <core/IGameScreen.h>
 #include "Game.h"
-#include <2d/textures/TextureCache.h>
+#include <textures/TextureCache.h>
 #include "ScreenIndices.h"
 #include "SceneRenderer.h"
 #include <gl/FBORenderer.h>

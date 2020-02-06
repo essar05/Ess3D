@@ -1,6 +1,6 @@
 #include "SceneRenderer.h"
 #include "Game.h"
-#include <2d/textures/TextureCache.h>
+#include <textures/TextureCache.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -88,14 +88,15 @@ SceneRenderer::SceneRenderer(float _width, float _height) {
   glEnableVertexAttribArray(1);
   //glEnableVertexAttribArray(2);
 
+  //
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) 0);
   //glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*) (3 * sizeof(float)) );
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) (3 * sizeof(float)) );
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) ( 3 * sizeof(float)));
 
   glBindVertexArray(0);
 
   //preload texture
-  _textureId = Ess3D::TextureCache::getInstance()->getTexture("Textures/Background/Background_Tilable.png")._id;
+  _textureId = Ess3D::TextureCache::getInstance()->getTexture("Textures/Background/Background_Tilable.png")->getId();
 }
 
 SceneRenderer::~SceneRenderer() {

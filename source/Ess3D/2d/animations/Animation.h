@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "2d/textures/TextureAtlas.h"
+#include "textures/TextureAtlas.h"
 
 namespace Ess3D {
 
