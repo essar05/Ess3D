@@ -3,20 +3,23 @@
 #include <vector>
 #include "3d/rendering/MeshRenderer.h"
 #include "Vertex3D.h"
-#include "textures/Texture.h"
+#include "resources/Texture.h"
 
 namespace Ess3D {
   class MeshRenderer;
 
   class Mesh {
     public:
-      Mesh(const std::vector<Vertex3D>& vertices, const std::vector<unsigned int>& indices,
-           const std::vector<Texture*>& textures);
+      Mesh();
       ~Mesh();
 
       const std::vector<Vertex3D>& getVertices();
       const std::vector<unsigned int>& getIndices();
       const std::vector<Texture*>& getTextures();
+
+      void addVertex(const Vertex3D& vertex);
+      void addIndex(unsigned int index);
+      void addTexture(Texture* texture);
 
       MeshRenderer* getMeshRenderer();
 

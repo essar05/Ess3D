@@ -3,31 +3,35 @@
 namespace Ess3D {
   MeshRenderer::MeshRenderer() : MeshRenderer(nullptr) {}
 
-  MeshRenderer::MeshRenderer(Mesh* mesh) : _mesh(mesh) {
-    this->initializeGLBuffers();
-  }
+  MeshRenderer::MeshRenderer(Mesh* mesh) : _mesh(mesh) {}
 
   void MeshRenderer::render(Shader* shader) {
     int textureDiffuseCount = 0;
     int textureSpecularCount = 0;
 
-    for (int i = 0; i < _mesh->getTextures().size(); i++) {
-      Texture* texture = _mesh->getTextures()[i];
+    for (unsigned int textureIndex = 0; textureIndex < _mesh->getTextures().size(); textureIndex++) {
+      Texture* texture = _mesh->getTextures()[textureIndex];
 
-      glActiveTexture(GL_TEXTURE0 + i);
+      glActiveTexture(GL_TEXTURE0 + textureIndex);
 
-      std::string samplerUniformName = "material.";
+      std::string samplerUniformName = "material_";
 
       switch (texture->getType()) {
-        case DIFFUSE:
-          samplerUniformName += "texture_diffuse" + std::to_string(++textureDiffuseCount);
+        case ESS_TEX_TYPE_DIFFUSE:
+          samplerUniformName += "texDiffuse" + std::to_string(++textureDiffuseCount);
           break;
-        case SPECULAR:
-          samplerUniformName += "texture_specular" + std::to_string(++textureSpecularCount);
+        case ESS_TEX_TYPE_SPECULAR:
+          samplerUniformName += "texSpecular" + std::to_string(++textureSpecularCount);
+          break;
+        case ESS_TEX_TYPE_HEIGHT:
+          samplerUniformName += "texHeight" + std::to_string(++textureSpecularCount);
+          break;
+        case ESS_TEX_TYPE_NORMAL:
+          samplerUniformName += "texNormal" + std::to_string(++textureSpecularCount);
           break;
       }
 
-      glUniform1i(shader->getUniformLocation(samplerUniformName), i);
+      glUniform1i(shader->getUniformLocation(samplerUniformName), textureIndex);
       glBindTexture(GL_TEXTURE_2D, texture->getId());
     }
 
@@ -36,6 +40,10 @@ namespace Ess3D {
     glBindVertexArray(_VAO);
     glDrawElements(GL_TRIANGLES, _mesh->getIndices().size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+  }
+
+  void MeshRenderer::initialize() {
+    this->initializeGLBuffers();
   }
 
   void MeshRenderer::initializeGLBuffers() {
@@ -63,7 +71,7 @@ namespace Ess3D {
 
     // in vec3 position
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*) offsetof(Vertex3D, position));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*) 0);
 
     // in vec3 normal
     glEnableVertexAttribArray(1);

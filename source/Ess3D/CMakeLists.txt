@@ -35,10 +35,11 @@ set(Headers
 
     input/InputManager.h
 
-    textures/Texture.h
-    textures/TextureAtlas.h
-    textures/TextureAtlasSection.h
-    textures/TextureCache.h
+    resources/ModelCache.h
+    resources/Texture.h
+    resources/TextureAtlas.h
+    resources/TextureAtlasSection.h
+    resources/TextureCache.h
 
     utils/Timing.h
     utils/Utils.h
@@ -54,7 +55,7 @@ set(Sources
 
     3d/camera/Camera3D.cpp
     3d/model/Mesh.cpp
-    3d/model/Mesh.cpp
+    3d/model/Model.cpp
     3d/rendering/MeshRenderer.cpp
 
     audio/AudioManager.cpp
@@ -73,10 +74,11 @@ set(Sources
 
     input/InputManager.cpp
 
-    textures/Texture.cpp
-    textures/TextureAtlas.cpp
-    textures/TextureAtlasSection.cpp
-    textures/TextureCache.cpp
+    resources/ModelCache.cpp
+    resources/Texture.cpp
+    resources/TextureAtlas.cpp
+    resources/TextureAtlasSection.cpp
+    resources/TextureCache.cpp
 
     utils/Timing.cpp
     utils/Utils.cpp

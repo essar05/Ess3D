@@ -12,6 +12,7 @@ namespace Ess3D {
       explicit MeshRenderer(Mesh* mesh);
 
       void render(Shader* shader);
+      void initialize();
 
     private:
       Mesh* _mesh;

@@ -2,6 +2,7 @@
 
 #include <gl/Shader.h>
 #include <3d/camera/Camera3D.h>
+#include <3d/model/Model.h>
 #include <glm/glm.hpp>
 
 class SceneRenderer {
@@ -16,10 +17,7 @@ class SceneRenderer {
   private:
     Ess3D::Shader* _shader;
     Ess3D::Camera3D* _camera;
-
-    GLuint _vao;
-    GLuint _vbo;
-    GLuint _ebo;
+    Ess3D::Model* _nanosuit;
 
     glm::mat4 _model;
     glm::mat4 _view;
@@ -27,9 +25,6 @@ class SceneRenderer {
 
     float _width;
     float _height;
-
-    int _textureId;
-    int _textureId2;
 
 };
 

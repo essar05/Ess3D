@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include "errors/RuntimeException.cpp"
 #include <vector>
+#include <iostream>
 
 namespace Ess3D {
 

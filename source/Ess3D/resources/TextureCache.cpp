@@ -8,7 +8,7 @@
 
 namespace Ess3D {
 
-  TextureCache::TextureCache() {}
+  TextureCache::TextureCache() = default;
 
   TextureCache::~TextureCache() {
     auto itTex = _textures.begin();
@@ -24,7 +24,7 @@ namespace Ess3D {
     }
   }
 
-  Texture* TextureCache::getTexture(std::string texturePath) {
+  Texture* TextureCache::getTexture(const std::string& texturePath) {
     auto it = _textures.find(texturePath);
 
     if (it == _textures.end()) {
@@ -38,12 +38,18 @@ namespace Ess3D {
     return it->second;
   }
 
-  TextureAtlas* TextureCache::getAtlas(std::string texturePath, std::string metadataPath) {
+  bool TextureCache::isTextureCached(const std::string& texturePath) {
+    auto it = _textures.find(texturePath);
+
+    return it != _textures.end();
+  }
+
+  TextureAtlas* TextureCache::getAtlas(const std::string& texturePath, const std::string& metadataPath) {
     std::string key = texturePath + "_" + metadataPath;
     auto it = _atlases.find(key);
 
     if (it == _atlases.end()) {
-      TextureAtlas* atlas = new TextureAtlas();
+      auto* atlas = new TextureAtlas();
 
       atlas->setTexture(this->loadTextureFromFile(texturePath));
 
@@ -57,15 +63,17 @@ namespace Ess3D {
     return it->second;
   }
 
-  Texture* TextureCache::loadTextureFromFile(std::string texturePath) {
-    Texture* texture = new Texture();
+  Texture* TextureCache::loadTextureFromFile(const std::string& texturePath) {
+    auto* texture = new Texture();
 
     SDL_Surface* surface = IMG_Load(texturePath.c_str());
     if (!surface) {
       throw ERuntimeException("Error loading image: " + texturePath);
     }
 
-    if (surface->format->BytesPerPixel == 3) { // RGB 24bit
+    if (surface->format->BytesPerPixel == 1) {
+      texture->setMode(GL_RED);
+    } else if (surface->format->BytesPerPixel == 3) { // RGB 24bit
       texture->setMode(GL_RGB);
     } else if (surface->format->BytesPerPixel == 4) { // RGBA 32bit
       texture->setMode(GL_RGBA);
@@ -88,8 +96,8 @@ namespace Ess3D {
                  GL_UNSIGNED_BYTE, surface->pixels
     );
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -102,7 +110,7 @@ namespace Ess3D {
     return texture;
   }
 
-  Texture TextureCache::loadAtlasMetadataFromFile(TextureAtlas* atlas, std::string metadataPath) {
+  Texture TextureCache::loadAtlasMetadataFromFile(TextureAtlas* atlas, const std::string& metadataPath) {
     std::ifstream fileStream(metadataPath);
     std::string jsonData;
 

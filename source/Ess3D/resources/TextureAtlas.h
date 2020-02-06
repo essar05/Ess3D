@@ -3,8 +3,8 @@
 #include <string>
 #include <glm\glm.hpp>
 #include <unordered_map>
-#include "textures/Texture.h"
-#include "textures/TextureAtlasSection.h"
+#include "Texture.h"
+#include "TextureAtlasSection.h"
 
 namespace Ess3D {
 

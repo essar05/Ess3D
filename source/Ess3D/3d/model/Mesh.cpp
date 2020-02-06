@@ -1,11 +1,7 @@
 #include "Mesh.h"
 
 namespace Ess3D {
-  Mesh::Mesh(
-      const std::vector<Vertex3D>& vertices,
-      const std::vector<unsigned int>& indices,
-      const std::vector<Texture*>& textures
-  ) : _vertices(vertices), _indices(indices), _textures(textures) {
+  Mesh::Mesh() {
     _meshRenderer = new MeshRenderer(this);
   }
 
@@ -23,6 +19,18 @@ namespace Ess3D {
 
   const std::vector<Texture*>& Mesh::getTextures() {
     return _textures;
+  }
+
+  void Mesh::addVertex(const Vertex3D& vertex) {
+    _vertices.push_back(vertex);
+  }
+
+  void Mesh::addIndex(unsigned int index) {
+    _indices.push_back(index);
+  }
+
+  void Mesh::addTexture(Texture* texture) {
+    _textures.push_back(texture);
   }
 
   MeshRenderer* Mesh::getMeshRenderer() {

@@ -14,7 +14,7 @@ namespace Ess3D {
       float _yaw;
       float _pitch;
 
-      float _speed = 0.05f;
+      float _speed = 0.2f;
       float _sensitivity = 0.05f;
       
       void updateVectors();

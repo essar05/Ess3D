@@ -30,7 +30,7 @@ class Game : public Ess3D::IGame {
     void loadConfig();
 
     float _volume = 1.0f;
-	bool _isConfigEnabled;
+	  bool _isConfigEnabled;
 
     Ess3D::AudioManager _audioManager;
 

@@ -1,7 +1,5 @@
-#ifndef CRUNTIMEEXCEPTION_H
-#define CRUNTIMEEXCEPTION_H
+#pragma once
 
-#include <iostream>
 #include <string>
 #include <exception>
 
@@ -14,16 +12,14 @@ namespace Ess3D {
 
     public:
 
-      ERuntimeException(std::string anErrorMessage) throw() {
+      explicit ERuntimeException(const std::string& anErrorMessage) {
         this->message = anErrorMessage;
         this->ErrorMessage = anErrorMessage.c_str();
       }
 
-      ~ERuntimeException() throw() {
+      ~ERuntimeException() override = default;
 
-      };
-
-      virtual const char* what() const throw() {
+      const char* what() const override {
         return this->ErrorMessage;
       }
 
@@ -33,5 +29,3 @@ namespace Ess3D {
 
   };
 }
-
-#endif

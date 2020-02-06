@@ -5,9 +5,11 @@
 namespace Ess3D {
 
   enum TextureType {
-    SPRITE,
-    DIFFUSE,
-    SPECULAR
+    ESS_TEX_TYPE_NONE,
+    ESS_TEX_TYPE_DIFFUSE,
+    ESS_TEX_TYPE_SPECULAR,
+    ESS_TEX_TYPE_NORMAL,
+    ESS_TEX_TYPE_HEIGHT
   };
 
   class Texture {

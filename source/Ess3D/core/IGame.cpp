@@ -1,4 +1,5 @@
 #include "IGame.h"
+#include <iostream>
 
 namespace Ess3D {
 

@@ -2,7 +2,6 @@
 
 #include <core/IGameScreen.h>
 #include "Game.h"
-#include <textures/TextureCache.h>
 #include "ScreenIndices.h"
 #include "SceneRenderer.h"
 #include <gl/FBORenderer.h>
@@ -14,16 +13,16 @@ class GameplayScreen : public Ess3D::IGameScreen {
     GameplayScreen();
     ~GameplayScreen();
 
-    virtual int getNextScreenIndex() const override;
-    virtual int getPreviousScreenIndex() const override;
+    int getNextScreenIndex() const override;
+    int getPreviousScreenIndex() const override;
 
-    virtual void build() override;
-    virtual void destroy() override;
-    virtual void draw() override;
-    virtual void update(float deltaTime, int simulationSteps) override;
+    void build() override;
+    void destroy() override;
+    void draw() override;
+    void update(float deltaTime, int simulationSteps) override;
 
-    virtual void onEntry() override;
-    virtual void onExit() override;
+    void onEntry() override;
+    void onExit() override;
     
   private:
     void processInput(float deltaTime);
