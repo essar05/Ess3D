@@ -125,7 +125,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Release>:"
     "NDEBUG"
     ">"
-    "ESS3D_EXPORTS;"
     "WIN32;"
     "_LIB;"
     "UNICODE;"
@@ -151,6 +150,8 @@ if (MSVC)
       /MD;
       /Gy
       >
+      /wd4251;
+      /wd4275;
       /sdl;
       /W3;
       ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT};
