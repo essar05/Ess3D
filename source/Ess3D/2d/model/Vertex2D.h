@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <GL/glew.h>
 #include <glm\glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -8,12 +9,12 @@
 
 namespace Ess3D {
 
-  struct Position2D {
+  struct API Position2D {
     float x;
     float y;
   };
 
-  struct Vertex2D {
+  struct API Vertex2D {
     Position2D position{};
     ColorRGBA8 color;
     UV uv{};
@@ -44,17 +45,19 @@ namespace Ess3D {
     TEXTURE
   };
 
-  class Glyph {
+  class API Glyph {
     public:
-    Glyph() {}
-    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint TextureId, const ColorRGBA8& color, float ZDepth, float angle = 0) : textureId(TextureId), zDepth(ZDepth) {
-      glm::vec2 halfDims(destRect.z / 2.0f, destRect.w / 2.0f);
+      Glyph() {}
 
-      // Get points centered at origin
-      glm::vec2 tl(-halfDims.x, halfDims.y);
-      glm::vec2 bl(-halfDims.x, -halfDims.y);
-      glm::vec2 br(halfDims.x, -halfDims.y);
-      glm::vec2 tr(halfDims.x, halfDims.y);
+      Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint TextureId, const ColorRGBA8& color, float ZDepth,
+            float angle = 0) : textureId(TextureId), zDepth(ZDepth) {
+        glm::vec2 halfDims(destRect.z / 2.0f, destRect.w / 2.0f);
+
+        // Get points centered at origin
+        glm::vec2 tl(-halfDims.x, halfDims.y);
+        glm::vec2 bl(-halfDims.x, -halfDims.y);
+        glm::vec2 br(halfDims.x, -halfDims.y);
+        glm::vec2 tr(halfDims.x, halfDims.y);
 
       // Rotate the points
       tl = rotatePoint(tl, angle) + halfDims;

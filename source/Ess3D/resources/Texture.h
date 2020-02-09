@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <GL/glew.h>
 
 namespace Ess3D {
@@ -12,7 +13,7 @@ namespace Ess3D {
     ESS_TEX_TYPE_HEIGHT
   };
 
-  class Texture {
+  class API Texture {
     public:
       //methods
       Texture();

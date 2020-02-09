@@ -123,15 +123,11 @@ endif ()
 ################################################################################
 # Post build events
 ################################################################################
-# TODO: FIX
-#add_custom_command_if(
-#    TARGET ${PROJECT_NAME}
-#    POST_BUILD
-#    COMMANDS
-#    COMMAND $<CONFIG:Debug> cmd /c echo D | xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
-#    COMMAND $<CONFIG:DebugNCP> cmd /c echo D | xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
-#    COMMAND $<CONFIG:Release> cmd /c echo D | xcopy \".\\Resources\" \"${OUTPUT_DIRECTORY}\" /y /S
-#)
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../build/$<CONFIG>/Ess3D/Ess3D.dll ${OUTPUT_DIRECTORY}
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/Resources/ ${OUTPUT_DIRECTORY}
+)
 
 ################################################################################
 # Dependencies

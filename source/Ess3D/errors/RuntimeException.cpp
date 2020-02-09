@@ -1,10 +1,11 @@
 #pragma once
 
+#include "definitions.h"
 #include <string>
 #include <exception>
 
 namespace Ess3D {
-  class ERuntimeException: public std::exception {
+  class API ERuntimeException : public std::exception {
 
     private:
       const char* ErrorMessage;

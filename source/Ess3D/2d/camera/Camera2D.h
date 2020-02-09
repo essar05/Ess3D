@@ -1,28 +1,48 @@
 #pragma once
+
+#include "definitions.h"
 #include <glm\glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Ess3D {
-  class Camera2D {
+  class API Camera2D {
     public:
       Camera2D();
       ~Camera2D();
 
-      void init(int screenWdith, int screenHeight);
+      void init(int screenWidth, int screenHeight);
 
       void update();
 
-      void setPosition(const glm::vec2& position) { _position = position; _doUpdate = true; }
+      void setPosition(const glm::vec2& position) {
+        _position = position;
+        _doUpdate = true;
+      }
+
       void setFuturePosition(const glm::vec2& position);
-      void setScale(float scale) { _scale = scale; _doUpdate = true; }
-      void setZoom(float zoom) { _zoom = zoom; _doUpdate = true; }
+
+      void setScale(float scale) {
+        _scale = scale;
+        _doUpdate = true;
+      }
+
+      void setZoom(float zoom) {
+        _zoom = zoom;
+        _doUpdate = true;
+      }
+
       void smoothState(float timestepAccumulatorRatio, bool isGamePaused);
 
       glm::vec2 getPosition();
+
       glm::vec2 getPreviousPosition() { return _previousPosition; }
+
       glm::vec2 getFuturePosition() { return _futurePosition; }
+
       float getScale() { return _scale; }
+
       float getZoom() { return _zoom; }
+
       glm::vec2 getWorldViewportSize();
       glm::vec2 getViewportSize();
 

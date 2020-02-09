@@ -1,10 +1,11 @@
 #pragma once
 
+#include "definitions.h"
 #include <unordered_map>
 #include <glm/glm.hpp>
 
 namespace Ess3D {
-  class InputManager {
+  class API InputManager {
     public:
       InputManager();
       ~InputManager();

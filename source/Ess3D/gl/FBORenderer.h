@@ -1,10 +1,11 @@
 #pragma once
 
+#include "definitions.h"
 #include <gl/Shader.h>
 #include <gl/FrameBufferObject.h>
 
 namespace Ess3D {
-  class FBORenderer {
+  class API FBORenderer {
     public:
       FBORenderer();
       ~FBORenderer();

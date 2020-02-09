@@ -1,11 +1,12 @@
 #pragma once
+
+#include "definitions.h"
 #include "Animation.h"
 #include <unordered_map>
 
 namespace Ess3D {
 
-  class AnimationManager
-  {
+  class API AnimationManager {
     public:
       AnimationManager();
       ~AnimationManager();

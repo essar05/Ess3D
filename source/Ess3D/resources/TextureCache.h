@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <map>
 #include "Texture.h"
 #include "TextureAtlas.h"
@@ -8,7 +9,7 @@ namespace Ess3D {
 
   class TextureAtlas;
 
-  class TextureCache {
+  class API TextureCache {
     public:
       ~TextureCache();
 

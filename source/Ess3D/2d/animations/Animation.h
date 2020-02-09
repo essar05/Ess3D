@@ -1,11 +1,12 @@
 #pragma once
 
+#include "definitions.h"
 #include <vector>
 #include "resources/TextureAtlas.h"
 
 namespace Ess3D {
 
-  class Animation {
+  class API Animation {
     public:
       Animation();
       ~Animation();

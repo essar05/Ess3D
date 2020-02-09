@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <SDL.h>
 #include <GL/glew.h>
 #include <string>
@@ -15,7 +16,7 @@ namespace Ess3D {
     FULLSCREEN_DESKTOP = 0x8
   };
 
-  class Window {
+  class API Window {
     public:
       Window(std::string windowName, int width, int height, unsigned int windowModes);
       ~Window();
@@ -24,7 +25,9 @@ namespace Ess3D {
       void SetVSync(int vSync);
 
       int GetWidth() { return _width; }
+
       int GetHeight() { return _height; }
+
       int GetCurrentWidth() { return _currentWidth; }
       int GetCurrentHeight() { return _currentHeight; }
       int GetMonitorRefreshRate();

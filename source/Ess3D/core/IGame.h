@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include "ScreenManager.h"
 #include "gl/Window.h"
 #include "utils/Timing.h"
@@ -11,7 +12,7 @@ namespace Ess3D {
       RUNNING, EXIT, DESTROYED
   };
 
-  class IGame {
+  class API IGame {
     public:
       IGame();
       virtual ~IGame();

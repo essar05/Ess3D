@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <vector>
 #include "3d/rendering/MeshRenderer.h"
 #include "Vertex3D.h"
@@ -8,7 +9,7 @@
 namespace Ess3D {
   class MeshRenderer;
 
-  class Mesh {
+  class API Mesh {
     public:
       Mesh();
       ~Mesh();

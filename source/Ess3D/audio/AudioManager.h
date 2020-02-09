@@ -1,4 +1,6 @@
 #pragma once
+
+#include "definitions.h"
 #include <fmod_studio.hpp>
 #include <fmod.hpp>
 #include <map>
@@ -6,17 +8,17 @@
 
 namespace Ess3D {
 
-  class AudioManager {
+  class API AudioManager {
     public:
       AudioManager();
       ~AudioManager();
 
       void update();
-      void loadBank(const std::string &bankName, FMOD_STUDIO_LOAD_BANK_FLAGS flags);
-      void loadEvent(const std::string &eventName);
-      void playEvent(const std::string &eventName, bool newInstance = false);
-      void stopEvent(const std::string &eventName, bool immediate);
-      FMOD::Studio::EventInstance* getEvent(const std::string &eventName);
+      void loadBank(const std::string& bankName, FMOD_STUDIO_LOAD_BANK_FLAGS flags);
+      void loadEvent(const std::string& eventName);
+      void playEvent(const std::string& eventName, bool newInstance = false);
+      void stopEvent(const std::string& eventName, bool immediate);
+      FMOD::Studio::EventInstance* getEvent(const std::string& eventName);
       void setMasterVolume(float volume);
       
       void _errorCheck(FMOD_RESULT result);

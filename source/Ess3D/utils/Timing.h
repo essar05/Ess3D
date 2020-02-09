@@ -1,9 +1,11 @@
 #pragma once
+
+#include "definitions.h"
 #include <chrono>
 
 namespace Ess3D {
 
-  class FPSLimiter {
+  class API FPSLimiter {
     public:
       FPSLimiter();
       void init(float maxFPS, bool limitFPS);
@@ -12,6 +14,7 @@ namespace Ess3D {
       float end(); //returns current FPS
 
       void setMaxFPS(float fps);
+
       float getFPS() { return _fps; }
 
     private:
@@ -28,7 +31,7 @@ namespace Ess3D {
 
   };
 
-  class TimestepAccumulator {
+  class API TimestepAccumulator {
     public:
       TimestepAccumulator();
       ~TimestepAccumulator();
@@ -37,7 +40,9 @@ namespace Ess3D {
       int step();
 
       float getTimestep() { return _timestep; }
+
       float getAccumulator() { return _accumulator; }
+
       float getAccumulatorRatio() { return _accumulatorRatio; }
 
     private:

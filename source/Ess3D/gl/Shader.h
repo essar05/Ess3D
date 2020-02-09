@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <string>
 #include <GL/glew.h>
 #include <stdlib.h>
@@ -8,32 +9,33 @@
 
 namespace Ess3D {
 
-  enum ShaderType { VERTEX = GL_VERTEX_SHADER, FRAGMENT = GL_FRAGMENT_SHADER};
+  enum ShaderType {
+    VERTEX = GL_VERTEX_SHADER, FRAGMENT = GL_FRAGMENT_SHADER
+  };
 
-  class Shader
-  {
-  public:
-    Shader(bool debugMode);
-    ~Shader();
+  class API Shader {
+    public:
+      Shader(bool debugMode);
+      ~Shader();
 
-    void loadShader(ShaderType type, const std::string& shaderFilePath);
+      void loadShader(ShaderType type, const std::string& shaderFilePath);
 
-    void compileShaders();
-    void linkShaders();
+      void compileShaders();
+      void linkShaders();
 
-    void addAttribute(const std::string& attributeName);
-    GLuint getUniformLocation(const std::string& uniformName);
+      void addAttribute(const std::string& attributeName);
+      GLuint getUniformLocation(const std::string& uniformName);
 
-    void use();
-    void unuse();
+      void use();
+      void unuse();
 
-  private:
-    int _attributeCount;
-    bool _debugMode;
+    private:
+      int _attributeCount;
+      bool _debugMode;
 
-    GLuint _programId;
+      GLuint _programId;
 
-    std::map<GLuint, GLuint> _shaderIds;
+      std::map<GLuint, GLuint> _shaderIds;
 
   };
 

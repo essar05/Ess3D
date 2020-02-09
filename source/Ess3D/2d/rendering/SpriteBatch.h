@@ -1,4 +1,6 @@
 #pragma once
+
+#include "definitions.h"
 #include <GL/glew.h>
 #include <glm\glm.hpp>
 #include <vector>
@@ -6,26 +8,27 @@
 
 namespace Ess3D {
 
-  class RenderBatch {
+  class API RenderBatch {
     public:
       RenderBatch(GLuint offset, GLuint numVertices, GLuint textureId) {
         this->offset = offset;
         this->numVertices = numVertices;
         this->textureId = textureId;
       }
+
       GLuint offset;
       GLuint numVertices;
       GLuint textureId;
   };
 
-  class SpriteBatch {
+  class API SpriteBatch {
     public:
       SpriteBatch();
       ~SpriteBatch();
-    
+
       void init();
 
-      void begin(GlyphSortType sortType = GlyphSortType::TEXTURE); 
+      void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
       void end();
 
       //pass by reference for optimization and const to make sure they're not changed;

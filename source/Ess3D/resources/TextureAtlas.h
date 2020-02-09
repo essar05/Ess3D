@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <string>
 #include <glm\glm.hpp>
 #include <unordered_map>
@@ -8,7 +9,7 @@
 
 namespace Ess3D {
 
-  class TextureAtlas {
+  class API TextureAtlas {
     public:
       TextureAtlas();
       ~TextureAtlas();

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "definitions.h"
 #include <map>
 #include <string>
 #include "3d/model/Model.h"
@@ -8,7 +9,7 @@
 #include <assimp/postprocess.h>
 
 namespace Ess3D {
-  class ModelCache {
+  class API ModelCache {
     public:
       ~ModelCache();
 

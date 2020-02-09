@@ -21,12 +21,12 @@ namespace Ess3D {
       return;
     }
 
-    _previousPosition = _futurePosition; 
-    _futurePosition = position; 
+    _previousPosition = _futurePosition;
+    _futurePosition = position;
   }
 
-  void Camera2D::init(int screenWdith, int screenHeight) {
-    _screenWidth = screenWdith;
+  void Camera2D::init(int screenWidth, int screenHeight) {
+    _screenWidth = screenWidth;
     _screenHeight = screenHeight;
 
     //build ortho;
@@ -34,7 +34,7 @@ namespace Ess3D {
   }
 
   void Camera2D::update() {
-    if(_doUpdate) {
+    if (_doUpdate) {
       _cameraMatrix = _orthoMatrix;
 
       //the camera position is in world units so scale it screen. then it's going to get scaled back but it's fine.

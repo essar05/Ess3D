@@ -1,11 +1,12 @@
 #pragma once
 
+#include "definitions.h"
 #include <gl/Shader.h>
 #include <vector>
 #include "Mesh.h"
 
 namespace Ess3D {
-  class Model {
+  class API Model {
     public:
       void render(Shader* shader);
       void initialize();

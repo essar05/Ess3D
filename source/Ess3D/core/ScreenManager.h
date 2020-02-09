@@ -1,10 +1,12 @@
 #pragma once
+
+#include "definitions.h"
 #include <vector>
 #include "IGameScreen.h"
 
 namespace Ess3D {
 
-  class ScreenManager {
+  class API ScreenManager {
     public:
       ScreenManager();
       ~ScreenManager();

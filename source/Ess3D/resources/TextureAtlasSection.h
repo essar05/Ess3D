@@ -1,10 +1,11 @@
 #pragma once
 
+#include "definitions.h"
 #include <glm/glm.hpp>
 #include <string>
 
 namespace Ess3D {
-  class TextureAtlasSection {
+  class API TextureAtlasSection {
     public:
       const std::string& getName() const;
       int getX() const;

@@ -1,9 +1,11 @@
+#pragma once
+
+#include "definitions.h"
 #include <glm/glm.hpp>
 
-#pragma once
 namespace Ess3D {
 
-  class Camera3D {
+  class API Camera3D {
     private:
       glm::vec3 _position;
       glm::vec3 _front;

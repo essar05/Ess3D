@@ -1,11 +1,13 @@
 #pragma once
+
+#include "definitions.h"
 #include <CEGUI\CEGUI.h>
 #include <CEGUI/RendererModules/OpenGL/GL3Renderer.h>
 #include <glm\glm.hpp>
 #include <SDL_events.h>
 
 namespace Ess3D {
-  class GUI {
+  class API GUI {
     public:
       GUI();
       ~GUI();
@@ -14,7 +16,7 @@ namespace Ess3D {
       void destroy();
       void draw();
       void update();
-      
+
       void loadScheme(const std::string& schemeFile);
       void setFont(const std::string& fontFile);
       CEGUI::Window* createWidget(const std::string& type, const glm::vec4& destRectPercentage, const glm::vec4& destRectPixel, const std::string& name = "" );

@@ -1,22 +1,25 @@
 #pragma once
 
+#include "definitions.h"
+
 #define SCREEN_INDEX_NO_SCREEN -1
 
 namespace Ess3D {
 
   enum class ScreenState {
-    NONE,
-    RUNNING,
-    EXIT_APPLICATION,
-    CHANGE_NEXT,
+      NONE,
+      RUNNING,
+      EXIT_APPLICATION,
+      CHANGE_NEXT,
     CHANGE_PREV
   };
 
-  class IGameScreen {
+  class API IGameScreen {
     public:
       friend class ScreenManager;
 
       IGameScreen() {}
+
       ~IGameScreen() {}
 
       virtual int getNextScreenIndex() const = 0;
