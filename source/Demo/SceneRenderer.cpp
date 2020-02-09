@@ -39,7 +39,7 @@ SceneRenderer::~SceneRenderer() {
 void SceneRenderer::render() {
   Game* game = Game::GetInstance();
 
-  glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+  glClearColor(1.00f, 0.00f, 0.00f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   _shader->use();

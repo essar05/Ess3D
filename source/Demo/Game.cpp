@@ -19,12 +19,12 @@ Game::Game() {
   _vSync = true;
   _isConfigEnabled = false;
 
-  _width = 720.0f;
-  _height = 720.0f;
+  _width = 1800.0f;
+  _height = 1000.0f;
   _windowMode = Ess3D::WindowMode::NORMAL;
 
-  if(this->_isConfigEnabled) {
-	  loadConfig();
+  if (this->_isConfigEnabled) {
+    loadConfig();
   }
 }
 

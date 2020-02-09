@@ -14,13 +14,14 @@ namespace Ess3D {
       float _yaw;
       float _pitch;
 
-      float _speed = 0.2f;
-      float _sensitivity = 0.05f;
-      
+      float _speed = 0.1f;
+      float _sensitivity = 0.01f;
+
       void updateVectors();
 
     public:
-      Camera3D(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = -90.0f, float pitch = 0.0f);
+      Camera3D(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f),
+               float yaw = -90.0f, float pitch = 0.0f);
       ~Camera3D();
 
       void moveForward();
