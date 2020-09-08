@@ -13,8 +13,8 @@ Ess3D::FBORenderer::~FBORenderer() {
 void Ess3D::FBORenderer::initShader() {
   _shader = new Ess3D::Shader(false);
 
-  _shader->loadShader(Ess3D::ShaderType::VERTEX, "Shaders/FBOV.shader");
-  _shader->loadShader(Ess3D::ShaderType::FRAGMENT, "Shaders/FBOF.shader");
+  _shader->loadShader(Ess3D::ShaderType::VERTEX, "Shaders/FBO.vs");
+  _shader->loadShader(Ess3D::ShaderType::FRAGMENT, "Shaders/FBO.fs");
   _shader->compileShaders();
 
   _shader->addAttribute("vertexPosition");
