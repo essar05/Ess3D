@@ -1,3 +1,4 @@
+#include <iostream>
 #include "InputManager.h"
 
 namespace Ess3D {
@@ -32,20 +33,25 @@ namespace Ess3D {
     return this->_cursorDeltaPosition;
   }
 
-  void InputManager::setCursorPosition(glm::vec2 newPosition) {
+  void InputManager::setCursorPosition(const glm::vec2& newPosition) {
     this->_cursorPosition = newPosition;
   }
 
-  void InputManager::setCursorDeltaPosition(glm::vec2 deltaPosition) {
-    this->_cursorDeltaPosition = deltaPosition;
+  void InputManager::setCursorDeltaPosition(const glm::vec2& deltaPosition) {
+    this->_cursorDeltaPosition += deltaPosition;
   }
 
-  bool InputManager::hasMouseMoved() {
+  bool InputManager::hasMouseMoved() const {
     return this->_hasMouseMoved;
   }
 
   void InputManager::setHasMouseMoved(bool hasMouseMoved) {
     this->_hasMouseMoved = hasMouseMoved;
+  }
+
+  void InputManager::reset() {
+    this->setHasMouseMoved(false);
+    this->_cursorDeltaPosition = glm::vec2(0.0f);
   }
 
 }

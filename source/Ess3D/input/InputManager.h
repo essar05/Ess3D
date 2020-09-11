@@ -16,11 +16,13 @@ namespace Ess3D {
       bool isKeyDown(unsigned int keyId);
       glm::vec2 getCursorPosition();
       glm::vec2 getCursorDeltaPosition();
-      void setCursorPosition(glm::vec2 newPosition);
-      void setCursorDeltaPosition(glm::vec2 deltaPosition);
+      void setCursorPosition(const glm::vec2& newPosition);
+      void setCursorDeltaPosition(const glm::vec2& deltaPosition);
 
-      bool hasMouseMoved();
+      bool hasMouseMoved() const;
       void setHasMouseMoved(bool hasMouseMoved);
+
+      void reset();
 
     private:
       std::unordered_map<unsigned int, bool> _keyMap;
