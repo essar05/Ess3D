@@ -117,13 +117,13 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 ################################################################################
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:"
-    "_DEBUG"
+      "_DEBUG"
     ">"
     "$<$<CONFIG:DebugNCP>:"
-    "_DEBUG"
+      "_DEBUG"
     ">"
     "$<$<CONFIG:Release>:"
-    "NDEBUG"
+      "NDEBUG"
     ">"
     "WIN32;"
     "_LIB;"
@@ -137,18 +137,18 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 if (MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
       $<$<CONFIG:Debug>:
-      /Od;
-      ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
+        /Od;
+        ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
       >
       $<$<CONFIG:DebugNCP>:
-      /Od;
-      ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
+        /Od;
+        ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
       >
       $<$<CONFIG:Release>:
-      /O2;
-      /Oi;
-      /MD;
-      /Gy
+        /O2;
+        /Oi;
+        /MD;
+        /Gy
       >
       /wd4251;
       /wd4275;
@@ -158,12 +158,26 @@ if (MSVC)
       ${DEFAULT_CXX_EXCEPTION_HANDLING};
       /Y-
       )
+
   target_link_options(${PROJECT_NAME} PRIVATE
-      $<$<CONFIG:Release>:
-      /OPT:REF;
-      /OPT:ICF
+      $<$<CONFIG:Debug>:
+        /DEBUG;
+        /SUBSYSTEM:CONSOLE;
+        /INCREMENTAL;
+        /verbose:lib
       >
-      /SUBSYSTEM:WINDOWS
+      $<$<CONFIG:DebugNCP>:
+        /DEBUG;
+        /SUBSYSTEM:CONSOLE;
+        /INCREMENTAL;
+        /verbose:lib
+      >
+      $<$<CONFIG:Release>:
+        /SUBSYSTEM:WINDOWS;
+        /OPT:REF;
+        /OPT:ICF;
+        /INCREMENTAL:NO
+      >
       )
 endif ()
 
@@ -172,22 +186,22 @@ endif ()
 ################################################################################
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "$<$<CONFIG:Debug>:"
-    "fmodL_vc;"
-    "fmodstudioL_vc;"
-    "CEGUIBase-0_d;"
-    "CEGUIOpenGLRenderer-0_d"
+      "fmodL_vc;"
+      "fmodstudioL_vc;"
+      "CEGUIBase-0_d;"
+      "CEGUIOpenGLRenderer-0_d"
     ">"
     "$<$<CONFIG:DebugNCP>:"
-    "fmodL_vc;"
-    "fmodstudioL_vc;"
-    "CEGUIBase-0_d;"
-    "CEGUIOpenGLRenderer-0_d"
+      "fmodL_vc;"
+      "fmodstudioL_vc;"
+      "CEGUIBase-0_d;"
+      "CEGUIOpenGLRenderer-0_d"
     ">"
     "$<$<CONFIG:Release>:"
-    "fmod_vc;"
-    "fmodstudio_vc;"
-    "CEGUIBase-0;"
-    "CEGUIOpenGLRenderer-0"
+      "fmod_vc;"
+      "fmodstudio_vc;"
+      "CEGUIBase-0;"
+      "CEGUIOpenGLRenderer-0"
     ">"
     "freeglut;"
     "glew32;"
@@ -203,16 +217,16 @@ target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}
 
 target_link_directories(${PROJECT_NAME} PUBLIC
     "$<$<CONFIG:Debug>:"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/;"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>"
     ">"
     "$<$<CONFIG:DebugNCP>:"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/Debug/"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/;"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/Debug/"
     ">"
     "$<$<CONFIG:Release>:"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/Release/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>/"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/Release/;"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>/"
     ">"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/lib/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/lib/;"

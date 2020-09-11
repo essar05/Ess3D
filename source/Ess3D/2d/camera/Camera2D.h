@@ -10,7 +10,7 @@ namespace Ess3D {
       Camera2D();
       ~Camera2D();
 
-      void init(int screenWidth, int screenHeight);
+      void init(int screenWidth, int screenHeight, float cameraWidth);
 
       void update();
 
@@ -19,29 +19,25 @@ namespace Ess3D {
         _doUpdate = true;
       }
 
-      void setFuturePosition(const glm::vec2& position);
-
-      void setScale(float scale) {
-        _scale = scale;
-        _doUpdate = true;
-      }
+      void setInterpolatedPosition(const glm::vec2& interpolatedPosition);
 
       void setZoom(float zoom) {
         _zoom = zoom;
         _doUpdate = true;
       }
 
+      void resetSmoothState();
       void smoothState(float timestepAccumulatorRatio, bool isGamePaused);
 
       glm::vec2 getPosition();
 
       glm::vec2 getPreviousPosition() { return _previousPosition; }
 
-      glm::vec2 getFuturePosition() { return _futurePosition; }
+      glm::vec2 getInterpolatedPosition() { return _interpolatedPosition; }
 
-      float getScale() { return _scale; }
+      float getScale() const { return _scale; }
 
-      float getZoom() { return _zoom; }
+      float getZoom() const { return _zoom; }
 
       glm::vec2 getWorldViewportSize();
       glm::vec2 getViewportSize();
@@ -54,20 +50,27 @@ namespace Ess3D {
       glm::mat4 getCameraMatrix() { return _cameraMatrix; }
 
     private:
+      // the size of the screen in pixels
       int _screenWidth;
       int _screenHeight;
 
-      bool _doUpdate;
-      bool _isFuturePositionSet = false;
+      // the size of the camera in world units
+      float _width;
+      float _height;
 
+      bool _doUpdate;
+
+      // defines the ratio of a world unit to screen pixels
       float _scale;
+      // zooming factor of the camera
       float _zoom;
+
+      glm::vec2 _previousPosition;
       glm::vec2 _position;
+      // the interpolated position is the one that actually gets rendered. it is a smoothed state between the previous and the desired position (based on how much time actually passed)
+      glm::vec2 _interpolatedPosition;
+
       glm::mat4 _cameraMatrix;
       glm::mat4 _orthoMatrix;
-
-      glm::vec2 _futurePosition;
-      glm::vec2 _previousPosition;
-
   };
 }
