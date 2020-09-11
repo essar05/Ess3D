@@ -43,9 +43,7 @@ namespace Ess3D {
       _cameraMatrix = glm::translate(_cameraMatrix, translation);
 
       // apply scaling and zooming factors
-      glm::vec3 scaling(_scale, _scale, 0.0f);
       glm::vec3 zoom(_zoom, _zoom, 0.0f);
-      _cameraMatrix = glm::scale(_cameraMatrix, scaling);
       _cameraMatrix = glm::scale(_cameraMatrix, zoom);
 
       _doUpdate = false;
