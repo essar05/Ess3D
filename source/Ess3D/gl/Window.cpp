@@ -32,11 +32,13 @@ namespace Ess3D {
       throw Ess3D::ERuntimeException("GL Context creation failed");
     }
 
+    glewExperimental=true;
     GLenum error = glewInit();
     if (error != GLEW_OK) {
       throw Ess3D::ERuntimeException("GLEW initialization failed");
     }
 
+    std::printf("GLEW Version: %s\n", glewGetString(GLEW_VERSION));
     std::printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

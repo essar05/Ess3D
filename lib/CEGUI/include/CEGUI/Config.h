@@ -191,14 +191,6 @@ setting CMake options and regenerating, rather than editing directly.
 //////////////////////////////////////////////////////////////////////////
 /* #undef CEGUI_HAS_MINIZIP_RESOURCE_PROVIDER */
 
-// Define the default place where cegui will look for loadable modules
-// this can be changed at runtime via the CEGUI_MODULE_DIR environment var.
-#if defined(_WIN32) || defined(__WIN32__)
-#   define CEGUI_MODULE_DIR "C:/Users/a647309/Downloads/CEGUI/cegui-0.8.7/cegui-0.8.7/build/bin/"
-#elif !defined(__ANDROID__)
-#   define CEGUI_MODULE_DIR "C:/Program Files (x86)/cegui/lib/cegui-0.8/"
-#endif
-
 // This is defined when iconv is expecting a const char** and not a char**
 // as type for its inbuf parameter. This is only used when building cegui
 // itself, and likely will not be useful externally.
