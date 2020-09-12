@@ -2,7 +2,7 @@
 
 #include "definitions.h"
 #include <glm/glm.hpp>
-#include <Box2D.h>
+#include <box2d/box2d.h>
 
 namespace Ess3D {
   class API Utils2D {

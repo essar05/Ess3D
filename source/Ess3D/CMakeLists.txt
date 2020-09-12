@@ -8,6 +8,7 @@ set(Headers
     2d/animations/Animation.h
     2d/animations/AnimationManager.h
     2d/camera/Camera2D.h
+    2d/model/Object2D.h
     2d/model/Vertex2D.h
     2d/rendering/SpriteBatch.h
     2d/utils/Utils2D.h
@@ -52,6 +53,7 @@ set(Sources
     2d/camera/Camera2D.cpp
     2d/rendering/SpriteBatch.cpp
     2d/utils/Utils2D.cpp
+    2d/model/Object2D.cpp
 
     3d/camera/Camera3D.cpp
     3d/model/Mesh.cpp
@@ -88,7 +90,7 @@ source_group("Sources" FILES ${Sources})
 set(ALL_FILES
     ${Headers}
     ${Sources}
-    3d/model/Mesh.cpp 3d/model/Mesh.h)
+    )
 
 ################################################################################
 # Target
@@ -210,24 +212,14 @@ set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "SDL2_image;"
     "opengl32;"
     "freetype255d;"
-    "Box2D;"
+    "box2d;"
     "assimp-4.1.0-vc140-mtd"
     )
 target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
 target_link_directories(${PROJECT_NAME} PUBLIC
-    "$<$<CONFIG:Debug>:"
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/;"
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>"
-    ">"
-    "$<$<CONFIG:DebugNCP>:"
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/;"
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/Debug/"
-    ">"
-    "$<$<CONFIG:Release>:"
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/Release/;"
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>/"
-    ">"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/$<CONFIG>/;"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/lib/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/lib/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/lib/;"
