@@ -14,4 +14,4 @@ Currently in very early stages, trying to refactor the old code and come up with
 
 #### How to build
 
-All the dependencies have been included on VCS. You can use CLion directly to build and run (with VS compiler) or generate a VS solution with CMake. 
+All the dependencies have been included on VCS. You can use CLion directly to build and run (with VS compiler) or use Visual Studio with the CMake integration. See [https://github.com/essar05/dapolis-pong](https://github.com/essar05/dapolis-pong) for an example structure using Ess3D as submodule/lib.
