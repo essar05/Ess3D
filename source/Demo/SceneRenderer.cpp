@@ -10,12 +10,12 @@ SceneRenderer::SceneRenderer(float _width, float _height) {
   this->_width = _width;
   this->_height = _height;
 
-  _nanosuit = Ess3D::ModelCache::getInstance()->getModel("Models/nanosuit/nanosuit.obj");
+  _nanosuit = Ess3D::ModelCache::getInstance()->getModel("models/nanosuit/nanosuit.obj");
 
   _shader = new Ess3D::Shader(true);
 
-  _shader->loadShader(Ess3D::ShaderType::VERTEX, "Shaders/Object3D.vs");
-  _shader->loadShader(Ess3D::ShaderType::FRAGMENT, "Shaders/Object3D.fs");
+  _shader->loadShader(Ess3D::ShaderType::VERTEX, "shaders/Object3D.vs");
+  _shader->loadShader(Ess3D::ShaderType::FRAGMENT, "shaders/Object3D.fs");
   _shader->compileShaders();
 
   _shader->addAttribute("vertexPosition");

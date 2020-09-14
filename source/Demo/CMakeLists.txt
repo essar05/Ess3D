@@ -43,7 +43,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 ################################################################################
 set_target_properties(${PROJECT_NAME} PROPERTIES
     OUTPUT_DIRECTORY_DEBUG    "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
-    OUTPUT_DIRECTORY_DEBUGNCP "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
     OUTPUT_DIRECTORY_RELEASE  "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -54,11 +53,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 ################################################################################
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:"
-        "_DEBUG;"
-        "_CONSOLE;"
-        "_MBCS"
-    ">"
-    "$<$<CONFIG:DebugNCP>:"
         "_DEBUG;"
         "_CONSOLE;"
         "_MBCS"
@@ -82,10 +76,6 @@ if(MSVC)
             /Od;
             ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
         >
-        $<$<CONFIG:DebugNCP>:
-            /Od;
-            ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
-        >
         $<$<CONFIG:Release>:
             /O2;
             /Oi;
@@ -100,12 +90,6 @@ if(MSVC)
     )
     target_link_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:
-            /DEBUG;
-            /SUBSYSTEM:CONSOLE;
-            /INCREMENTAL;
-            /verbose:lib
-        >
-        $<$<CONFIG:DebugNCP>:
             /DEBUG;
             /SUBSYSTEM:CONSOLE;
             /INCREMENTAL;
@@ -126,7 +110,7 @@ endif ()
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/Ess3D/Ess3D.dll ${OUTPUT_DIRECTORY}
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources/ ${OUTPUT_DIRECTORY}
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources/ ${OUTPUT_DIRECTORY}
 )
 
 ################################################################################
@@ -140,9 +124,6 @@ set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "$<$<CONFIG:Debug>:"
     "Ess3D"
     ">"
-    "$<$<CONFIG:DebugNCP>:"
-    "Ess3D"
-    ">"
     "$<$<CONFIG:Release>:"
     "Ess3D"
     ">"
@@ -152,9 +133,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}
 target_link_directories(${PROJECT_NAME} PUBLIC
     "$<$<CONFIG:Debug>:"
     "${CMAKE_CURRENT_SOURCE_DIR}/../build/Debug/Ess3D/;"
-    ">"
-    "$<$<CONFIG:DebugNCP>:"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../build/Debug/Ess3D/;"
     ">"
     "$<$<CONFIG:Release>:"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../build/Release/Ess3D/;"

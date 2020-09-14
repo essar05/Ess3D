@@ -1,20 +1,20 @@
 #pragma once
 
 #include "definitions.h"
+#include "IDrawable2D.h"
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 #include <GL/glew.h>
 #include <gl/ColorRGBA8.h>
 
 namespace Ess3D {
-  class API Object2D {
+  class API Object2D: public IDrawable2D {
     public:
 
       Object2D();
       Object2D(const glm::vec2& position, const glm::vec2& size, GLuint textureId, const glm::vec4& uv);
       Object2D(const glm::vec2& position, const glm::vec2& size, GLuint textureId, const glm::vec4& uv, Ess3D::ColorRGBA8 color);
 
-      virtual void draw() = 0;
       virtual bool update(float deltaTime) = 0;
 
       virtual void interpolate(float timestepAccumulatorRatio) = 0;

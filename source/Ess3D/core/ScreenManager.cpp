@@ -2,14 +2,11 @@
 
 namespace Ess3D {
 
-  ScreenManager::ScreenManager() {
-
-  }
+  ScreenManager::ScreenManager() = default;
 
   ScreenManager::~ScreenManager() {
     for (size_t i = 0; i < _screens.size(); i++) {
       _screens[i]->destroy();
-     // delete _screens[i];
     }
   }
 
