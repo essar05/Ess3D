@@ -108,7 +108,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 ################################################################################
 set_target_properties(${PROJECT_NAME} PROPERTIES
     OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
-    OUTPUT_DIRECTORY_DEBUGNCP "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
     OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
     )
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -119,9 +118,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 ################################################################################
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     "$<$<CONFIG:Debug>:"
-      "_DEBUG"
-    ">"
-    "$<$<CONFIG:DebugNCP>:"
       "_DEBUG"
     ">"
     "$<$<CONFIG:Release>:"
@@ -139,10 +135,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 if (MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
       $<$<CONFIG:Debug>:
-        /Od;
-        ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
-      >
-      $<$<CONFIG:DebugNCP>:
         /Od;
         ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
       >
@@ -168,12 +160,6 @@ if (MSVC)
         /INCREMENTAL;
         /verbose:lib
       >
-      $<$<CONFIG:DebugNCP>:
-        /DEBUG;
-        /SUBSYSTEM:CONSOLE;
-        /INCREMENTAL;
-        /verbose:lib
-      >
       $<$<CONFIG:Release>:
         /SUBSYSTEM:WINDOWS;
         /OPT:REF;
@@ -188,12 +174,6 @@ endif ()
 ################################################################################
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "$<$<CONFIG:Debug>:"
-      "fmodL_vc;"
-      "fmodstudioL_vc;"
-      "CEGUIBase-0_d;"
-      "CEGUIOpenGLRenderer-0_d"
-    ">"
-    "$<$<CONFIG:DebugNCP>:"
       "fmodL_vc;"
       "fmodstudioL_vc;"
       "CEGUIBase-0_d;"
