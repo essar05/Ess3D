@@ -90,6 +90,11 @@ source_group("Sources" FILES ${Sources})
 set(ALL_FILES
     ${Headers}
     ${Sources}
+    2d/model/IDrawable2D.cpp 2d/model/IDrawable2D.h
+    2d/rendering/Renderer2D.cpp 2d/rendering/Renderer2D.h
+    2d/Scene2D.cpp 2d/Scene2D.h
+    core/State.cpp core/State.h
+    core/Config.cpp core/State.h
     )
 
 ################################################################################

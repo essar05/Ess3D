@@ -1,55 +1,68 @@
 #include "IGame.h"
 #include <iostream>
+#include <memory>
 
 namespace Ess3D {
 
   IGame::IGame() {
-    _screenManager = new ScreenManager();
-  }
+    _config = Config::get();
+    _state = State::get();
+  };
 
-  IGame::~IGame() {
-    delete _window;
-  }
+  IGame::~IGame() = default;
 
   void IGame::boot() {
     std::cout << "Booting from " << SDL_GetBasePath() << std::endl;
-    
+
     init();
-    _state = GameState::RUNNING;
+
+    _state->setExecutionStatus(ExecutionStatus::RUNNING);
   }
 
   void IGame::destroy() {
-    if(_state != GameState::DESTROYED) {
-      _state = GameState::DESTROYED;
+    if(_state->getExecutionStatus() != ExecutionStatus::DESTROYED) {
+      _state->setExecutionStatus(ExecutionStatus::DESTROYED);
 
       SDL_StopTextInput();
-      if(_screenManager) {
-        delete _screenManager;
-      }
       onExit();
     }
   }
 
   void IGame::run() {
-    _fpsLimiter.init(_maxFPS, _limitFPS);
-    _timestepAccumulator.init();
-    const float timestep = _timestepAccumulator.getTimestep();
+    _state->getFPSLimiter()->init(_config->getMaxFPS(), _config->getLimitFPS());
+    _state->getTimestepAccumulator()->init();
+    const float timestep = _state->getTimestepAccumulator()->getTimestep();
 
-    _state = GameState::RUNNING;
-    while(_state == GameState::RUNNING) {
-      _fpsLimiter.begin();
-      const int simulationSteps = _timestepAccumulator.step();
+    while(_state->getExecutionStatus() == ExecutionStatus::RUNNING) {
+      _state->getFPSLimiter()->begin();
+      const int simulationSteps = _state->getTimestepAccumulator()->step();
 
       update(timestep, simulationSteps);
       render();
 
-      _fps = _fpsLimiter.end();
+      _state->setFPS(_state->getFPSLimiter()->end());
 
-      _window->SwapBuffer();
+      _state->getWindow()->SwapBuffer();
     }
   }
 
   bool IGame::init() {
+    onInit();
+
+    initSystems();
+
+    _screenManager = std::make_shared<ScreenManager>();
+
+    addScreens();
+
+    _currentScreen = _screenManager->getCurrent();
+    _currentScreen->onEntry();
+    _currentScreen->setRunning();
+
+    return true;
+  }
+
+  bool IGame::initSystems() {
     SDL_Init(SDL_INIT_EVERYTHING);
 
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
@@ -61,23 +74,11 @@ namespace Ess3D {
     SDL_ShowCursor(false);
     SDL_StartTextInput();
 
-    initSystems();
+    _state->getFPSLimiter()->init(_config->getMaxFPS(), _config->getLimitFPS());
 
-    onInit();
-    addScreens();
-
-    _currentScreen = _screenManager->getCurrent();
-    _currentScreen->onEntry();
-    _currentScreen->setRunning();
-
-    return true;
-  }
-
-  bool IGame::initSystems() {
-    _fpsLimiter.init(_maxFPS, _limitFPS);
-
-    _window = new Window(this->_title, (int) this->_width, (int) this->_height, this->_windowMode);
-    _window->SetVSync(_vSync);
+    std::shared_ptr<Window> window = std::make_shared<Window>(_config->getTitle(), (int) _config->getWidth(), (int) _config->getHeight(), _config->getWindowMode());
+    window->SetVSync(_config->getVSync());
+    _state->setWindow(window);
 
     return true;
   }
@@ -85,18 +86,18 @@ namespace Ess3D {
   void IGame::onSDLEvent(SDL_Event& event) {
     switch(event.type) {
       case SDL_QUIT:
-        _state = GameState::EXIT;
+        _state->setExecutionStatus(ExecutionStatus::EXIT);
         break;
       case SDL_KEYDOWN:
-        _inputManager.pressKey(event.key.keysym.sym);
+        _state->getInputManager()->pressKey(event.key.keysym.sym);
         break;      
       case SDL_KEYUP:
-        _inputManager.releaseKey(event.key.keysym.sym);
+        _state->getInputManager()->releaseKey(event.key.keysym.sym);
         break;
       case SDL_MOUSEMOTION:
-        _inputManager.setCursorPosition(glm::vec2(event.motion.x, event.motion.y));
-        _inputManager.setCursorDeltaPosition(glm::vec2(event.motion.xrel, event.motion.yrel));
-        _inputManager.setHasMouseMoved(true);
+        _state->getInputManager()->setCursorPosition(glm::vec2(event.motion.x, event.motion.y));
+        _state->getInputManager()->setCursorDeltaPosition(glm::vec2(event.motion.xrel, event.motion.yrel));
+        _state->getInputManager()->setHasMouseMoved(true);
         break;
     }
   }
@@ -140,30 +141,6 @@ namespace Ess3D {
     if(_currentScreen && _currentScreen->getState() == ScreenState::RUNNING) {
       _currentScreen->draw();
     }
-  }
-
-  float IGame::getWidth() {
-    return _width;
-  }
-
-  float IGame::getHeight() {
-    return _height;
-  }
-
-  const float IGame::getFPS() const {
-    return _fps;
-  }
-
-  Window* IGame::getWindow() {
-    return _window;
-  }
-
-  TimestepAccumulator* IGame::getTimestepAccumulator() {
-    return &_timestepAccumulator;
-  }
-
-  InputManager* IGame::getInputManager() {
-    return &_inputManager;
   }
 
 };

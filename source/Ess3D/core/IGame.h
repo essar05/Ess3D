@@ -5,16 +5,13 @@
 #include "gl/Window.h"
 #include "utils/Timing.h"
 #include "input/InputManager.h"
+#include "Config.h"
+#include "State.h"
 
 namespace Ess3D {
 
-  enum class GameState {
-      RUNNING, EXIT, DESTROYED
-  };
-
   class API IGame {
     public:
-      IGame();
       virtual ~IGame();
 
       virtual void boot();
@@ -26,15 +23,9 @@ namespace Ess3D {
       virtual void onExit() = 0;
       void onSDLEvent(SDL_Event& event);
 
-      float getWidth();
-      float getHeight();
-      const float getFPS() const;
-
-      Window* getWindow();
-      TimestepAccumulator* getTimestepAccumulator();
-      InputManager* getInputManager();
-
     protected:
+      IGame();
+
       void update(float deltaTime, int simulationSteps);
       void render();
 
@@ -42,27 +33,12 @@ namespace Ess3D {
 
       bool init();
       bool initSystems();
-      
-      float _fps = 0.0f;
-      float _maxFPS = 60.0f;
-      bool _debugMode = false;
-      bool _limitFPS = false;
 
-      std::string _title;
-      WindowMode _windowMode;
-      float _width;
-      float _height;
-      bool _vSync;
-
-      ScreenManager* _screenManager;
+      std::shared_ptr<ScreenManager> _screenManager;
       IGameScreen* _currentScreen = nullptr;
-      GameState _state;
-      FPSLimiter _fpsLimiter;
-      TimestepAccumulator _timestepAccumulator;
-      InputManager _inputManager;
 
-      Window* _window;
-
+      State* _state{};
+      Config* _config{};
   };
 
 }
