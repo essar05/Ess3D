@@ -1,5 +1,4 @@
 #include "Camera2D.h"
-#include <iostream>
 
 namespace Ess3D {
   Camera2D::Camera2D(): 
@@ -11,7 +10,7 @@ namespace Ess3D {
     _screenHeight(480),
     _orthoMatrix(1) {}
 
-  Camera2D::~Camera2D() {}
+  Camera2D::~Camera2D() = default;
 
   void Camera2D::setInterpolatedPosition(const glm::vec2& interpolatedPosition) {
     _interpolatedPosition = interpolatedPosition;
@@ -50,11 +49,11 @@ namespace Ess3D {
     }
   }
 
-  void Camera2D::resetSmoothState() {
+  void Camera2D::resetInterpolation() {
     _previousPosition = _position;
   }
 
-  void Camera2D::smoothState(float timestepAccumulatorRatio, bool isGamePaused) {
+  void Camera2D::interpolate(float timestepAccumulatorRatio, bool isGamePaused) {
     if(isGamePaused) {
       setInterpolatedPosition(_position);
     } else {
@@ -65,31 +64,31 @@ namespace Ess3D {
   }
 
   //get the camera size within the world
-  glm::vec2 Camera2D::getWorldViewportSize() {
-    return glm::vec2((_screenWidth / _zoom) / _scale, (_screenHeight / _zoom) / _scale);
+  glm::vec2 Camera2D::getWorldViewportSize() const {
+    return glm::vec2(((float) _screenWidth / _zoom) / _scale, ((float) _screenHeight / _zoom) / _scale);
   }
 
-  glm::vec2 Camera2D::getViewportSize() {
-    return glm::vec2(_screenWidth / _zoom, _screenHeight / _zoom);
+  glm::vec2 Camera2D::getViewportSize() const {
+    return glm::vec2((float) _screenWidth / _zoom, (float) _screenHeight / _zoom);
   }
 
   glm::vec2 Camera2D::getPosition() {
     return _position;
   }
 
-  glm::vec2 Camera2D::getWorldCoordinates(glm::vec2 screenCoordinates) {
+  glm::vec2 Camera2D::getWorldCoordinates(const glm::vec2& screenCoordinates) const {
 	  return screenCoordinates / _scale;
   }
 
-  glm::vec2 Camera2D::getScreenCoordinates(glm::vec2 worldCoordinates) {
+  glm::vec2 Camera2D::getScreenCoordinates(const glm::vec2& worldCoordinates) const {
 	  return worldCoordinates * _scale;
   }
 
-  float Camera2D::getWorldScalar(float screenScalar) {
+  float Camera2D::getWorldScalar(float screenScalar) const {
 	  return screenScalar / _scale;
   }
 
-  float Camera2D::getScreenScalar(float worldScalar) {
+  float Camera2D::getScreenScalar(float worldScalar) const {
 	  return worldScalar * _scale;
   }
 

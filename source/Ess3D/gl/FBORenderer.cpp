@@ -1,5 +1,5 @@
 #include "FBORenderer.h"
-#include <2d/model/Vertex2D.h>
+#include <2d/models/Vertex2D.h>
 #include <vector>
 #include <glm\glm.hpp>
 

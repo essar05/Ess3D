@@ -15,6 +15,8 @@ namespace Ess3D {
     CHANGE_PREV
   };
 
+  class InputManager;
+
   class API IGameScreen {
     public:
       friend class ScreenManager;
@@ -35,8 +37,10 @@ namespace Ess3D {
       virtual void onExit() = 0;
 
       // called in the main game loop
-      virtual void update(float deltaTime, int simulationSteps) = 0;
-      virtual void draw() = 0;
+      virtual void step(float deltaTime) = 0; // step one simulation step forward (deltaTime)
+      virtual void update() = 0; // do non-physics updates
+      virtual void input(InputManager* inputManager) = 0; // handle input
+      virtual void render() = 0; // render
 
       int getIndex() const {
         return _screenIndex;

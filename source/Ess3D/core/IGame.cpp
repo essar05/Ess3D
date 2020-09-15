@@ -103,10 +103,18 @@ namespace Ess3D {
   }
 
   void IGame::update(float deltaTime, int simulationSteps) {
+    Ess3D::InputManager* inputManager = _state->getInputManager();
+
     if(_currentScreen) {
       switch(_currentScreen->getState()) {
         case ScreenState::RUNNING:
-          _currentScreen->update(deltaTime, simulationSteps);
+          for(int i = 0; i < simulationSteps; i++) {
+            this->processInput(inputManager);
+
+            _currentScreen->input(inputManager);
+            _currentScreen->step(deltaTime);
+          }
+          _currentScreen->update();
           break;
         case ScreenState::CHANGE_NEXT:
           _currentScreen->onExit();
@@ -137,9 +145,18 @@ namespace Ess3D {
     onUpdate();
   }
 
+  void IGame::processInput(InputManager* inputManager) {
+    SDL_Event event;
+
+    inputManager->reset();
+    while(SDL_PollEvent(&event) != 0) {
+      this->onSDLEvent(event);
+    }
+  }
+
   void IGame::render() {
     if(_currentScreen && _currentScreen->getState() == ScreenState::RUNNING) {
-      _currentScreen->draw();
+      _currentScreen->render();
     }
   }
 

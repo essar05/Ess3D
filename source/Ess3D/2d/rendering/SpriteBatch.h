@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <glm\glm.hpp>
 #include <vector>
-#include "2d/model/Vertex2D.h"
+#include "2d/models/Vertex2D.h"
 
 namespace Ess3D {
 

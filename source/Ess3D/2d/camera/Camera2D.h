@@ -26,8 +26,8 @@ namespace Ess3D {
         _doUpdate = true;
       }
 
-      void resetSmoothState();
-      void smoothState(float timestepAccumulatorRatio, bool isGamePaused);
+      void resetInterpolation();
+      void interpolate(float timestepAccumulatorRatio, bool isGamePaused);
 
       glm::vec2 getPosition();
 
@@ -39,13 +39,13 @@ namespace Ess3D {
 
       float getZoom() const { return _zoom; }
 
-      glm::vec2 getWorldViewportSize();
-      glm::vec2 getViewportSize();
+      glm::vec2 getWorldViewportSize() const;
+      glm::vec2 getViewportSize() const;
 
-      glm::vec2 getWorldCoordinates(glm::vec2 screenCoordinates);
-      glm::vec2 getScreenCoordinates(glm::vec2 worldCoordinates);
-      float getWorldScalar(float screenScalar);
-      float getScreenScalar(float worldScalar);
+      glm::vec2 getWorldCoordinates(const glm::vec2& screenCoordinates) const;
+      glm::vec2 getScreenCoordinates(const glm::vec2& worldCoordinates) const;
+      float getWorldScalar(float screenScalar) const;
+      float getScreenScalar(float worldScalar) const;
 
       glm::mat4 getCameraMatrix() { return _cameraMatrix; }
 
@@ -55,15 +55,15 @@ namespace Ess3D {
       int _screenHeight;
 
       // the size of the camera in world units
-      float _width;
-      float _height;
+      float _width{};
+      float _height{};
 
       bool _doUpdate;
 
       // defines the ratio of a world unit to screen pixels
       float _scale;
       // zooming factor of the camera
-      float _zoom;
+      float _zoom{};
 
       glm::vec2 _previousPosition;
       glm::vec2 _position;
