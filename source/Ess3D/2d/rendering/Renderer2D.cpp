@@ -1,6 +1,7 @@
-#include <core/Config.h>
 #include "Renderer2D.h"
+#include <core/Config.h>
 #include <core/State.h>
+#include <2d/Scene2D.h>
 
 namespace Ess3D {
 
@@ -67,7 +68,7 @@ namespace Ess3D {
     _spriteBatch->begin(Ess3D::GlyphSortType::BACK_TO_FRONT);
 
     // render the scene
-    scene->render(this);
+    scene->onRender(this);
 
     _spriteBatch->end();
     _spriteBatch->render();
@@ -86,7 +87,7 @@ namespace Ess3D {
     return this->_spriteBatch;
   }
 
-  void Renderer2D::draw(
+  void Renderer2D::drawQuad(
     const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint textureId,
     const ColorRGBA8 &color, float zDepth, float angle
   ) {

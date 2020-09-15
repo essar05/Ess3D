@@ -1,21 +1,22 @@
 #pragma once
 
+#include <memory>
+#include <2d/traits/IRenderable2D.h>
+#include <core/traits/IHandlesInput.h>
+#include <core/traits/IUpdatable.h>
 #include <2d/camera/Camera2D.h>
-#include "rendering/Renderer2D.h"
 
 namespace Ess3D {
 
-  class Renderer2D;
+  class API Scene2D : public IUpdatable, public IRenderable2D, public IHandlesInput {
+    friend class Renderer2D;
 
-  class API Scene2D {
     public:
       Scene2D();
 
-      virtual void render(Renderer2D *renderer) = 0;
-      virtual void update(float deltaTime) = 0;
-
-      virtual void interpolate(float timestepAccumulatorRatio) = 0;
-      virtual void resetInterpolation() = 0;
+      bool update(float deltaTime) final;
+      void input(InputManager* inputManager) final;
+      void render(Renderer2D *renderer) final;
 
       virtual Camera2D* getCamera();
       virtual void setCamera(const std::shared_ptr<Camera2D> &camera);

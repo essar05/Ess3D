@@ -8,8 +8,8 @@ set(Headers
     2d/animations/Animation.h
     2d/animations/AnimationManager.h
     2d/camera/Camera2D.h
-    2d/model/Object2D.h
-    2d/model/Vertex2D.h
+        2d/models/Object2D.h
+        2d/models/Vertex2D.h
     2d/rendering/SpriteBatch.h
     2d/utils/Utils2D.h
 
@@ -53,7 +53,7 @@ set(Sources
     2d/camera/Camera2D.cpp
     2d/rendering/SpriteBatch.cpp
     2d/utils/Utils2D.cpp
-    2d/model/Object2D.cpp
+        2d/models/Object2D.cpp
 
     3d/camera/Camera3D.cpp
     3d/model/Mesh.cpp
@@ -90,12 +90,13 @@ source_group("Sources" FILES ${Sources})
 set(ALL_FILES
     ${Headers}
     ${Sources}
-    2d/model/IDrawable2D.cpp 2d/model/IDrawable2D.h
+        2d/traits/IRenderable2D.cpp 2d/traits/IRenderable2D.h
     2d/rendering/Renderer2D.cpp 2d/rendering/Renderer2D.h
     2d/Scene2D.cpp 2d/Scene2D.h
     core/State.cpp core/State.h
     core/Config.cpp core/State.h
-    )
+        core/traits/IUpdatable.cpp core/traits/IUpdatable.h
+        core/traits/IInterpolatable.cpp core/traits/IInterpolatable.h core/traits/IHandlesInput.cpp core/traits/IHandlesInput.h)
 
 ################################################################################
 # Target

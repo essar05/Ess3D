@@ -1,5 +1,4 @@
-#ifndef DAPOLIS_PONG_STATE_H
-#define DAPOLIS_PONG_STATE_H
+#pragma once
 
 #include <input/InputManager.h>
 #include <gl/Window.h>
@@ -46,5 +45,3 @@ namespace Ess3D {
   };
 
 }
-
-#endif

@@ -1,8 +1,6 @@
-#ifndef DAPOLIS_PONG_RENDERER2D_H
-#define DAPOLIS_PONG_RENDERER2D_H
+#pragma once
 
 #include <gl/Shader.h>
-#include <2d/Scene2D.h>
 #include <gl/FBORenderer.h>
 #include "SpriteBatch.h"
 
@@ -17,7 +15,7 @@ namespace Ess3D {
 
       virtual void render(Scene2D* scene);
 
-      virtual void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint textureId, const ColorRGBA8& color, float zDepth, float angle);
+      virtual void drawQuad(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint textureId, const ColorRGBA8& color, float zDepth, float angle);
 
       SpriteBatch* getSpriteBatch();
     protected:
@@ -28,5 +26,3 @@ namespace Ess3D {
   };
 
 }
-
-#endif

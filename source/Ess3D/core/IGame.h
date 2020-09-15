@@ -39,6 +39,9 @@ namespace Ess3D {
 
       State* _state{};
       Config* _config{};
+
+    private:
+      void processInput(InputManager* inputManager);
   };
 
 }
