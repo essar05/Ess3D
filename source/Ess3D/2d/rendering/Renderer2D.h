@@ -18,6 +18,8 @@ namespace Ess3D {
       virtual void drawQuad(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint textureId, const ColorRGBA8& color, float zDepth, float angle);
 
       SpriteBatch* getSpriteBatch();
+      Shader* getBaseShader();
+
     protected:
       Shader* _baseShader;
       SpriteBatch* _spriteBatch;

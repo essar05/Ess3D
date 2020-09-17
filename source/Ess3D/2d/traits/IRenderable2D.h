@@ -12,6 +12,7 @@ namespace Ess3D {
 
     protected:
       virtual void onRender(Renderer2D *renderer);
+      virtual void onRenderingDone(Renderer2D *renderer);
 
   };
 

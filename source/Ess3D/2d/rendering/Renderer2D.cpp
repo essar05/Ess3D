@@ -33,7 +33,8 @@ namespace Ess3D {
     glClearColor(0.00f, 0.00f, 0.00f, 1.0f);
     glClearDepth(1.0);
 
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthFunc(GL_LEQUAL);
   }
 
   Renderer2D::~Renderer2D() {
@@ -73,6 +74,9 @@ namespace Ess3D {
     _spriteBatch->end();
     _spriteBatch->render();
 
+    // post rendering
+    scene->onRenderingDone(this);
+
     _baseShader->unuse();
 
     //apply POST
@@ -83,15 +87,19 @@ namespace Ess3D {
     _fboRenderer->render(_fbo);
   }
 
-  SpriteBatch *Renderer2D::getSpriteBatch() {
-    return this->_spriteBatch;
-  }
-
   void Renderer2D::drawQuad(
     const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint textureId,
     const ColorRGBA8 &color, float zDepth, float angle
   ) {
     _spriteBatch->draw(destRect, uvRect, textureId, color, zDepth, angle);
+  }
+
+  SpriteBatch *Renderer2D::getSpriteBatch() {
+    return this->_spriteBatch;
+  }
+
+  Shader *Renderer2D::getBaseShader() {
+    return this->_baseShader;
   }
 
 }

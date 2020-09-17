@@ -1,5 +1,9 @@
 #include "IUpdatable.h"
 
-bool IUpdatable::onUpdate(float deltaTime) {
-  return true;
+namespace Ess3D {
+
+  bool IUpdatable::onUpdate(float deltaTime) {
+    return true;
+  }
+
 }

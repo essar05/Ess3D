@@ -40,9 +40,7 @@ namespace Ess3D {
       int step();
 
       float getTimestep() { return _timestep; }
-
       float getAccumulator() { return _accumulator; }
-
       float getAccumulatorRatio() { return _accumulatorRatio; }
 
     private:

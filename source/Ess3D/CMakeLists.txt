@@ -204,7 +204,7 @@ set(ADDITIONAL_LIBRARY_DEPENDENCIES
 target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
 target_link_directories(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/$<CONFIG>/;"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/$<CONFIG>/x86/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/lib/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/lib/;"
