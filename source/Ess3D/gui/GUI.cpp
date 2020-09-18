@@ -18,7 +18,7 @@ namespace Ess3D {
     if(_renderer == nullptr) {
       _renderer = &CEGUI::OpenGL3Renderer::bootstrapSystem();
 
-      CEGUI::DefaultResourceProvider* resourceProvider = static_cast<CEGUI::DefaultResourceProvider*> (CEGUI::System::getSingleton().getResourceProvider());
+      auto* resourceProvider = dynamic_cast<CEGUI::DefaultResourceProvider*> (CEGUI::System::getSingleton().getResourceProvider());
       resourceProvider->setResourceGroupDirectory("imagesets", resourcesPath + "/imagesets/");
       resourceProvider->setResourceGroupDirectory("schemes", resourcesPath + "/schemes/");
       resourceProvider->setResourceGroupDirectory("fonts", resourcesPath + "/fonts/");
@@ -50,7 +50,6 @@ namespace Ess3D {
     _renderer->beginRendering();
     _context->draw();
     _renderer->endRendering();
-    glDisable(GL_SCISSOR_TEST);
   }
 
   void GUI::update() {

@@ -31,6 +31,8 @@ namespace Ess3D {
 
     // orthographic projection matrix so that we will see _width * _height world units on the screen, with the center in point 0, 0
     _orthoMatrix = glm::ortho(- _width / 2, _width / 2, - _height / 2, _height / 2);
+
+    this->update();
   }
 
   void Camera2D::update() {

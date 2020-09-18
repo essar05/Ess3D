@@ -41,8 +41,6 @@ namespace Ess3D {
     std::printf("GLEW Version: %s\n", glewGetString(GLEW_VERSION));
     std::printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
     //Set VSYNC to disabled
     SDL_GL_SetSwapInterval(0);
   }

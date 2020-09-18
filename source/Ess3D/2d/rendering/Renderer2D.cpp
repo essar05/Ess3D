@@ -28,13 +28,13 @@ namespace Ess3D {
     _fboRenderer->initShader();
     _fbo = new Ess3D::FrameBufferObject(state->getWindow().get(), (GLsizei) config->getWidth(), (GLsizei) config->getHeight(), Ess3D::DepthBufferType::TEXTURE);
 
-    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_SCISSOR_TEST);
     glEnable(GL_BLEND);
+
     glClearColor(0.00f, 0.00f, 0.00f, 1.0f);
     glClearDepth(1.0);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDepthFunc(GL_LEQUAL);
   }
 
   Renderer2D::~Renderer2D() {
@@ -44,13 +44,13 @@ namespace Ess3D {
 
   void Renderer2D::render(Scene2D* scene) {
     // clear screen buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     //bind FBO, all rendering will be done to this FBO's color buffer
     _fbo->bind();
 
     // clear fbo
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     _baseShader->use();
 
