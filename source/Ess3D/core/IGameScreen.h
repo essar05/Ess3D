@@ -41,6 +41,7 @@ namespace Ess3D {
       virtual void update() = 0; // do non-physics updates
       virtual void input(InputManager* inputManager) = 0; // handle input
       virtual void render() = 0; // render
+      virtual void onSDLEvent(SDL_Event& event) = 0; // on SDL event
 
       int getIndex() const {
         return _screenIndex;

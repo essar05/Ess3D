@@ -15,7 +15,10 @@ namespace Ess3D {
 
       virtual void render(Scene2D* scene);
 
-      virtual void drawQuad(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint textureId, const ColorRGBA8& color, float zDepth, float angle);
+      virtual void addToRenderQueue(const Ess3D::Sprite& sprite);
+
+      void enableTexture();
+      void disableTexture();
 
       SpriteBatch* getSpriteBatch();
       Shader* getBaseShader();
@@ -23,7 +26,8 @@ namespace Ess3D {
     protected:
       Shader* _baseShader;
       SpriteBatch* _spriteBatch;
-      FrameBufferObject* _fbo;
+      FrameBufferObject* _finalFBO;
+      FrameBufferObject* _intermediateFBO;
       FBORenderer* _fboRenderer;
   };
 

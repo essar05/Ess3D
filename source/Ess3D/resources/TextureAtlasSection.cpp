@@ -45,9 +45,9 @@ void Ess3D::TextureAtlasSection::setHeight(int height) {
 }
 
 void Ess3D::TextureAtlasSection::generateUV(int atlasWidth, int atlasHeight) {
-  _uv.x = (float) this->_x / atlasWidth;
+  _uv.x = (float) this->_x / (float) atlasWidth;
   _uv.y =
-      1.0f - (float) ( this->_y + this->_height ) / atlasHeight + _uv.w; // +_uv.w ??? i don't remember what this means
-  _uv.z = (float) this->_width / atlasWidth;
-  _uv.w = (float) this->_height / atlasHeight;
+      1.0f - (float) ( this->_y + this->_height ) / (float) atlasHeight;
+  _uv.z = (float) this->_width / (float) atlasWidth;
+  _uv.w = (float) this->_height / (float) atlasHeight;
 }

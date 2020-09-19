@@ -110,6 +110,7 @@ endif ()
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/Ess3D/Ess3D.dll ${OUTPUT_DIRECTORY}
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../Ess3D/resources/shaders/ ${OUTPUT_DIRECTORY}/shaders
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources/ ${OUTPUT_DIRECTORY}
 )
 

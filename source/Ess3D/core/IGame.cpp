@@ -109,7 +109,7 @@ namespace Ess3D {
       switch(_currentScreen->getState()) {
         case ScreenState::RUNNING:
           for(int i = 0; i < simulationSteps; i++) {
-            this->processInput(inputManager);
+            this->processInput(_currentScreen);
 
             _currentScreen->input(inputManager);
             _currentScreen->step(deltaTime);
@@ -145,12 +145,15 @@ namespace Ess3D {
     onUpdate();
   }
 
-  void IGame::processInput(InputManager* inputManager) {
+  void IGame::processInput(IGameScreen* screen) {
+    Ess3D::InputManager* inputManager = _state->getInputManager();
+
     SDL_Event event;
 
     inputManager->reset();
     while(SDL_PollEvent(&event) != 0) {
       this->onSDLEvent(event);
+      screen->onSDLEvent(event);
     }
   }
 

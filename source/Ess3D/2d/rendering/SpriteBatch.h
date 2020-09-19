@@ -8,6 +8,19 @@
 
 namespace Ess3D {
 
+  class Sprite {
+    public:
+      Sprite();
+
+      glm::vec2 position;
+      glm::vec2 size;
+      glm::vec4 uv;
+      GLuint textureId = 0;
+      ColorRGBA8 color;
+      float zDepth = 1.0f;
+      float angle = 0.0f;
+  };
+
   class API RenderBatch {
     public:
       RenderBatch(GLuint offset, GLuint numVertices, GLuint textureId) {
@@ -31,8 +44,7 @@ namespace Ess3D {
       void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
       void end();
 
-      //pass by reference for optimization and const to make sure they're not changed;
-      void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint textureId, const ColorRGBA8& color, float zDepth, float angle = 0);
+      void addToQueue(const Sprite& sprite);
 
       void render();
 
@@ -40,9 +52,10 @@ namespace Ess3D {
       void createVertexArray();
       void sortGlyphs();
       void createRenderBatches();
-      static bool compareBackToFront(Glyph* a, Glyph* b);
-      static bool compareFrontToBack(Glyph* a, Glyph* b);
-      static bool compareTexture(Glyph* a, Glyph* b);
+
+      static bool compareBackToFront(Glyph *a, Glyph *b);
+      static bool compareFrontToBack(Glyph *a, Glyph *b);
+      static bool compareTexture(Glyph *a, Glyph *b);
 
       GLuint _vbo;
       GLuint _vao;
@@ -50,7 +63,7 @@ namespace Ess3D {
       GlyphSortType _sortType;
 
       std::vector<Glyph> _glyphs; //actual glyphs
-      std::vector<Glyph*> _glyphPointers; //for sorting
+      std::vector<Glyph *> _glyphPointers; //for sorting
       std::vector<RenderBatch> _renderBatches;
 
 

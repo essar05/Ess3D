@@ -26,15 +26,8 @@ namespace Ess3D {
 
     _fboRenderer = new FBORenderer();
     _fboRenderer->initShader();
-    _fbo = new Ess3D::FrameBufferObject(state->getWindow().get(), (GLsizei) config->getWidth(), (GLsizei) config->getHeight(), Ess3D::DepthBufferType::TEXTURE);
-
-    glDisable(GL_SCISSOR_TEST);
-    glEnable(GL_BLEND);
-
-    glClearColor(0.00f, 0.00f, 0.00f, 1.0f);
-    glClearDepth(1.0);
-
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    _finalFBO = new Ess3D::FrameBufferObject(state->getWindow().get(), (GLsizei) config->getWidth(), (GLsizei) config->getHeight(), Ess3D::DepthBufferType::TEXTURE);
+    _intermediateFBO = new Ess3D::FrameBufferObject(state->getWindow().get(), (GLsizei) config->getWidth(), (GLsizei) config->getHeight(), Ess3D::DepthBufferType::TEXTURE);
   }
 
   Renderer2D::~Renderer2D() {
@@ -43,21 +36,19 @@ namespace Ess3D {
   }
 
   void Renderer2D::render(Scene2D* scene) {
-    // clear screen buffer
-    glClear(GL_COLOR_BUFFER_BIT);
+    glDisable(GL_SCISSOR_TEST);
+    glClearDepth(1.0);
 
-    //bind FBO, all rendering will be done to this FBO's color buffer
-    _fbo->bind();
-
-    // clear fbo
-    glClear(GL_COLOR_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     _baseShader->use();
 
-    glActiveTexture(GL_TEXTURE0);
+    // pass the GL_TEXTURE0 location to the fragment shader as a uniform sampler
     GLint textureSamplerUniformID = _baseShader->getUniformLocation("textureSampler");
     glUniform1i(textureSamplerUniformID, 0);
 
+    // set the useTexture shader uniform to 1
     GLint useTextureUniformID = _baseShader->getUniformLocation("useTexture");
     glUniform1i(useTextureUniformID, 1);
 
@@ -66,32 +57,57 @@ namespace Ess3D {
 
     glUniformMatrix4fv(projectionMatrixUniformID, 1, GL_FALSE, &(cameraMatrix[0][0]));
 
+    //bind FBO, all rendering will be done to this FBO's color buffer
+    _intermediateFBO->bind();
+
+    // clear fbo
+    glClearColor(0.00f, 0.00f, 0.00f, 0.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     _spriteBatch->begin(Ess3D::GlyphSortType::BACK_TO_FRONT);
 
-    // render the scene
+    /**
+     * In fact, here we are mostly adding sprites to the render queue
+     * The sprites will be efficiently rendered later
+     * Any actual GL rendering will be done to the _intermediateFBO buffer
+     * We will then render the sprites and the _intermediateFBO over them
+     */
     scene->onRender(this);
 
     _spriteBatch->end();
-    _spriteBatch->render();
 
-    // post rendering
-    scene->onRenderingDone(this);
+    //unbind FBO, rendering will now be done to screen
+    _intermediateFBO->unbind();
+
+    _finalFBO->bind();
+
+    // clear fbo
+    glClearColor(0.00f, 0.00f, 0.00f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // RENDER THE SPRITES
+    this->enableTexture();
+    _spriteBatch->render();
 
     _baseShader->unuse();
 
-    //apply POST
+    // RENDER WHAT HAD BEEN PREVIOUSLY DRAWN OVER THE SPRITES
+    _fboRenderer->render(_intermediateFBO);
 
-    //unbind FBO, rendering will now be done to screen
-    _fbo->unbind();
+    _finalFBO->unbind();
 
-    _fboRenderer->render(_fbo);
+    // TODO: APPLY POST NOW
+
+    // clear screen buffer
+    glClearColor(0.00f, 0.00f, 0.00f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // RENDER FINAL IMAGE
+    _fboRenderer->render(_finalFBO);
   }
 
-  void Renderer2D::drawQuad(
-    const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint textureId,
-    const ColorRGBA8 &color, float zDepth, float angle
-  ) {
-    _spriteBatch->draw(destRect, uvRect, textureId, color, zDepth, angle);
+  void Renderer2D::addToRenderQueue(const Ess3D::Sprite& sprite) {
+    _spriteBatch->addToQueue(sprite);
   }
 
   SpriteBatch *Renderer2D::getSpriteBatch() {
@@ -100,6 +116,16 @@ namespace Ess3D {
 
   Shader *Renderer2D::getBaseShader() {
     return this->_baseShader;
+  }
+
+  void Renderer2D::enableTexture() {
+    GLint useTextureUniformID = this->_baseShader->getUniformLocation("useTexture");
+    glUniform1i(useTextureUniformID, 1);
+  }
+
+  void Renderer2D::disableTexture() {
+    GLint useTextureUniformID = this->_baseShader->getUniformLocation("useTexture");
+    glUniform1i(useTextureUniformID, 0);
   }
 
 }

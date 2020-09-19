@@ -3,9 +3,11 @@
 
 namespace Ess3D {
 
-  SpriteBatch::SpriteBatch() : _vbo(0), _vao(0) {}
+  Sprite::Sprite() = default;
 
-  SpriteBatch::~SpriteBatch() {}
+  SpriteBatch::SpriteBatch() : _vbo(0), _vao(0), _sortType(GlyphSortType::TEXTURE) {}
+
+  SpriteBatch::~SpriteBatch() = default;
 
   void SpriteBatch::init() {
     createVertexArray();
@@ -27,19 +29,21 @@ namespace Ess3D {
     createRenderBatches();
   }
 
-  //pass by reference for optimization and const to make sure they're not changed;
-  void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint textureId, const ColorRGBA8& color, float zDepth, float angle) {
-    _glyphs.emplace_back(destRect, uvRect, textureId, color, zDepth, angle);
+  void SpriteBatch::addToQueue(const Sprite& sprite) {
+    _glyphs.emplace_back(sprite.position, sprite.size, sprite.uv, sprite.textureId, sprite.color, sprite.zDepth, sprite.angle);
   }
 
   void SpriteBatch::render() {
     glBindVertexArray(_vao);
+    glActiveTexture(GL_TEXTURE0);
 
-    for(unsigned int i = 0; i < _renderBatches.size(); i++) {
-      glBindTexture(GL_TEXTURE_2D, _renderBatches[i].textureId);
+    for(auto & renderBatch : _renderBatches) {
+      glBindTexture(GL_TEXTURE_2D, renderBatch.textureId);
 
-      glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, _renderBatches[i].numVertices);
+      glDrawArrays(GL_TRIANGLES, renderBatch.offset, renderBatch.numVertices);
     }
+
+    glBindTexture(GL_TEXTURE_2D, 0);
   
     glBindVertexArray(0);
   }
@@ -85,12 +89,12 @@ namespace Ess3D {
     _renderBatches.emplace_back(offset, 6, _glyphPointers[0]->textureId);
     
     //add the vertices of the first glyph in our vector
-    vertices[k++] = _glyphPointers[0]->topLeft;
-    vertices[k++] = _glyphPointers[0]->bottomLeft;
-    vertices[k++] = _glyphPointers[0]->bottomRight;
-    vertices[k++] = _glyphPointers[0]->bottomRight;
-    vertices[k++] = _glyphPointers[0]->topRight;
-    vertices[k++] = _glyphPointers[0]->topLeft;
+    vertices[k++] = _glyphPointers[0]->topLeftVertex;
+    vertices[k++] = _glyphPointers[0]->bottomLeftVertex;
+    vertices[k++] = _glyphPointers[0]->bottomRightVertex;
+    vertices[k++] = _glyphPointers[0]->bottomRightVertex;
+    vertices[k++] = _glyphPointers[0]->topRightVertex;
+    vertices[k++] = _glyphPointers[0]->topLeftVertex;
     offset += 6;
 
     for(unsigned int i = 1; i < _glyphPointers.size(); i++) {
@@ -102,12 +106,12 @@ namespace Ess3D {
       }
       
       //add the vertices of glyph i in our vector
-      vertices[k++] = _glyphPointers[i]->topLeft;
-      vertices[k++] = _glyphPointers[i]->bottomLeft;
-      vertices[k++] = _glyphPointers[i]->bottomRight;
-      vertices[k++] = _glyphPointers[i]->bottomRight;
-      vertices[k++] = _glyphPointers[i]->topRight;
-      vertices[k++] = _glyphPointers[i]->topLeft;
+      vertices[k++] = _glyphPointers[i]->topLeftVertex;
+      vertices[k++] = _glyphPointers[i]->bottomLeftVertex;
+      vertices[k++] = _glyphPointers[i]->bottomRightVertex;
+      vertices[k++] = _glyphPointers[i]->bottomRightVertex;
+      vertices[k++] = _glyphPointers[i]->topRightVertex;
+      vertices[k++] = _glyphPointers[i]->topLeftVertex;
       offset += 6;
     }
 
@@ -146,5 +150,4 @@ namespace Ess3D {
   bool SpriteBatch::compareTexture(Glyph* a, Glyph* b) {
     return (a->textureId < b->textureId);
   }
-
 }

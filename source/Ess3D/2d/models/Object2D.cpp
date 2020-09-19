@@ -47,10 +47,16 @@ namespace Ess3D {
   }
 
   void Object2D::onRender(Renderer2D *renderer) {
-    renderer->drawQuad(
-      glm::vec4(_interpolatedPosition.x - _size.x / 2, _interpolatedPosition.y - _size.y / 2, _size.x, _size.y),
-      _uv, _textureId, _color, 9000.0f, 0.0f
-    );
+    Sprite sprite;
+    sprite.position = _interpolatedPosition;
+    sprite.size = _size;
+    sprite.uv = _uv;
+    sprite.textureId = _textureId;
+    sprite.color = _color;
+    sprite.zDepth = 9000.0f;
+    sprite.angle = glm::radians(0.0f);
+
+    renderer->addToRenderQueue(sprite);
   }
 
   void Object2D::interpolate(float timestepAccumulatorRatio) {

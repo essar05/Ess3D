@@ -1,4 +1,4 @@
-#version 330
+#version 130
 
 // Interpolated values from the vertex shaders
 in vec2 fragmentPosition;
@@ -10,10 +10,12 @@ out vec4 color;
 
 // Values that stay constant for the whole mesh.
 uniform sampler2D textureSampler;
+uniform int useTexture;
 
 void main() {
-  color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    color = fragmentColor.rgba;
 
-  vec4 textureSample = texture(textureSampler, fragmentUV).rgba;
-  color *= textureSample;
+    if(useTexture == 1) {
+        color = texture(textureSampler, fragmentUV).rgba;
+    }
 }

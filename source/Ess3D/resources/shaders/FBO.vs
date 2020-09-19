@@ -7,7 +7,6 @@ in vec2 vertexUV;
 
 // Output data ; will be interpolated for each fragment.
 out vec2 fragmentPosition;
-out vec4 fragmentColor;
 out vec2 fragmentUV;
 
 void main(){
@@ -15,6 +14,5 @@ void main(){
 
   // UV of the vertex. No special space for this one.
   fragmentPosition = vertexPosition;
-  fragmentColor = vertexColor;
   fragmentUV = vec2(vertexUV.x, 1.0f - vertexUV.y);
 }

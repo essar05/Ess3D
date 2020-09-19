@@ -5,7 +5,7 @@
 
 namespace Ess3D {
 
-  Shader::Shader(bool debugMode = false):_debugMode(debugMode) {
+  Shader::Shader(bool debugMode):_debugMode(debugMode) {
     _programId = glCreateProgram();
   }
 
@@ -121,22 +121,22 @@ namespace Ess3D {
     }
   }
 
-  GLuint Shader::getUniformLocation(const std::string& uniformName) {
+  GLuint Shader::getUniformLocation(const std::string& uniformName) const {
     return glGetUniformLocation(_programId, uniformName.c_str());
   }
 
-  void Shader::use() {
+  void Shader::use() const {
     glUseProgram(_programId);
     for (int i = 0; i < _attributeCount; i++) {
       glEnableVertexAttribArray(i);
     }
   }
 
-  void Shader::unuse() {
-    glUseProgram(_programId);
+  void Shader::unuse() const {
     for (int i = 0; i < _attributeCount; i++) {
       glDisableVertexAttribArray(i);
     }
+    glUseProgram(0);
   }
 
 }

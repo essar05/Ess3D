@@ -23,8 +23,10 @@ namespace Ess3D {
 
       GLuint getColorTextureId();
       GLuint getDepthTextureId();
-      GLsizei getWidth();
-      GLsizei getHeight();
+      GLsizei getWidth() const;
+      GLsizei getHeight() const;
+
+      GLuint getId() const;
 
     private:
       void createFrameBuffer();

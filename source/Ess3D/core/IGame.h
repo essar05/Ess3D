@@ -41,7 +41,7 @@ namespace Ess3D {
       Config* _config{};
 
     private:
-      void processInput(InputManager* inputManager);
+      void processInput(IGameScreen* screen);
   };
 
 }

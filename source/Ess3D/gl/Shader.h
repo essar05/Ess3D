@@ -15,7 +15,7 @@ namespace Ess3D {
 
   class API Shader {
     public:
-      Shader(bool debugMode);
+      explicit Shader(bool debugMode);
       ~Shader();
 
       void loadShader(ShaderType type, const std::string& shaderFilePath);
@@ -24,13 +24,13 @@ namespace Ess3D {
       void linkShaders();
 
       void addAttribute(const std::string& attributeName);
-      GLuint getUniformLocation(const std::string& uniformName);
+      GLuint getUniformLocation(const std::string& uniformName) const;
 
-      void use();
-      void unuse();
+      void use() const;
+      void unuse() const;
 
     private:
-      int _attributeCount;
+      int _attributeCount{};
       bool _debugMode;
 
       GLuint _programId;

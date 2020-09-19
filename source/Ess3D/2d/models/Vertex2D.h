@@ -39,63 +39,65 @@ namespace Ess3D {
   };
 
   enum class GlyphSortType {
-    NONE,
-    FRONT_TO_BACK,
-    BACK_TO_FRONT,
-    TEXTURE
+      NONE,
+      FRONT_TO_BACK,
+      BACK_TO_FRONT,
+      TEXTURE
   };
 
   class API Glyph {
     public:
-      Glyph() {}
+      Glyph() = default;
 
-      Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint TextureId, const ColorRGBA8& color, float ZDepth,
-            float angle = 0) : textureId(TextureId), zDepth(ZDepth) {
-        glm::vec2 halfDims(destRect.z / 2.0f, destRect.w / 2.0f);
+      Glyph(
+        const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &uv,
+        GLuint TextureId, const ColorRGBA8 &color, float ZDepth, float angle = 0.f
+      ) : textureId(TextureId), zDepth(ZDepth) {
+        glm::vec2 halfSize(size.x / 2.0f, size.y / 2.0f);
 
         // Get points centered at origin
-        glm::vec2 tl(-halfDims.x, halfDims.y);
-        glm::vec2 bl(-halfDims.x, -halfDims.y);
-        glm::vec2 br(halfDims.x, -halfDims.y);
-        glm::vec2 tr(halfDims.x, halfDims.y);
+        glm::vec2 topLeft(-halfSize.x, halfSize.y);
+        glm::vec2 bottomLeft(-halfSize.x, -halfSize.y);
+        glm::vec2 bottomRight(halfSize.x, -halfSize.y);
+        glm::vec2 topRight(halfSize.x, halfSize.y);
 
-      // Rotate the points
-      tl = rotatePoint(tl, angle) + halfDims;
-      bl = rotatePoint(bl, angle) + halfDims;
-      br = rotatePoint(br, angle) + halfDims;
-      tr = rotatePoint(tr, angle) + halfDims;
+        // Rotate the points
+        topLeft = rotatePoint(topLeft, angle);
+        bottomLeft = rotatePoint(bottomLeft, angle);
+        bottomRight = rotatePoint(bottomRight, angle);
+        topRight = rotatePoint(topRight, angle);
 
-      topLeft.color = color;
-      topLeft.setPosition(destRect.x + tl.x, destRect.y + tl.y);
-      topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
+        this->topLeftVertex.color = color;
+        this->topLeftVertex.setPosition(position.x + topLeft.x, position.y + topLeft.y);
+        this->topLeftVertex.setUV(uv.x, uv.y + uv.w);
 
-      bottomLeft.color = color;
-      bottomLeft.setPosition(destRect.x + bl.x, destRect.y + bl.y);
-      bottomLeft.setUV(uvRect.x, uvRect.y);
+        this->bottomLeftVertex.color = color;
+        this->bottomLeftVertex.setPosition(position.x + bottomLeft.x, position.y + bottomLeft.y);
+        this->bottomLeftVertex.setUV(uv.x, uv.y);
 
-      bottomRight.color = color;
-      bottomRight.setPosition(destRect.x + br.x, destRect.y + br.y);
-      bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
+        this->bottomRightVertex.color = color;
+        this->bottomRightVertex.setPosition(position.x + bottomRight.x, position.y + bottomRight.y);
+        this->bottomRightVertex.setUV(uv.x + uv.z, uv.y);
 
-      topRight.color = color;
-      topRight.setPosition(destRect.x + tr.x, destRect.y + tr.y);
-      topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
-    }
-
-      glm::vec2 Glyph::rotatePoint(const glm::vec2& pos, float angle) {
-        glm::vec2 newv;
-        newv.x = pos.x * cos(angle) - pos.y * sin(angle);
-        newv.y = pos.x * sin(angle) + pos.y * cos(angle);
-        return newv;
+        this->topRightVertex.color = color;
+        this->topRightVertex.setPosition(position.x + topRight.x, position.y + topRight.y);
+        this->topRightVertex.setUV(uv.x + uv.z, uv.y + uv.w);
       }
 
-      GLuint textureId;
-      float zDepth;
+      static glm::vec2 rotatePoint(const glm::vec2 &position, float angle) {
+        glm::vec2 newPoint;
+        newPoint.x = position.x * cos(angle) - position.y * sin(angle);
+        newPoint.y = position.x * sin(angle) + position.y * cos(angle);
+        return newPoint;
+      }
 
-      Vertex2D topLeft;
-      Vertex2D bottomLeft;
-      Vertex2D topRight;
-      Vertex2D bottomRight;
+      GLuint textureId{};
+      float zDepth{};
+
+      Vertex2D topLeftVertex;
+      Vertex2D bottomLeftVertex;
+      Vertex2D topRightVertex;
+      Vertex2D bottomRightVertex;
   };
 
 }
