@@ -88,14 +88,15 @@ namespace Ess3D {
     _frametime = std::chrono::duration_cast<std::chrono::microseconds>(_newTicks - _prevTicks).count() / 1000.0f; //in miliseconds
     _prevTicks = _newTicks;
 
-    _accumulator += _frametime / 1000.0f;
+    _accumulator += _frametime / 1000.0f; // in seconds
     const int nSteps = static_cast<int> (std::floor(_accumulator / _timestep));
     if(nSteps > 0) {
       _accumulator -= nSteps * _timestep;
     }
     _accumulatorRatio = _accumulator / _timestep;
 
-    return std::min(nSteps, _maxFramesSimulated);
+    // TODO: max steps simulated could perhaps be determined based on previous frames
+    return std::min(nSteps, _maxStepsSimulated);
   }
 
 }

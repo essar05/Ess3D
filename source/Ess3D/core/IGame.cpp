@@ -42,7 +42,7 @@ namespace Ess3D {
 
       _state->setFPS(_state->getFPSLimiter()->end());
 
-      _state->getWindow()->SwapBuffer();
+      _state->getWindow()->swapBuffer();
     }
   }
 
@@ -77,7 +77,9 @@ namespace Ess3D {
     _state->getFPSLimiter()->init(_config->getMaxFPS(), _config->getLimitFPS());
 
     std::shared_ptr<Window> window = std::make_shared<Window>(_config->getTitle(), (int) _config->getWidth(), (int) _config->getHeight(), _config->getWindowMode());
-    window->SetVSync(_config->getVSync());
+    if (_config->getVSync()) {
+      window->enableVSync();
+    }
     _state->setWindow(window);
 
     return true;

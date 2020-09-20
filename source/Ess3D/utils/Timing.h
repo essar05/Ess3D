@@ -44,7 +44,7 @@ namespace Ess3D {
       float getAccumulatorRatio() { return _accumulatorRatio; }
 
     private:
-      int _maxFramesSimulated = 6;
+      int _maxStepsSimulated = 500;
       float _timestep = 1.0f / 60.f;
       float _frametime = 0.0f;
       float _accumulator = 0.0f;

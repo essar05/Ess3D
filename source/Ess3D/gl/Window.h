@@ -18,25 +18,26 @@ namespace Ess3D {
 
   class API Window {
     public:
-      Window(std::string windowName, int width, int height, unsigned int windowModes);
+      Window(const std::string& windowName, int width, int height, unsigned int windowModes);
       ~Window();
 
-      void SwapBuffer();
-      void SetVSync(int vSync);
+      void swapBuffer();
+      void enableVSync();
+      void disableVSync();
 
-      int GetWidth() { return _width; }
+      int getWidth();
+      int getHeight();
 
-      int GetHeight() { return _height; }
+      int getCurrentWidth();
+      int getCurrentHeight();
 
-      int GetCurrentWidth() { return _currentWidth; }
-      int GetCurrentHeight() { return _currentHeight; }
-      int GetMonitorRefreshRate();
+      int getMonitorRefreshRate();
 
     private:
       int _height;
       int _width;
-      int _currentWidth;
-      int _currentHeight;
+      int _currentWidth{};
+      int _currentHeight{};
       SDL_Window* _sdlWindow;
 
   };
