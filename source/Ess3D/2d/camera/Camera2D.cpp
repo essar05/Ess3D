@@ -20,16 +20,19 @@ namespace Ess3D {
     _screenWidth = screenWidth;
     _screenHeight = screenHeight;
 
-    float screenAspectRatio = (float) _screenWidth / (float) _screenHeight;
+    _screenAspectRatio = (float) _screenWidth / (float) _screenHeight;
 
-    _width = cameraWidth;
+    this->setWidth(cameraWidth);
+  }
+
+  void Camera2D::setWidth(float width) {
+    _width = width;
     // scaling the height of the camera to match the entirety of the screen
-    _height = cameraWidth / screenAspectRatio;
+    _height = width / _screenAspectRatio;
 
     // calculate the world to screen scaling factor (how many pixels there are in a world unit)
     _scale = (float) _screenWidth / _width;
 
-    // orthographic projection matrix so that we will see _width * _height world units on the screen, with the center in point 0, 0
     _orthoMatrix = glm::ortho(- _width / 2, _width / 2, - _height / 2, _height / 2);
 
     this->update();
@@ -92,6 +95,10 @@ namespace Ess3D {
 
   float Camera2D::getScreenScalar(float worldScalar) const {
 	  return worldScalar * _scale;
+  }
+
+  glm::vec2 Camera2D::getSize() const {
+    return glm::vec2(_width, _height);
   }
 
 }

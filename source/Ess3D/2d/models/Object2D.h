@@ -4,6 +4,7 @@
 #include "2d/traits/IRenderable2D.h"
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
+#include <glm/detail/func_trigonometric.hpp>
 #include <GL/glew.h>
 #include <gl/ColorRGBA8.h>
 #include <core/traits/IInterpolatable.h>
@@ -46,6 +47,9 @@ namespace Ess3D {
       glm::vec2 getInterpolatedPosition();
       void setInterpolatedPosition(const glm::vec2& interpolatedPosition);
 
+      float getAngle();
+      void setAngle(float angle);
+
     protected:
       bool onUpdate(float deltaTime) override;
       void onRender(Renderer2D *renderer) override;
@@ -61,6 +65,8 @@ namespace Ess3D {
       glm::vec2 _position;
       // only used for rendering
       glm::vec2 _interpolatedPosition;
+
+      float _angle = glm::radians(0.f);
 
   };
 

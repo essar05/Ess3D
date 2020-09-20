@@ -14,7 +14,7 @@ namespace Ess3D {
   Object2D::Object2D(
     const glm::vec2 &position, const glm::vec2 &size, GLuint textureId,
     const glm::vec4 &uv, Ess3D::ColorRGBA8 color
- ) {
+  ) {
     setPosition(position);
     setSize(size);
     setTextureId(textureId);
@@ -54,7 +54,7 @@ namespace Ess3D {
     sprite.textureId = _textureId;
     sprite.color = _color;
     sprite.zDepth = 9000.0f;
-    sprite.angle = glm::radians(0.0f);
+    sprite.angle = _angle;
 
     renderer->addToRenderQueue(sprite);
   }
@@ -82,7 +82,7 @@ namespace Ess3D {
     return this->_uv;
   }
 
-  void Object2D::setUV(const glm::vec4& uv) {
+  void Object2D::setUV(const glm::vec4 &uv) {
     this->_uv = uv;
   }
 
@@ -98,7 +98,7 @@ namespace Ess3D {
     return this->_size;
   }
 
-  void Object2D::setSize(const glm::vec2& size) {
+  void Object2D::setSize(const glm::vec2 &size) {
     this->_size = size;
   }
 
@@ -106,7 +106,7 @@ namespace Ess3D {
     return this->_previousPosition;
   }
 
-  void Object2D::setPreviousPosition(const glm::vec2& previousPosition) {
+  void Object2D::setPreviousPosition(const glm::vec2 &previousPosition) {
     this->_previousPosition = previousPosition;
   }
 
@@ -114,7 +114,7 @@ namespace Ess3D {
     return this->_position;
   }
 
-  void Object2D::setPosition(const glm::vec2& position) {
+  void Object2D::setPosition(const glm::vec2 &position) {
     this->_position = position;
   }
 
@@ -122,8 +122,16 @@ namespace Ess3D {
     return this->_interpolatedPosition;
   }
 
-  void Object2D::setInterpolatedPosition(const glm::vec2& interpolatedPosition) {
+  void Object2D::setInterpolatedPosition(const glm::vec2 &interpolatedPosition) {
     this->_interpolatedPosition = interpolatedPosition;
+  }
+
+  float Object2D::getAngle() {
+    return _angle;
+  }
+
+  void Object2D::setAngle(float angle) {
+    _angle = angle;
   }
 
 }

@@ -47,12 +47,17 @@ namespace Ess3D {
       float getWorldScalar(float screenScalar) const;
       float getScreenScalar(float worldScalar) const;
 
+      glm::vec2 getSize() const;
+      void setWidth(float width);
+
       glm::mat4 getCameraMatrix() { return _cameraMatrix; }
 
     private:
       // the size of the screen in pixels
       int _screenWidth;
       int _screenHeight;
+
+      float _screenAspectRatio;
 
       // the size of the camera in world units
       float _width{};
