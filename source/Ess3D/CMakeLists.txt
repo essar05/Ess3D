@@ -97,9 +97,9 @@ SET(ALL_FILES
     core/Config.cpp core/State.h
     core/traits/IUpdatable.cpp core/traits/IUpdatable.h
     core/traits/IInterpolatable.cpp core/traits/IInterpolatable.h core/traits/IHandlesInput.cpp core/traits/IHandlesInput.h
-
     2d/rendering/B2DebugRenderer.cpp 2d/rendering/B2DebugRenderer.h
-    )
+    2d/models/Entity2D.cpp 2d/models/Entity2D.h
+    2d/SceneGraph.cpp 2d/SceneGraph.h utils/QuadTree.cpp utils/QuadTree.h)
 
 ################################################################################
 # Target
