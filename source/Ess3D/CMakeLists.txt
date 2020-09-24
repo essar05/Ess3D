@@ -25,6 +25,8 @@ SET(Headers
     core/IGameScreen.h
     core/ScreenManager.h
 
+    errors/RuntimeException.h
+
     gl/ColorRGBA8.h
     gl/FBORenderer.h
     gl/FrameBufferObject.h
@@ -122,26 +124,27 @@ SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
     INTERPROCEDURAL_OPTIMIZATION_RELEASE "TRUE"
     )
-################################################################################
-# Compile definitions
-################################################################################
-TARGET_COMPILE_DEFINITIONS(${PROJECT_NAME} PRIVATE
-    "$<$<CONFIG:Debug>:"
-    "_DEBUG"
-    ">"
-    "$<$<CONFIG:Release>:"
-    "NDEBUG"
-    ">"
-    "WIN32;"
-    "_LIB;"
-    "UNICODE;"
-    "_UNICODE"
-    )
 
 ################################################################################
 # Compile and link options
 ################################################################################
 IF (MSVC)
+    ################################################################################
+    # Compile definitions
+    ################################################################################
+    TARGET_COMPILE_DEFINITIONS(${PROJECT_NAME} PRIVATE
+        "$<$<CONFIG:Debug>:"
+        "_DEBUG"
+        ">"
+        "$<$<CONFIG:Release>:"
+        "NDEBUG"
+        ">"
+        "WIN32;"
+        "_LIB;"
+        "UNICODE;"
+        "_UNICODE"
+        )
+
     TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:
         /Od;
@@ -181,58 +184,110 @@ ENDIF ()
 ################################################################################
 # Dependencies
 ################################################################################
-SET(ADDITIONAL_LIBRARY_DEPENDENCIES
-    "$<$<CONFIG:Debug>:"
-    "fmodL_vc;"
-    "fmodstudioL_vc;"
-    "CEGUIBase-0_d;"
-    "CEGUIOpenGLRenderer-0_d"
-    ">"
-    "$<$<CONFIG:Release>:"
-    "fmod_vc;"
-    "fmodstudio_vc;"
-    "CEGUIBase-0;"
-    "CEGUIOpenGLRenderer-0"
-    ">"
-    "freeglut;"
-    "glew32;"
-    "SDL2;"
-    "SDL2main;"
-    "SDL2_image;"
-    "opengl32;"
-    "freetype255d;"
-    "box2d;"
-    "assimp-4.1.0-vc140-mtd"
-    )
+
+if (UNIX)
+    SET(ADDITIONAL_LIBRARY_DEPENDENCIES
+        "$<$<CONFIG:Debug>:"
+        "fmodL;"
+        "fmodstudioL;"
+        "CEGUIBase-0;"
+        "CEGUIOpenGLRenderer-0"
+        ">"
+        "$<$<CONFIG:Release>:"
+        "fmod;"
+        "fmodstudio;"
+        "CEGUIBase;"
+        "CEGUIOpenGLRenderer"
+        ">"
+        "GLEW;"
+        "GLU;"
+        "GL;"
+        "SDL2;"
+        "SDL2main;"
+        "SDL2_image;"
+        "freetype;"
+        "box2d;"
+        "assimp"
+        )
+endif (UNIX)
+if (MSVC)
+    SET(ADDITIONAL_LIBRARY_DEPENDENCIES
+        "$<$<CONFIG:Debug>:"
+        "fmodL_vc;"
+        "fmodstudioL_vc;"
+        "CEGUIBase-0_d;"
+        "CEGUIOpenGLRenderer-0_d"
+        ">"
+        "$<$<CONFIG:Release>:"
+        "fmod_vc;"
+        "fmodstudio_vc;"
+        "CEGUIBase-0;"
+        "CEGUIOpenGLRenderer-0"
+        ">"
+        "freeglut;"
+        "glew32;"
+        "SDL2;"
+        "SDL2main;"
+        "SDL2_image;"
+        "opengl32;"
+        "freetype255d;"
+        "box2d;"
+        "assimp-4.1.0-vc140-mtd"
+        )
+endif (MSVC)
+
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
+if (UNIX)
+    SET(ADDITIONAL_LINK_DIRECTORIES
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/studio/linux/x86_64/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/lowlevel/linux/x86_64/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/linux/;"
+        )
+endif (UNIX)
+if (MSVC)
+    SET(ADDITIONAL_LINK_DIRECTORIES
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/lowlevel/win/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/studio/win/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/win/$<CONFIG>/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/win/$<CONFIG>/x86/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/lib/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/lib/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/lib/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2_Image/lib/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2/lib/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/assimp-4.1.0/lib/;"
+        )
+endif (MSVC)
+
 TARGET_LINK_DIRECTORIES(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/$<CONFIG>/x86/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/$<CONFIG>/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2_Image/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lowlevel/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/studio/lib/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/assimp-4.1.0/lib/;"
+    "${ADDITIONAL_LINK_DIRECTORIES}"
     "$ENV{LibraryPath}"
     )
 
+if (MSVC)
+    SET(ADDITIONAL_INCLUDE_DIRECTORIES
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2/include/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2_Image/include/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/include/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/include/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glm/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/include/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/assimp-4.1.0/include/;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/include/;"
+        )
+endif (MSVC)
+if (UNIX)
+    SET(ADDITIONAL_INCLUDE_DIRECTORIES
+        "/usr/local/include/cegui-0/;"
+        )
+endif (UNIX)
+
+
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2_Image/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glm/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/include/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/rapidjson/;"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lowlevel/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/studio/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/fsbank/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/assimp-4.1.0/include/;"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/include/;"
+    "${ADDITIONAL_INCLUDE_DIRECTORIES}"
     "${PROJECT_SOURCE_DIR}"
     )

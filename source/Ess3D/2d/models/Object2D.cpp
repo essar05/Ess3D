@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Object2D.h"
 #include <core/State.h>
 #include <2d/rendering/Renderer2D.h>

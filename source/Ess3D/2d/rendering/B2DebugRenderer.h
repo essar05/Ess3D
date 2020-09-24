@@ -1,8 +1,7 @@
-#ifndef DAPOLIS_PONG_B2DEBUGRENDERER_H
-#define DAPOLIS_PONG_B2DEBUGRENDERER_H
+#pragma once
 
 #include <definitions.h>
-#include <Box2D/box2d.h>
+#include <box2d/box2d.h>
 
 namespace Ess3D {
 
@@ -24,7 +23,5 @@ namespace Ess3D {
 
       void DrawAABB(b2AABB *aabb, const b2Color &color);
   };
-
-  #endif
 
 }

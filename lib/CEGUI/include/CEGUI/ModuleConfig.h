@@ -73,7 +73,7 @@ setting CMake options and regenerating, rather than editing directly.
 // not actually include them in the final distribution (or some other
 // event that we do not have control over)
 //////////////////////////////////////////////////////////////////////////
-#define CEGUI_BUILD_XMLPARSER_EXPAT
+/* #undef CEGUI_BUILD_XMLPARSER_EXPAT */
 /* #undef CEGUI_BUILD_XMLPARSER_XERCES */
 /* #undef CEGUI_BUILD_XMLPARSER_LIBXML2 */
 /* #undef CEGUI_BUILD_XMLPARSER_RAPIDXML */

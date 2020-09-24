@@ -1,10 +1,10 @@
 #pragma once
 
 #include "definitions.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <string>
-#include "errors/RuntimeException.cpp"
+#include "errors/RuntimeException.h"
 
 namespace Ess3D {
 

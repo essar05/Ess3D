@@ -2,7 +2,7 @@
 
 #include "definitions.h"
 #include <GL/glew.h>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 #include <vector>
 #include "2d/models/Vertex2D.h"
 

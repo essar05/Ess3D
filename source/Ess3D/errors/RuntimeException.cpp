@@ -1,32 +1,18 @@
-#pragma once
-
-#include "definitions.h"
-#include <string>
-#include <exception>
+#include "RuntimeException.h"
 
 namespace Ess3D {
-  class API ERuntimeException : public std::exception {
 
-    private:
-      const char* ErrorMessage;
-      std::string message;
+  ERuntimeException::ERuntimeException(const std::string &anErrorMessage) {
+    this->message = anErrorMessage;
+    this->ErrorMessage = anErrorMessage.c_str();
+  }
 
-    public:
+  const char *ERuntimeException::what() const noexcept {
+    return this->ErrorMessage;
+  }
 
-      explicit ERuntimeException(const std::string& anErrorMessage) {
-        this->message = anErrorMessage;
-        this->ErrorMessage = anErrorMessage.c_str();
-      }
+  std::string ERuntimeException::getMessage() {
+    return this->message;
+  }
 
-      ~ERuntimeException() override = default;
-
-      const char* what() const override {
-        return this->ErrorMessage;
-      }
-
-      std::string getMessage() {
-        return this->message;
-      }
-
-  };
 }

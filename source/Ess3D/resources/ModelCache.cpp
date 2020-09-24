@@ -1,5 +1,5 @@
 #include "ModelCache.h"
-#include "errors/RuntimeException.cpp"
+#include "errors/RuntimeException.h"
 #include "TextureCache.h"
 
 namespace Ess3D {

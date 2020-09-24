@@ -40,11 +40,11 @@ setting CMake options and regenerating, rather than editing directly.
 #   define DEBUG 1
 #endif
 
-#define CEGUI_HAS_BUILD_SUFFIX
+/* #undef CEGUI_HAS_BUILD_SUFFIX */
 #ifdef CEGUI_HAS_BUILD_SUFFIX
 #   ifndef CEGUI_BUILD_SUFFIX
 #       if defined(DEBUG) || defined(_DEBUG)
-#           define CEGUI_BUILD_SUFFIX "_d"
+#           define CEGUI_BUILD_SUFFIX ""
 #       else
 #           define CEGUI_BUILD_SUFFIX ""
 #       endif
@@ -78,7 +78,7 @@ setting CMake options and regenerating, rather than editing directly.
 // Set this to the default XMLParser to be used.
 //////////////////////////////////////////////////////////////////////////
 #ifndef CEGUI_DEFAULT_XMLPARSER
-#	define CEGUI_DEFAULT_XMLPARSER ExpatParser
+#	define CEGUI_DEFAULT_XMLPARSER 
 #endif
 
 //////////////////////////////////////////////////////////////////////////
@@ -190,6 +190,14 @@ setting CMake options and regenerating, rather than editing directly.
 // from locations within .zip files.
 //////////////////////////////////////////////////////////////////////////
 /* #undef CEGUI_HAS_MINIZIP_RESOURCE_PROVIDER */
+
+// Define the default place where cegui will look for loadable modules
+// this can be changed at runtime via the CEGUI_MODULE_DIR environment var.
+#if defined(_WIN32) || defined(__WIN32__)
+#   define CEGUI_MODULE_DIR "/home/alexandruplatica/Downloads/cegui-0.8.7/build/bin/"
+#elif !defined(__ANDROID__)
+#   define CEGUI_MODULE_DIR "/usr/local/lib/cegui-0.8/"
+#endif
 
 // This is defined when iconv is expecting a const char** and not a char**
 // as type for its inbuf parameter. This is only used when building cegui

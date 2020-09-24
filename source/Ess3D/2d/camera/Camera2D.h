@@ -1,7 +1,7 @@
 #pragma once
 
 #include "definitions.h"
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Ess3D {

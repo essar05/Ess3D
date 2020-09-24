@@ -1,5 +1,5 @@
 #include "AnimationManager.h"
-#include "errors/RuntimeException.cpp"
+#include "errors/RuntimeException.h"
 
 namespace Ess3D {
 

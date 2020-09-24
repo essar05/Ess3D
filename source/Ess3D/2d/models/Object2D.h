@@ -4,7 +4,7 @@
 #include "2d/traits/IRenderable2D.h"
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
-#include <glm/detail/func_trigonometric.hpp>
+#include <glm/trigonometric.hpp>
 #include <GL/glew.h>
 #include <gl/ColorRGBA8.h>
 #include <core/traits/IInterpolatable.h>

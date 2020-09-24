@@ -2,7 +2,7 @@
 
 #include "definitions.h"
 #include <GL/glew.h>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "gl/ColorRGBA8.h"
 #include "gl/UV.h"

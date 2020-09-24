@@ -1,10 +1,10 @@
 #include "TextureCache.h"
 #include <GL/glew.h>
 #include <rapidjson.h>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <fstream>
 #include <document.h>
-#include "errors/RuntimeException.cpp"
+#include "errors/RuntimeException.h"
 
 namespace Ess3D {
 

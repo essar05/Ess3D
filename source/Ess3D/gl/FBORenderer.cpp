@@ -1,7 +1,7 @@
 #include "FBORenderer.h"
 #include <2d/models/Vertex2D.h>
 #include <vector>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 
 Ess3D::FBORenderer::FBORenderer() {
 }

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "definitions.h"
-#include <CEGUI\CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/OpenGL/GL3Renderer.h>
-#include <glm\glm.hpp>
-#include <SDL_events.h>
+#include <glm/glm.hpp>
+#include <SDL2/SDL_events.h>
 
 namespace Ess3D {
   class API GUI {

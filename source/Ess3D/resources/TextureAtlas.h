@@ -2,7 +2,7 @@
 
 #include "definitions.h"
 #include <string>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 #include <unordered_map>
 #include "Texture.h"
 #include "TextureAtlasSection.h"

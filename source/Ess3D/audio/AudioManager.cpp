@@ -1,13 +1,13 @@
 #include "AudioManager.h"
-#include <fmod_errors.h>
-#include "errors/RuntimeException.cpp"
+#include <fmod/fmod_errors.h>
+#include "errors/RuntimeException.h"
 
 namespace Ess3D {
 
   AudioManager::AudioManager() {
     _errorCheck( FMOD::Studio::System::create(&_fmod) );
     _errorCheck( _fmod->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, 0) );
-    _errorCheck( _fmod->getLowLevelSystem(&_fmodLowLevel) );
+    _errorCheck( _fmod->getCoreSystem(&_fmodLowLevel) );
   }
 
   AudioManager::~AudioManager() {

@@ -1,5 +1,5 @@
 #include "GUI.h"
-#include <SDL_timer.h>
+#include <SDL2/SDL_timer.h>
 
 class NoLogger: public CEGUI::Logger {
   void logEvent(const CEGUI::String&, CEGUI::LoggingLevel) { }

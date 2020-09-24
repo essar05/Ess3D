@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "errors/RuntimeException.cpp"
+#include "errors/RuntimeException.h"
 #include <vector>
 #include <iostream>
 

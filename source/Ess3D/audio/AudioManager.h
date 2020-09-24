@@ -1,8 +1,8 @@
 #pragma once
 
 #include "definitions.h"
-#include <fmod_studio.hpp>
-#include <fmod.hpp>
+#include <fmod/fmod_studio.hpp>
+#include <fmod/fmod.hpp>
 #include <map>
 #include <string>
 
