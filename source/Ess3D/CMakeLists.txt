@@ -108,6 +108,8 @@ SET(ALL_FILES
 ################################################################################
 ADD_LIBRARY(${PROJECT_NAME} SHARED ${ALL_FILES})
 
+SET_PROPERTY(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
+
 USE_PROPS(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 SET(ROOT_NAMESPACE Ess3D)
 
@@ -203,7 +205,6 @@ if (UNIX)
         "GLU;"
         "GL;"
         "SDL2;"
-        "SDL2main;"
         "SDL2_image;"
         "freetype;"
         "box2d;"
@@ -240,8 +241,6 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}
 
 if (UNIX)
     SET(ADDITIONAL_LINK_DIRECTORIES
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/studio/linux/x86_64/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/lowlevel/linux/x86_64/;"
         "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/linux/;"
         )
 endif (UNIX)
