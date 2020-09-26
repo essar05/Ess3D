@@ -1,8 +1,8 @@
 #pragma once
 
-#include "definitions.h"
+#include <Ess3D/definitions.h>
 #include <vector>
-#include "resources/TextureAtlas.h"
+#include <Ess3D/resources/TextureAtlas.h>
 
 namespace Ess3D {
 

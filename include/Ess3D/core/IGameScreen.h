@@ -1,7 +1,7 @@
 #pragma once
 
-#include <2d/rendering/Renderer2D.h>
-#include "definitions.h"
+#include <Ess3D/definitions.h>
+#include <Ess3D/2d/rendering/Renderer2D.h>
 
 #define SCREEN_INDEX_NO_SCREEN -1
 

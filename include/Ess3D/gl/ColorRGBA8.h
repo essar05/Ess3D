@@ -1,6 +1,7 @@
 #pragma once
 
-#include "definitions.h"
+#include <Ess3D/definitions.h>
+#include <GL/glew.h>
 
 namespace Ess3D {
   struct API ColorRGBA8 {

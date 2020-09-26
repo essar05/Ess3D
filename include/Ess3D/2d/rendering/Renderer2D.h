@@ -1,8 +1,8 @@
 #pragma once
 
-#include <gl/Shader.h>
-#include <gl/FBORenderer.h>
-#include "SpriteBatch.h"
+#include <Ess3D/gl/Shader.h>
+#include <Ess3D/gl/FBORenderer.h>
+#include <Ess3D/2d/rendering/SpriteBatch.h>
 
 namespace Ess3D {
 
