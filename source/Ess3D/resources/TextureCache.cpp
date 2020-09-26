@@ -1,9 +1,8 @@
 #include "TextureCache.h"
-#include <GL/glew.h>
-#include <rapidjson.h>
+#include <rapidjson/rapidjson.h>
 #include <SDL2/SDL_image.h>
 #include <fstream>
-#include <document.h>
+#include <rapidjson/document.h>
 #include "errors/RuntimeException.h"
 
 namespace Ess3D {
@@ -68,7 +67,7 @@ namespace Ess3D {
 
     SDL_Surface* surface = IMG_Load(texturePath.c_str());
     if (!surface) {
-      throw ERuntimeException("Error loading image: " + texturePath);
+      throw ERuntimeException("Error loading image `" + texturePath + "`: " + IMG_GetError());
     }
 
     if (surface->format->BytesPerPixel == 1) {
@@ -79,7 +78,7 @@ namespace Ess3D {
       texture->setMode(GL_RGBA);
     } else {
       SDL_FreeSurface(surface);
-      throw ERuntimeException("Unknown image format: " + texturePath);
+      throw ERuntimeException("Unknown image format `" + texturePath + "`: " + IMG_GetError());
     }
 
     texture->setWidth(surface->w);

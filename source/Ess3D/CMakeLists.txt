@@ -98,8 +98,8 @@ SET(ALL_FILES
     core/State.cpp core/State.h
     core/Config.cpp core/State.h
     core/traits/IUpdatable.cpp core/traits/IUpdatable.h
-    core/traits/IInterpolatable.cpp core/traits/IInterpolatable.h core/traits/IHandlesInput.cpp core/traits/IHandlesInput.h
-
+    core/traits/IInterpolatable.cpp core/traits/IInterpolatable.h
+    core/traits/IHandlesInput.cpp core/traits/IHandlesInput.h
     2d/rendering/B2DebugRenderer.cpp 2d/rendering/B2DebugRenderer.h
     )
 
@@ -113,15 +113,12 @@ SET_PROPERTY(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 USE_PROPS(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 SET(ROOT_NAMESPACE Ess3D)
 
-SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
-    VS_GLOBAL_KEYWORD "Win32Proj"
-    )
 ################################################################################
 # Output directory
 ################################################################################
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
-    OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
-    OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../../build/$<CONFIG>/${PROJECT_NAME}/"
+    OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/../../build/${PROJECT_NAME}/${PLATFORM_ARCHITECTURE}/$<CONFIG>/"
+    OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../../build/${PROJECT_NAME}/${PLATFORM_ARCHITECTURE}/$<CONFIG>/"
     )
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
     INTERPROCEDURAL_OPTIMIZATION_RELEASE "TRUE"
@@ -134,6 +131,7 @@ IF (MSVC)
     ################################################################################
     # Compile definitions
     ################################################################################
+
     TARGET_COMPILE_DEFINITIONS(${PROJECT_NAME} PRIVATE
         "$<$<CONFIG:Debug>:"
         "_DEBUG"
@@ -144,13 +142,14 @@ IF (MSVC)
         "WIN32;"
         "_LIB;"
         "UNICODE;"
-        "_UNICODE"
+        "_UNICODE;"
         )
 
     TARGET_COMPILE_OPTIONS(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:
         /Od;
-        ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY}
+        ${DEFAULT_CXX_DEBUG_RUNTIME_LIBRARY};
+        ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT};
         >
         $<$<CONFIG:Release>:
         /O2;
@@ -162,7 +161,6 @@ IF (MSVC)
         /wd4275;
         /sdl;
         /W3;
-        ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT};
         ${DEFAULT_CXX_EXCEPTION_HANDLING};
         /Y-
         )
@@ -170,12 +168,10 @@ IF (MSVC)
     TARGET_LINK_OPTIONS(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:
         /DEBUG;
-        /SUBSYSTEM:CONSOLE;
         /INCREMENTAL;
         /verbose:lib
         >
         $<$<CONFIG:Release>:
-        /SUBSYSTEM:WINDOWS;
         /OPT:REF;
         /OPT:ICF;
         /INCREMENTAL:NO
@@ -187,106 +183,91 @@ ENDIF ()
 # Dependencies
 ################################################################################
 
-if (UNIX)
+IF (UNIX)
     SET(ADDITIONAL_LIBRARY_DEPENDENCIES
         "$<$<CONFIG:Debug>:"
         "fmodL;"
         "fmodstudioL;"
         "CEGUIBase-0;"
+        "CEGUIRapidXMLParser;"
+        "CEGUISDL2ImageCodec;"
         "CEGUIOpenGLRenderer-0"
         ">"
         "$<$<CONFIG:Release>:"
         "fmod;"
         "fmodstudio;"
         "CEGUIBase;"
+        "CEGUIRapidXMLParser;"
+        "CEGUISDL2ImageCodec;"
         "CEGUIOpenGLRenderer"
         ">"
         "GLEW;"
         "GLU;"
         "GL;"
         "SDL2;"
+        "SDL2main;"
         "SDL2_image;"
         "freetype;"
         "box2d;"
         "assimp"
         )
-endif (UNIX)
-if (MSVC)
+ENDIF (UNIX)
+IF (MSVC)
     SET(ADDITIONAL_LIBRARY_DEPENDENCIES
         "$<$<CONFIG:Debug>:"
-        "fmodL_vc;"
-        "fmodstudioL_vc;"
+        "box2d_d;"
         "CEGUIBase-0_d;"
-        "CEGUIOpenGLRenderer-0_d"
+        "CEGUIRapidXMLParser_d;"
+        "CEGUISDL2ImageCodec_d;"
+        "CEGUIOpenGLRenderer-0_d;"
+        "fmodL_vc;"
+        "fsbank_vc;"
+        "fmodstudioL_vc;"
+        "glew32d;"
+        "SDL2_d;"
+        "SDL2_image_d;"
+        "assimp_d;"
         ">"
         "$<$<CONFIG:Release>:"
-        "fmod_vc;"
-        "fmodstudio_vc;"
+        "box2d;"
         "CEGUIBase-0;"
-        "CEGUIOpenGLRenderer-0"
-        ">"
-        "freeglut;"
+        "CEGUIRapidXMLParser;"
+        "CEGUISDL2ImageCodec;"
+        "CEGUIOpenGLRenderer-0;"
+        "fmod_vc;"
+        "fsbank_vc;"
+        "fmodstudio_vc;"
         "glew32;"
         "SDL2;"
-        "SDL2main;"
         "SDL2_image;"
+        "assimp;"
+        ">"
         "opengl32;"
-        "freetype255d;"
-        "box2d;"
-        "assimp-4.1.0-vc140-mtd"
+        "SDL2main;"
         )
-endif (MSVC)
+ENDIF (MSVC)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
 
-if (UNIX)
-    SET(ADDITIONAL_LINK_DIRECTORIES
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/linux/;"
+IF (UNIX)
+    TARGET_LINK_DIRECTORIES(${PROJECT_NAME} PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/lib/unix;"
         )
-endif (UNIX)
-if (MSVC)
-    SET(ADDITIONAL_LINK_DIRECTORIES
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/lowlevel/win/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/lib/studio/win/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/lib/win/$<CONFIG>/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/lib/win/$<CONFIG>/x86/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/lib/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/lib/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/lib/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2_Image/lib/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2/lib/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/assimp-4.1.0/lib/;"
+ENDIF (UNIX)
+IF (MSVC)
+    TARGET_LINK_DIRECTORIES(${PROJECT_NAME} PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/lib/${PLATFORM_ARCHITECTURE}/$<CONFIG>/;"
         )
-endif (MSVC)
+ENDIF (MSVC)
 
-TARGET_LINK_DIRECTORIES(${PROJECT_NAME} PUBLIC
-    "${ADDITIONAL_LINK_DIRECTORIES}"
-    "$ENV{LibraryPath}"
-    )
-
-if (MSVC)
-    SET(ADDITIONAL_INCLUDE_DIRECTORIES
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2/include/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/SDL2_Image/include/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glew/include/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freeglut/include/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/glm/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/freetype/include/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/assimp-4.1.0/include/;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/CEGUI/include/;"
-        )
-endif (MSVC)
-if (UNIX)
+IF (UNIX)
     SET(ADDITIONAL_INCLUDE_DIRECTORIES
         "/usr/local/include/cegui-0/;"
         )
-endif (UNIX)
-
+ENDIF (UNIX)
 
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/rapidjson/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/box2d/include/;"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../lib/FMOD/include/;"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/include/;"
     "${ADDITIONAL_INCLUDE_DIRECTORIES}"
     "${PROJECT_SOURCE_DIR}"
     )

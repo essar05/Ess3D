@@ -6,16 +6,29 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 project(Ess3D CXX)
 
 ################################################################################
-# Set target arch type if empty. Visual studio solution generator provides it.
+# Set target arch type if empty.
 ################################################################################
-if(NOT CMAKE_VS_PLATFORM_NAME)
-    set(CMAKE_VS_PLATFORM_NAME "Win32")
-endif()
-message("${CMAKE_VS_PLATFORM_NAME} architecture in use")
+IF (MSVC)
+    IF (NOT CMAKE_VS_PLATFORM_NAME)
+        SET(CMAKE_VS_PLATFORM_NAME "x64")
+    ENDIF ()
+    MESSAGE("${CMAKE_VS_PLATFORM_NAME} architecture in use")
 
-if(NOT ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32"))
-    message(FATAL_ERROR "${CMAKE_VS_PLATFORM_NAME} arch is not supported!")
-endif()
+    IF (NOT (("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64") OR ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")))
+        MESSAGE(FATAL_ERROR "${CMAKE_VS_PLATFORM_NAME} arch is not supported!")
+    ENDIF ()
+
+    IF ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+        SET(PLATFORM_ARCHITECTURE "Win64")
+    ENDIF()
+    IF ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
+        SET(PLATFORM_ARCHITECTURE "Win32")
+    ENDIF()
+ENDIF ()
+
+IF (UNIX)
+    SET(PLATFORM_ARCHITECTURE "x86_x64")
+ENDIF()
 
 ################################################################################
 # Global configuration types
@@ -67,7 +80,7 @@ endfunction()
 ################################################################################
 # Common utils
 ################################################################################
-include(CMake/Utils.cmake)
+include(../cmake/Utils.cmake)
 
 ################################################################################
 # Additional Global Settings(add specific info there)
