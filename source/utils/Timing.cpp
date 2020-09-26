@@ -1,6 +1,7 @@
 #include <Ess3D/utils/Timing.h>
 #include <SDL2/SDL.h>
 #include <cmath>
+#include <algorithm>
 
 namespace Ess3D {
 

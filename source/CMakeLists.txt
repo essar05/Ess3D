@@ -204,10 +204,10 @@ IF (UNIX)
         "$<$<CONFIG:Release>:"
         "fmod;"
         "fmodstudio;"
-        "CEGUIBase;"
+        "CEGUIBase-0;"
         "CEGUIRapidXMLParser;"
         "CEGUISDL2ImageCodec;"
-        "CEGUIOpenGLRenderer"
+        "CEGUIOpenGLRenderer-0;"
         ">"
         "GLEW;"
         "GLU;"
@@ -260,6 +260,7 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}
 IF (UNIX)
     TARGET_LINK_DIRECTORIES(${PROJECT_NAME} PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/lib/unix;"
+        "/usr/local/lib/cegui-0.8/;" #not too elegant, use Find modules in the future
         )
 ENDIF (UNIX)
 IF (MSVC)
