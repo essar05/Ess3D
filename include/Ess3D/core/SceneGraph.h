@@ -1,0 +1,4 @@
+#ifndef DAPOLIS_PONG_SCENEGRAPH_H
+#define DAPOLIS_PONG_SCENEGRAPH_H
+
+#endif

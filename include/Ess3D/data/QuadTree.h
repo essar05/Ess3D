@@ -1,0 +1,4 @@
+#ifndef DAPOLIS_PONG_QUADTREE_H
+#define DAPOLIS_PONG_QUADTREE_H
+
+#endif
