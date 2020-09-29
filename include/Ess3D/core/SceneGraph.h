@@ -1,4 +1,12 @@
-#ifndef DAPOLIS_PONG_SCENEGRAPH_H
-#define DAPOLIS_PONG_SCENEGRAPH_H
+#pragma once
 
-#endif
+namespace Ess3D {
+
+  class SceneGraph {
+    public:
+
+    protected:
+
+  };
+
+}
