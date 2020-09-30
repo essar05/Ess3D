@@ -95,7 +95,7 @@ namespace Ess3D {
     );
 
     // SOUTH WEST
-    this->_children[2] = new QuadNode(
+    this->_children[3] = new QuadNode(
       BoundingBox(
         glm::vec2(_nodeBoundingBox.topLeft.x, halfY),
         glm::vec2(halfX, _nodeBoundingBox.bottomRight.y)
@@ -103,7 +103,7 @@ namespace Ess3D {
     );
   }
 
-  bool QuadNode::isLeaf() {
+  bool QuadNode::isLeaf() const {
     return this->_children == nullptr;
   }
 
@@ -113,7 +113,7 @@ namespace Ess3D {
     }
 
     for (unsigned int i = 0; i < 3; i++) {
-      delete[] this->_children[i];
+      delete this->_children[i];
     }
 
     delete[] this->_children;

@@ -9,6 +9,14 @@ namespace Ess3D {
 
   void QuadTreeRenderer::renderNode( const Renderer2D& renderer2D, const QuadNode& quadNode ) {
     renderBoundingBox(renderer2D, quadNode._nodeBoundingBox, ColorRGBA8(255, 0, 0, 255));
+
+    if (!quadNode.isLeaf()) {
+      for (unsigned short i = 0; i < 4; i++) {
+
+        renderNode(renderer2D, *quadNode._children[i]);
+      }
+    }
+
   }
 
   void QuadTreeRenderer::renderBoundingBox( const Renderer2D& renderer2D, const BoundingBox& boundingBox,
@@ -36,8 +44,10 @@ namespace Ess3D {
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_DYNAMIC_DRAW);
+
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*) nullptr);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*) ( 2 * sizeof(GLfloat)));
 

@@ -53,7 +53,7 @@ namespace Ess3D {
 
       void split();
 
-      bool isLeaf();
+      bool isLeaf() const;
 
       QuadNode** _children = nullptr;
 
