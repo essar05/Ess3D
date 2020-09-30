@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Ess3D/2d/models/Object2D.h>
+#include <Ess3D/data/QuadTree.h>
 #include <box2d/box2d.h>
 #include <memory>
 #include <Ess3D/definitions.h>
@@ -17,6 +18,8 @@ namespace Ess3D {
       void resetInterpolation() override;
 
       virtual void initializePhysicsBody(b2World* world);
+
+      virtual BoundingBox getBoundingBox();
 
     protected:
       b2Body* _body;

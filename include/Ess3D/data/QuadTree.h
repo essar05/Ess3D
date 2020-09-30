@@ -10,11 +10,13 @@ namespace Ess3D {
   class QuadNode;
   struct BoundingBox;
 
-  class QuadTree {
+  class API QuadTree {
       friend QuadTreeRenderer;
 
     public:
       explicit QuadTree( const glm::vec2& size, unsigned short maxDepth = 7, unsigned short maxElementsPerNode = 5 );
+
+      ~QuadTree();
 
       void insert( int32_t elementId, const BoundingBox& elementBoundingBox );
 
@@ -26,7 +28,7 @@ namespace Ess3D {
 
   };
 
-  struct BoundingBox {
+  struct API BoundingBox {
     BoundingBox( const BoundingBox& boundingBox );
     BoundingBox( const glm::vec2& topLeft, const glm::vec2& bottomRight );
 
@@ -36,12 +38,14 @@ namespace Ess3D {
     glm::vec2 bottomRight;
   };
 
-  class QuadNode {
+  class API QuadNode {
       friend QuadTree;
       friend QuadTreeRenderer;
 
     public:
-      explicit QuadNode( BoundingBox boundingBox );
+      explicit QuadNode( const BoundingBox& boundingBox );
+
+      ~QuadNode();
 
     protected:
       bool insert( int32_t elementId, const BoundingBox& elementBoundingBox, unsigned short height,
@@ -51,7 +55,7 @@ namespace Ess3D {
 
       bool isLeaf();
 
-      QuadNode* _children = nullptr;
+      QuadNode** _children = nullptr;
 
       std::vector<int32_t> _elements;
       std::vector<BoundingBox> _elementBoundingBoxes;

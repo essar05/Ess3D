@@ -20,8 +20,6 @@ namespace Ess3D {
       this->_angle = timestepAccumulatorRatio * _body->GetAngle() + oneMinusRatio * _angle;
     } else {
       this->_interpolatedPosition = Ess3D::Utils2D::toVec2(_body->GetPosition());
-      // TODO: have a _previousAngle.
-      // TODO: ? come up with some sort of Interpolatable class to avoid having 3 separate members for one particular object property
       this->_angle = _body->GetAngle();
     }
   }
@@ -34,6 +32,12 @@ namespace Ess3D {
   void Entity2D::initializePhysicsBody(b2World *world) {
     this->initializeBody(world);
     this->initializeFixtures(world);
+  }
+
+  BoundingBox Entity2D::getBoundingBox() {
+    glm::vec2 topLeft = glm::vec2(- _size.x / 2 + _interpolatedPosition.x, _size.y / 2 + _interpolatedPosition.y);
+    glm::vec2 bottomRight = glm::vec2(_size.x / 2 + _interpolatedPosition.x, - _size.y / 2 + _interpolatedPosition.y);
+    return BoundingBox(topLeft, bottomRight);
   }
 
 }
