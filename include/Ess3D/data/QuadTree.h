@@ -18,7 +18,7 @@ namespace Ess3D {
 
       ~QuadTree();
 
-      void insert( int32_t elementId, const BoundingBox& elementBoundingBox );
+      void insert( uint32_t elementId, const BoundingBox& elementBoundingBox );
 
     protected:
       QuadNode* _rootNode = nullptr;
@@ -48,7 +48,7 @@ namespace Ess3D {
       ~QuadNode();
 
     protected:
-      bool insert( int32_t elementId, const BoundingBox& elementBoundingBox, unsigned short height,
+      bool insert( uint32_t elementId, const BoundingBox& elementBoundingBox, unsigned short height,
                    unsigned short maxElementsPerNode );
 
       void split();
@@ -57,7 +57,7 @@ namespace Ess3D {
 
       QuadNode** _children = nullptr;
 
-      std::vector<int32_t> _elements;
+      std::vector<uint32_t> _elements;
       std::vector<BoundingBox> _elementBoundingBoxes;
 
       BoundingBox _nodeBoundingBox;

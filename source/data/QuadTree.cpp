@@ -1,6 +1,5 @@
 #include <Ess3D/data/QuadTree.h>
 
-#include <utility>
 #include <iostream>
 
 namespace Ess3D {
@@ -17,7 +16,7 @@ namespace Ess3D {
     ));
   }
 
-  void QuadTree::insert( int32_t elementId, const BoundingBox& elementBoundingBox ) {
+  void QuadTree::insert( uint32_t elementId, const BoundingBox& elementBoundingBox ) {
     // If the tree is empty
     _rootNode->insert(elementId, elementBoundingBox, _maxDepth, _maxElementsPerNode);
   }
@@ -32,7 +31,7 @@ namespace Ess3D {
 
   QuadNode::QuadNode( const BoundingBox& boundingBox ) : _nodeBoundingBox(boundingBox) {}
 
-  bool QuadNode::insert( int32_t elementId, const BoundingBox& elementBoundingBox, unsigned short height,
+  bool QuadNode::insert( uint32_t elementId, const BoundingBox& elementBoundingBox, unsigned short height,
                          unsigned short maxElementsPerNode ) {
     if (!_nodeBoundingBox.intersects(elementBoundingBox)) {
       return false;
