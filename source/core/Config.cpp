@@ -81,4 +81,16 @@ namespace Ess3D {
   void Config::setVSync(bool vSync) {
     _vSync = vSync;
   }
+
+  bool Config::isInterpolationEnabled() const {
+    return _interpolationEnabled;
+  }
+
+  void Config::enableInterpolation() {
+    _interpolationEnabled = true;
+  }
+
+  void Config::disableInterpolation() {
+    _interpolationEnabled = false;
+  }
 }

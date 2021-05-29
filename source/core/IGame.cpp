@@ -92,7 +92,7 @@ namespace Ess3D {
         break;
       case SDL_KEYDOWN:
         _state->getInputManager()->pressKey(event.key.keysym.sym);
-        break;      
+        break;
       case SDL_KEYUP:
         _state->getInputManager()->releaseKey(event.key.keysym.sym);
         break;
@@ -110,10 +110,10 @@ namespace Ess3D {
     if(_currentScreen) {
       switch(_currentScreen->getState()) {
         case ScreenState::RUNNING:
-          for(int i = 0; i < simulationSteps; i++) {
-            this->processInput(_currentScreen);
+          this->processInput(_currentScreen);
+          _currentScreen->input(inputManager);
 
-            _currentScreen->input(inputManager);
+          for(int i = 0; i < simulationSteps; i++) {
             _currentScreen->step(deltaTime);
           }
           _currentScreen->update();

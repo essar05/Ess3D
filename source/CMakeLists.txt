@@ -54,7 +54,10 @@ SET(HEADER_LIST
     ../include/Ess3D/core/traits/IHandlesInput.h
     ../include/Ess3D/2d/rendering/B2DebugRenderer.h
 
-    )
+    ../include/Ess3D/2d/models/Entity2D.h
+    ../include/Ess3D/core/SceneGraph.h
+    ../include/Ess3D/data/QuadTree.h
+    ../include/Ess3D/2d/rendering/QuadTreeRenderer.h)
 
 SOURCE_GROUP(
     TREE "${PROJECT_SOURCE_DIR}/include"
@@ -109,7 +112,10 @@ SET(SOURCE_LIST
     core/traits/IInterpolatable.cpp
     core/traits/IHandlesInput.cpp
     2d/rendering/B2DebugRenderer.cpp
-    )
+    2d/models/Entity2D.cpp
+    data/QuadTree.cpp
+    core/SceneGraph.cpp
+    2d/rendering/QuadTreeRenderer.cpp)
 
 ################################################################################
 # Target

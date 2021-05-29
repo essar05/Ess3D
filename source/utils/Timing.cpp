@@ -80,15 +80,15 @@ namespace Ess3D {
   void TimestepAccumulator::init() {
     _prevTicks = std::chrono::high_resolution_clock::now(); // microseconds
     _newTicks = _prevTicks; // microseconds
-    _frametime = 0.0f;
+    _frameTime = 0.0f;
   }
 
   int TimestepAccumulator::step() {
     _newTicks = std::chrono::high_resolution_clock::now(); // microseconds
-    _frametime = std::chrono::duration_cast<std::chrono::microseconds>(_newTicks - _prevTicks).count() / 1000.0f; //in miliseconds
+    _frameTime = std::chrono::duration_cast<std::chrono::microseconds>(_newTicks - _prevTicks).count() / 1000.0f; //in miliseconds
     _prevTicks = _newTicks;
 
-    _accumulator += _frametime / 1000.0f; // in seconds
+    _accumulator += _frameTime / 1000.0f; // in seconds
     const int nSteps = static_cast<int> (std::floor(_accumulator / _timestep));
     if(nSteps > 0) {
       _accumulator -= nSteps * _timestep;

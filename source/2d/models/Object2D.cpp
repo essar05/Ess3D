@@ -124,7 +124,7 @@ namespace Ess3D {
     this->_interpolatedPosition = interpolatedPosition;
   }
 
-  float Object2D::getAngle() {
+  float Object2D::getAngle() const {
     return _angle;
   }
 

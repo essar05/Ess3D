@@ -39,14 +39,14 @@ namespace Ess3D {
       void init();
       int step();
 
-      float getTimestep() { return _timestep; }
-      float getAccumulator() { return _accumulator; }
-      float getAccumulatorRatio() { return _accumulatorRatio; }
+      float getTimestep() const { return _timestep; }
+      float getAccumulator() const { return _accumulator; }
+      float getAccumulatorRatio() const { return _accumulatorRatio; }
 
     private:
       int _maxStepsSimulated = 500;
-      float _timestep = 1.0f / 60.f;
-      float _frametime = 0.0f;
+      float _timestep = 1.0f / 100.f;
+      float _frameTime = 0.0f;
       float _accumulator = 0.0f;
       float _accumulatorRatio = 0.0f;
       std::chrono::high_resolution_clock::time_point _prevTicks;

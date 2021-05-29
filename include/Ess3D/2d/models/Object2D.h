@@ -47,7 +47,7 @@ namespace Ess3D {
       glm::vec2 getInterpolatedPosition();
       void setInterpolatedPosition(const glm::vec2& interpolatedPosition);
 
-      float getAngle();
+      float getAngle() const;
       void setAngle(float angle);
 
     protected:

@@ -61,7 +61,7 @@ namespace Ess3D {
     glGenBuffers(1, &vbo);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vert) * vertexCount * 6, vert, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_DYNAMIC_DRAW);
     delete[] vert;
 
     glEnableVertexAttribArray(0);
@@ -105,7 +105,7 @@ namespace Ess3D {
     glGenBuffers(1, &vbo);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vert) * vertexCount * 6, vert, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_DYNAMIC_DRAW);
     delete[] vert;
 
     glEnableVertexAttribArray(0);
@@ -146,7 +146,7 @@ namespace Ess3D {
     glGenBuffers(1, &vbo);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vert) * vertexCount * 6, vert, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_DYNAMIC_DRAW);
     delete[] vert;
 
     glEnableVertexAttribArray(0);
