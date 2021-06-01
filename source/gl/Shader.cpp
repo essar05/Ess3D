@@ -121,7 +121,7 @@ namespace Ess3D {
     }
   }
 
-  GLuint Shader::getUniformLocation(const std::string& uniformName) const {
+  GLint Shader::getUniformLocation(const std::string& uniformName) const {
     return glGetUniformLocation(_programId, uniformName.c_str());
   }
 

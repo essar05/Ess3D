@@ -1,4 +1,10 @@
 #include <Ess3D/3d/rendering/MeshRenderer.h>
+#include <iostream>
+
+const unsigned int MAX_DIFFUSE_TEXTURES = 5;
+const unsigned int MAX_SPECULAR_TEXTURES = 5;
+const unsigned int MAX_HEIGHT_TEXTURES = 3;
+const unsigned int MAX_NORMAL_TEXTURES = 3;
 
 namespace Ess3D {
   MeshRenderer::MeshRenderer() : MeshRenderer(nullptr) {}
@@ -8,6 +14,10 @@ namespace Ess3D {
   void MeshRenderer::render(Shader* shader) {
     int textureDiffuseCount = 0;
     int textureSpecularCount = 0;
+    int textureHeightCount = 0;
+    int textureNormalCount = 0;
+
+    MeshRenderer::resetUseTextureFlags(shader);
 
     for (unsigned int textureIndex = 0; textureIndex < _mesh->getTextures().size(); textureIndex++) {
       Texture* texture = _mesh->getTextures()[textureIndex];
@@ -18,19 +28,20 @@ namespace Ess3D {
 
       switch (texture->getType()) {
         case ESS_TEX_TYPE_DIFFUSE:
-          samplerUniformName += "texDiffuse" + std::to_string(++textureDiffuseCount);
+          samplerUniformName = MeshRenderer::getUniformSamplerName(texture->getType(), ++textureDiffuseCount);
           break;
         case ESS_TEX_TYPE_SPECULAR:
-          samplerUniformName += "texSpecular" + std::to_string(++textureSpecularCount);
+          samplerUniformName = MeshRenderer::getUniformSamplerName(texture->getType(), ++textureSpecularCount);
           break;
         case ESS_TEX_TYPE_HEIGHT:
-          samplerUniformName += "texHeight" + std::to_string(++textureSpecularCount);
+          samplerUniformName = MeshRenderer::getUniformSamplerName(texture->getType(), ++textureHeightCount);
           break;
         case ESS_TEX_TYPE_NORMAL:
-          samplerUniformName += "texNormal" + std::to_string(++textureSpecularCount);
+          samplerUniformName = MeshRenderer::getUniformSamplerName(texture->getType(), ++textureNormalCount);
           break;
       }
 
+      glUniform1i(shader->getUniformLocation("use_" + samplerUniformName), 1);
       glUniform1i(shader->getUniformLocation(samplerUniformName), textureIndex);
       glBindTexture(GL_TEXTURE_2D, texture->getId());
     }
@@ -82,6 +93,47 @@ namespace Ess3D {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), (void*) offsetof(Vertex3D, uv));
 
     glBindVertexArray(0);
+  }
+
+  void MeshRenderer::resetUseTextureFlags(Shader* shader) {
+    for (unsigned int textureCount = 1; textureCount <= MAX_DIFFUSE_TEXTURES; textureCount++) {
+      glUniform1i(shader->getUniformLocation("use_" + MeshRenderer::getUniformSamplerName(ESS_TEX_TYPE_DIFFUSE, textureCount) ), 0);
+    }
+
+    for (unsigned int textureCount = 1; textureCount <= MAX_SPECULAR_TEXTURES; textureCount++) {
+      glUniform1i(shader->getUniformLocation("use_" + MeshRenderer::getUniformSamplerName(ESS_TEX_TYPE_SPECULAR, textureCount) ), 0);
+    }
+
+    for (unsigned int textureCount = 1; textureCount <= MAX_HEIGHT_TEXTURES; textureCount++) {
+      glUniform1i(shader->getUniformLocation("use_" + MeshRenderer::getUniformSamplerName(ESS_TEX_TYPE_HEIGHT, textureCount) ), 0);
+    }
+
+    for (unsigned int textureCount = 1; textureCount <= MAX_NORMAL_TEXTURES; textureCount++) {
+      glUniform1i(shader->getUniformLocation("use_" + MeshRenderer::getUniformSamplerName(ESS_TEX_TYPE_NORMAL, textureCount) ), 0);
+    }
+  }
+
+  std::string MeshRenderer::getUniformSamplerName( TextureType textureType, unsigned int index ) {
+    std::string samplerUniformName = "material_";
+
+    switch (textureType) {
+      case ESS_TEX_TYPE_DIFFUSE:
+        samplerUniformName += "texDiffuse" + std::to_string(index);
+        break;
+      case ESS_TEX_TYPE_SPECULAR:
+        samplerUniformName += "texSpecular" + std::to_string(index);
+        break;
+      case ESS_TEX_TYPE_HEIGHT:
+        samplerUniformName += "texHeight" + std::to_string(index);
+        break;
+      case ESS_TEX_TYPE_NORMAL:
+        samplerUniformName += "texNormal" + std::to_string(index);
+        break;
+      case ESS_TEX_TYPE_NONE:
+        break;
+    }
+
+    return samplerUniformName;
   }
 
 }

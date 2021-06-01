@@ -1,6 +1,5 @@
-
-
 #include <Ess3D/3d/model/Model.h>
+#include <iostream>
 
 namespace Ess3D {
 

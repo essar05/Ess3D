@@ -1,6 +1,7 @@
 #include <Ess3D/resources/ModelCache.h>
 #include <Ess3D/resources/TextureCache.h>
 #include <Ess3D/errors/RuntimeException.h>
+#include <iostream>
 
 namespace Ess3D {
 
@@ -49,7 +50,7 @@ namespace Ess3D {
       throw ERuntimeException("Error loading model at '" + filePath + "': " + importer.GetErrorString());
     }
 
-    auto* model = new Model();
+    auto* model = new Model(filePath);
 
     std::string texturesDirectory = filePath.substr(0, filePath.find_last_of('/'));
 
@@ -86,10 +87,19 @@ namespace Ess3D {
     // Process vertices
     for (unsigned int vertexIndex = 0; vertexIndex < mesh->mNumVertices; vertexIndex++) {
       Vertex3D vertex;
-      vertex.position = vec3AssimpToGlm(mesh->mVertices[vertexIndex]);
-      vertex.normal = vec3AssimpToGlm(mesh->mNormals[vertexIndex]);
-      vertex.tangent = vec3AssimpToGlm(mesh->mTangents[vertexIndex]);
-      vertex.bitangent = vec3AssimpToGlm(mesh->mBitangents[vertexIndex]);
+
+      if (mesh->HasPositions()) {
+        vertex.position = vec3AssimpToGlm(mesh->mVertices[vertexIndex]);
+      }
+
+      if (mesh->HasNormals()) {
+        vertex.normal = vec3AssimpToGlm(mesh->mNormals[vertexIndex]);
+      }
+
+      if (mesh->HasTangentsAndBitangents()) {
+        vertex.tangent = vec3AssimpToGlm(mesh->mTangents[vertexIndex]);
+        vertex.bitangent = vec3AssimpToGlm(mesh->mBitangents[vertexIndex]);
+      }
 
       if (mesh->HasTextureCoords(0)) {
         glm::vec3 textureCoords = vec3AssimpToGlm(mesh->mTextureCoords[0][vertexIndex]);
@@ -146,30 +156,35 @@ namespace Ess3D {
 
       material->GetTexture(type, textureIndex, &aiFilePath);
 
-      Texture* texture = TextureCache::getInstance()->getTexture(
-          texturesDirectory + "/" + std::string(aiFilePath.C_Str())
-      );
+      try {
+        Texture* texture = TextureCache::getInstance()->getTexture(
+            texturesDirectory + "/" + std::string(aiFilePath.C_Str())
+        );
 
-      TextureType textureType;
+        TextureType textureType;
 
-      switch(type) {
-        case aiTextureType_DIFFUSE:
-          textureType = ESS_TEX_TYPE_DIFFUSE;
-          break;
-        case aiTextureType_SPECULAR:
-          textureType = ESS_TEX_TYPE_SPECULAR;
-          break;
-        case aiTextureType_HEIGHT:
-          textureType = ESS_TEX_TYPE_HEIGHT;
-          break;
-        case aiTextureType_NORMALS:
-          textureType = ESS_TEX_TYPE_NORMAL;
-          break;
+        switch(type) {
+          case aiTextureType_DIFFUSE:
+            textureType = ESS_TEX_TYPE_DIFFUSE;
+            break;
+          case aiTextureType_SPECULAR:
+            textureType = ESS_TEX_TYPE_SPECULAR;
+            break;
+          case aiTextureType_HEIGHT:
+            textureType = ESS_TEX_TYPE_HEIGHT;
+            break;
+          case aiTextureType_NORMALS:
+            textureType = ESS_TEX_TYPE_NORMAL;
+            break;
+        }
+
+        texture->setType(textureType);
+
+        mesh->addTexture(texture);
+      } catch (const ERuntimeException& error) {
+        std::cout << error.what() << std::endl;
+        continue;
       }
-
-      texture->setType(textureType);
-
-      mesh->addTexture(texture);
     }
   }
 

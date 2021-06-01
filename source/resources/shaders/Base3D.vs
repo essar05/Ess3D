@@ -1,9 +1,9 @@
-#version 130
+#version 330 core
 
 // Input vertex data, different for all executions of this shader.
-in vec3 vertexPosition;
-//in vec4 vertexColor;
-in vec2 vertexUV;
+layout (location = 0) in vec3 vertexPosition;
+layout (location = 1) in vec3 vertexNormal;
+layout (location = 2) in vec2 vertexUV;
 
 // Output data ; will be interpolated for each fragment.
 //out vec4 fragmentColor;

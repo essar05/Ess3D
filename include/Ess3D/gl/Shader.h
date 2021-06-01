@@ -24,7 +24,7 @@ namespace Ess3D {
       void linkShaders();
 
       void addAttribute(const std::string& attributeName);
-      GLuint getUniformLocation(const std::string& uniformName) const;
+      GLint getUniformLocation(const std::string& uniformName) const;
 
       void use() const;
       void unuse() const;
